@@ -171,7 +171,7 @@ public:
     UFUNCTION()
     void CheckTwoDaysAgo(int32 NewDay);
 
-	void BreakFoam(int32 NewDay);
+	void BreakFoam();
 
 	void BreakPipeRepairBase();
 
