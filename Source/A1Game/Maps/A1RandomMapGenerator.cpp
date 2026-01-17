@@ -876,7 +876,7 @@ void AA1RandomMapGenerator::Server_CloseHoles_Implementation()
 
     Server_SpawnEnemy();
     Server_SpawnItem();
-    Server_MakeCliff();
+    //Server_MakeCliff(); TODO eric1306: 낭떠러지 생성 부하로 인한 임시 block
 }
 
 void AA1RandomMapGenerator::Multicast_CloseHoles_Implementation()
