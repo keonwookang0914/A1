@@ -211,11 +211,12 @@ void AA1SpaceshipBase::CheckTwoDaysAgo(int32 NewDay)
 {
 	if (NewDay - CurrentDay >= 2)
 	{
-		BreakFoam(NewDay);
+		BreakFoam();
+		CurrentDay = NewDay;
 	}
 }
 
-void AA1SpaceshipBase::BreakFoam(int32 NewDay)
+void AA1SpaceshipBase::BreakFoam()
 {
 	//Select RepairBase Random and change state
 	int32 idx = FMath::RandRange(0, CachedNonBrokenRepairs.Num() - 1);
@@ -233,7 +234,6 @@ void AA1SpaceshipBase::BreakFoam(int32 NewDay)
 		}, 5.f, false);
 
 	CachedNonBrokenRepairs.RemoveAt(idx);
-	CurrentDay = NewDay;
 
 	//Game Over if all repair base activate
 	if ( CachedNonBrokenRepairs.Num() == 0 )
@@ -258,7 +258,7 @@ void AA1SpaceshipBase::FindSpaceshipComponents()
 		}
 	}
 
-	// Doors가 비어있는 경우에만 찾기
+	// Doors 가 비어있는 경우에만 찾기
 	if (!CacheDoor)
 	{
 		TArray<AActor*> FoundDoor;
@@ -432,6 +432,7 @@ void AA1SpaceshipBase::FindAllRepairBases()
 {
 	//TODO eric1306 -> Tutorial인지 아닌지에 따라 캐싱 객체 수정하게
 	TArray<AActor*> Results;
+	//AActor* 객체 -> A1RepairBase*로 변환
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AA1RepairBase::StaticClass(), OUT Results);
 	for (auto Result : Results)
 	{
@@ -446,10 +447,17 @@ void AA1SpaceshipBase::FindAllRepairBases()
 	{
 		Repair->SetCurrentState(RepairState::NotBroken);
 		CachedNonBrokenRepairs.Add(Repair);
-		
 	}
 
-	//TODO eric1306 -> Tutorial 인지 여부에 따라 기믹을 추가해야함(기존에 있었는데 삭제)
+	//튜토리얼이 아니라면 랜덤으로 10개의 객체 부수고 시작.
+	if ( !UA1ScoreManager::Get()->GetDoTutorial() )
+	{
+		int32 iter = 10;
+		while ( iter-- )
+		{
+			BreakFoam();
+		}
+	}
 	AActor* Actor = UGameplayStatics::GetActorOfClass(GetWorld(), AA1DayNightManager::StaticClass());
 	if (Actor)
 	{

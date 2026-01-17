@@ -12,7 +12,7 @@ bool UA1FoamWrapChecker::IsActorWrappedByFoam(AActor* TargetActor, float WrapThr
         return false;
 
     float Coverage = GetActorFoamCoverage(TargetActor);
-    UE_LOG(LogA1, Log, TEXT("Coverage: %f"), Coverage);
+    //UE_LOG(LogA1, Log, TEXT("Coverage: %f"), Coverage);
     return Coverage >= WrapThreshold;
 }
 
