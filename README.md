@@ -12,6 +12,6 @@ We are not alone은 1인칭 서바이벌, 어드벤처 게임 입니다.
 - 왼쪽 마우스 키가 다양한 행동에 매핑(공격, 아이템 줍기)
 - 플레이어가 아이템을 파밍할 수 있는 외부 맵 생성기 존재
 
-# 📹시연 영상
+# 📹 데모 시연 영상
 
 [youtube](https://youtu.be/hMzqnQeK3ig?si=5hRjWISCXuiErbQ2)
