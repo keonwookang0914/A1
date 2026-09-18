@@ -75,6 +75,20 @@ float UA1FoamWrapChecker::GetActorFoamCoverage(AActor* TargetActor)
     CheckPoints.Add(Center + FVector(-Extent.X, -Extent.Y, Extent.Z));
     CheckPoints.Add(Center + FVector(-Extent.X, -Extent.Y, -Extent.Z));
 
+	//12개 선 중심.
+	CheckPoints.Add(Center + FVector(Extent.X, Extent.Y, 0));
+	CheckPoints.Add(Center + FVector(-Extent.X, Extent.Y, 0));
+	CheckPoints.Add(Center + FVector(Extent.X, -Extent.Y, 0));
+	CheckPoints.Add(Center + FVector(-Extent.X, -Extent.Y, 0));
+	CheckPoints.Add(Center + FVector(Extent.X, 0, Extent.Z));
+	CheckPoints.Add(Center + FVector(Extent.X, 0, -Extent.Z));
+	CheckPoints.Add(Center + FVector(-Extent.X, 0, Extent.Z));
+	CheckPoints.Add(Center + FVector(-Extent.X, 0, -Extent.Z));
+	CheckPoints.Add(Center + FVector(0, Extent.Y, Extent.Z));
+	CheckPoints.Add(Center + FVector(0, Extent.Y, -Extent.Z));
+	CheckPoints.Add(Center + FVector(0, -Extent.Y, Extent.Z));
+	CheckPoints.Add(Center + FVector(0, -Extent.Y, -Extent.Z));
+
     // 6개 면 중심
     CheckPoints.Add(Center + FVector(Extent.X, 0, 0));
     CheckPoints.Add(Center + FVector(-Extent.X, 0, 0));
@@ -124,6 +138,8 @@ float UA1FoamWrapChecker::GetActorFoamCoverage(AActor* TargetActor)
         if (bPointCovered)
             CoveredPoints++;
     }
+
+	UE_LOG(LogA1, Log, TEXT("%d vertices are Covered!"), CoveredPoints);
 
     // 커버리지 비율 반환
     return CheckPoints.Num() > 0 ? (float)CoveredPoints / (float)CheckPoints.Num() : 0.0f;
