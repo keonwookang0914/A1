@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -35,11 +35,11 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<USceneComponent> OverlapFolder;
 
-    // ¿À¹ö·¦ ¹Ú½º ÄÄÆ÷³ÍÆ®
+    // ì˜¤ë²„ë© ë°•ìŠ¤ ì»´í¬ë„ŒíŠ¸
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<class UBoxComponent> OverlapBox1;
 
-    // Ãâ±¸ Æú´õ (¾À ÄÄÆ÷³ÍÆ®·Î ±¸Çö)
+    // ì¶œêµ¬ í´ë” (ì”¬ ì»´í¬ë„ŒíŠ¸ë¡œ êµ¬í˜„)
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
     TObjectPtr<USceneComponent> ExitsFolder;
 
@@ -52,7 +52,7 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
     FVector RandomLocation;
 
-    //ºÎ¸ğ Å¬·¡½º ¸®ÇÃ¸®ÄÉÀÌ¼Ç À§ÇÑ Ãß°¡ »óÅÂ º¯¼ö
+    //ë¶€ëª¨ í´ë˜ìŠ¤ ë¦¬í”Œë¦¬ì¼€ì´ì…˜ ìœ„í•œ ì¶”ê°€ ìƒíƒœ ë³€ìˆ˜
     UPROPERTY(Replicated)
     bool bIsRoomActive;
 };

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+Ôªø// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "A1GameplayAbility_Raider_Attack.h"
@@ -60,7 +60,7 @@ void UA1GameplayAbility_Raider_Attack::OnTargetDataReady(FGameplayEventData Payl
 		ParseTargetData(LocalTargetDataHandle, CharacterHitIndexes);
 
 		// TODO Jerry
-		// Data Asset ø¨µø
+		// Data Asset Ïó∞Îèô
 		float Damage = 20.f;
 
 		for (int32 CharacterHitIndex : CharacterHitIndexes)

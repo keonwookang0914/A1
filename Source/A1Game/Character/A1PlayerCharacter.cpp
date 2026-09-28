@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1PlayerCharacter.h"
 
@@ -60,7 +60,7 @@ AA1PlayerCharacter::AA1PlayerCharacter(const FObjectInitializer& ObjectInitializ
 	// Input
 	/*
 	*  LyraHeroComponent
-	*	»ı¸íÁÖ±â ÀÌ½´·Î ºí·çÇÁ¸°Æ®¿¡¼­ Ã³¸®
+	*	ìƒëª…ì£¼ê¸° ì´ìŠˆë¡œ ë¸”ë£¨í”„ë¦°íŠ¸ì—ì„œ ì²˜ë¦¬
 	*/
 
 	ASC = nullptr;

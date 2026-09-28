@@ -1,4 +1,4 @@
-#include "Interaction/Abilities/A1GameplayAbility_Interact_Active.h"
+ï»¿#include "Interaction/Abilities/A1GameplayAbility_Interact_Active.h"
 
 #include "AbilitySystemComponent.h"
 #include "A1GameplayAbility_Interact.h"
@@ -132,7 +132,7 @@ void UA1GameplayAbility_Interact_Active::EndAbility(const FGameplayAbilitySpecHa
 	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
 	bool bReplicateEndAbility, bool bWasCancelled)
 {
-	// ÀÔ·Â °¡´É
+	// ìž…ë ¥ ê°€ëŠ¥
 	ALyraCharacter* Character = Cast<ALyraCharacter>(GetAvatarActorFromActorInfo());
 	ALyraPlayerController* PlayerController = GetLyraPlayerControllerFromActorInfo();
 	Character->EnableInput(PlayerController);

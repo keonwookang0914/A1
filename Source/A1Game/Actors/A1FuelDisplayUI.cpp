@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Actors/A1FuelDisplayUI.h"
@@ -12,7 +12,7 @@ AA1FuelDisplayUI::AA1FuelDisplayUI()
 {
     PrimaryActorTick.bCanEverTick = false;
 
-    // ¿¬·á ¼öÁØ ÅØ½ºÆ® ¼³Á¤
+    // ì—°ë£Œ ìˆ˜ì¤€ í…ìŠ¤íŠ¸ ì„¤ì •
     FuelTextComponent = CreateDefaultSubobject<UTextRenderComponent>(TEXT("FuelTextComponent"));
     SetRootComponent(FuelTextComponent);
     FuelTextComponent->SetRelativeLocation(FVector(-1.0f, 5.0f, 0.0f));
@@ -24,7 +24,7 @@ AA1FuelDisplayUI::AA1FuelDisplayUI()
     FuelTextComponent->SetXScale(1.0f);
     FuelTextComponent->SetYScale(1.0f);
 
-    // ÇÁ·Î±×·¹½º ¹Ù ¸Ş½Ã »ı¼º
+    // í”„ë¡œê·¸ë ˆìŠ¤ ë°” ë©”ì‹œ ìƒì„±
     ProgressBarMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProgressBarMesh"));
     ProgressBarMesh->SetupAttachment(GetRootComponent());
     ProgressBarMesh->SetMaterial(0, ProgressBarMaterial);
@@ -32,7 +32,7 @@ AA1FuelDisplayUI::AA1FuelDisplayUI()
     ProgressBarMesh->SetRelativeLocation(FVector(-2.0f, 3.0f, -15.0f));
     ProgressBarMesh->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
 
-    // ±âº»°ª ¼³Á¤
+    // ê¸°ë³¸ê°’ ì„¤ì •
     UIUpdateInterval = 0.5f;
 }
 
@@ -64,10 +64,10 @@ void AA1FuelDisplayUI::BeginPlay()
 
 void AA1FuelDisplayUI::UpdateFuelLevel(float NewFuelAmount)
 {
-    // ¿¬·á ·¹º§ ¾÷µ¥ÀÌÆ®
+    // ì—°ë£Œ ë ˆë²¨ ì—…ë°ì´íŠ¸
     CurrentFuelLevel = FMath::Clamp(NewFuelAmount, 0.0f, MaxFuelLevel);
 
-    // UI Áï½Ã ¾÷µ¥ÀÌÆ®
+    // UI ì¦‰ì‹œ ì—…ë°ì´íŠ¸
     UpdateUI();
 }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "AbilitySystem/Executions/A1OxygenExecution.h"
@@ -43,11 +43,11 @@ void UA1OxygenExecution::Execute_Implementation(const FGameplayEffectCustomExecu
     float CurrentOxygen = 0.0f;
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(OxygenStatics().OxygenDef, EvaluateParameters, CurrentOxygen);
 
-    // 5ÃÊ¸¶´Ù Oxygen °¨¼Ò
+    // 5ì´ˆë§ˆë‹¤ Oxygen ê°ì†Œ
     OutExecutionOutput.AddOutputModifier(
         FGameplayModifierEvaluatedData(UA1CharacterAttributeSet::GetOxygenAttribute(), EGameplayModOp::Additive, -2.f));
 
-    // OxygenÀÌ 0 ÀÌÇÏ¸é hp°¨¼Ò, weight Áõ°¡
+    // Oxygenì´ 0 ì´í•˜ë©´ hpê°ì†Œ, weight ì¦ê°€
     if (CurrentOxygen <= 0.0f)
     {
         OutExecutionOutput.AddOutputModifier(

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+Ôªø// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "AbilitySystem/Executions/A1VitalExecution.h"
@@ -49,20 +49,20 @@ void UA1VitalExecution::Execute_Implementation(const FGameplayEffectCustomExecut
     float CurrentHunger = 0.0f;
     ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(HungerStatics().HungerDef, EvaluateParameters, CurrentHunger);
 
-    // 5√ ∏∂¥Ÿ Health ¡ı∞°, Hunger ∞®º“
+    // 5Ï¥àÎßàÎã§ Health Ï¶ùÍ∞Ä, Hunger Í∞êÏÜå
     OutExecutionOutput.AddOutputModifier(
         FGameplayModifierEvaluatedData(UA1CharacterAttributeSet::GetHealthAttribute(), EGameplayModOp::Additive, 1.f));
     OutExecutionOutput.AddOutputModifier(
         FGameplayModifierEvaluatedData(UA1CharacterAttributeSet::GetHungerAttribute(), EGameplayModOp::Additive, -1.f));
 
-    // Hunger∞° 120 ¿Ã«œ∏È weight ¡ı∞°
+    // HungerÍ∞Ä 120 Ïù¥ÌïòÎ©¥ weight Ï¶ùÍ∞Ä
     if (CurrentHunger <= 120.0f)
     {
         OutExecutionOutput.AddOutputModifier(
             FGameplayModifierEvaluatedData(UA1CharacterAttributeSet::GetWeightAttribute(), EGameplayModOp::Additive, 10.f));
     }
 
-    // Hunger∞° 0 ¿Ã«œ¿Ã∏È health ∞®º“
+    // HungerÍ∞Ä 0 Ïù¥ÌïòÏù¥Î©¥ health Í∞êÏÜå
     if (CurrentHunger <= 0.0f)
     {
         OutExecutionOutput.AddOutputModifier(

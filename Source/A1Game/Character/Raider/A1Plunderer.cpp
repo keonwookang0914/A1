@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1Plunderer.h"
 #include "A1LogChannels.h"
@@ -49,7 +49,7 @@ void AA1Plunderer::BeginPlay()
 
 void AA1Plunderer::SpawnDropItem()
 {
-	// ¾ÆÀÌÅÛ ½ºÆù
+	// ì•„ì´í…œ ìŠ¤í°
 	int ItemNum = dropItems.Num();
 	if (ItemNum > 0)
 	{

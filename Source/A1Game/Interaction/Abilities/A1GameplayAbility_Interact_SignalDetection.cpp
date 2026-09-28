@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Interaction/Abilities/A1GameplayAbility_Interact_SignalDetection.h"
@@ -47,7 +47,7 @@ void UA1GameplayAbility_Interact_SignalDetection::ActivateAbility(const FGamepla
     {
         SignalDetectionActor->StartDetectSignal();
 
-        //StartDetectSignalÀÇ delay°¡ °É¸®°í ¾Æ·¡ ºÎºĞÀÌ ½ÇÇàµÊ
+        //StartDetectSignalì˜ delayê°€ ê±¸ë¦¬ê³  ì•„ë˜ ë¶€ë¶„ì´ ì‹¤í–‰ë¨
         ALyraCharacter* Player = GetLyraCharacterFromActorInfo();
         if (Player)
         {

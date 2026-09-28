@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Actors/A1ShipOutputBase.h"
@@ -94,11 +94,11 @@ void AA1ShipOutputBase::SetOutputState(EOutputState NewOutputState)
 
 void AA1ShipOutputBase::DeactivateExternalMap()
 {
-    //¼­¹ö¿¡¼­¸¸ µ¿ÀÛ
+    //ì„œë²„ì—ì„œë§Œ ë™ìž‘
     if (!HasAuthority())
         return;
 
-    //À¯È¿ÇÑ ³»ºÎ ¿ìÁÖ¼± °´Ã¼¸¦ ¹ß°ßÇÏÁö ¸øÇÑ´Ù¸é ÃßÁø±â ¹ßµ¿X
+    //ìœ íš¨í•œ ë‚´ë¶€ ìš°ì£¼ì„  ê°ì²´ë¥¼ ë°œê²¬í•˜ì§€ ëª»í•œë‹¤ë©´ ì¶”ì§„ê¸° ë°œë™X
     if (!OwningSpaceship.IsValid())
     {
         OwningSpaceship = FindSpaceshipOwner();
@@ -106,11 +106,11 @@ void AA1ShipOutputBase::DeactivateExternalMap()
             return;
     }
 
-    //¿ÜºÎ ¸ÊÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ÃßÁø±â ¹ßµ¿X
+    //ì™¸ë¶€ ë§µì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ì¶”ì§„ê¸° ë°œë™X
     if (!OwningSpaceship->GetIsExternalMapActive())
         return;
 
-    //¹®ÀÌ validÇÏÁö ¾Ê°Å³ª openÀÎ »óÅÂ¶ó¸é ÃßÁø±â ¹ßµ¿X
+    //ë¬¸ì´ validí•˜ì§€ ì•Šê±°ë‚˜ openì¸ ìƒíƒœë¼ë©´ ì¶”ì§„ê¸° ë°œë™X
     AA1DoorBase* CachedDoor = OwningSpaceship->GetCachedDoor();
 
     if (!CachedDoor || CachedDoor->GetDoorState() == EDoorState::Open)

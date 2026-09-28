@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+Ôªø// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "AbilitySystem/Abilities/Utility/A1GameplayAbility_Utility_Food.h"
@@ -52,7 +52,7 @@ void UA1GameplayAbility_Utility_Food::OnMontageFinished()
 	if (ItemFragment == nullptr)
 		return;
 
-	// Ability ¿˚øÎ
+	// Ability Ï†ÅÏö©
 	FGameplayAbilityTargetDataHandle TargetDataHandle = UAbilitySystemBlueprintLibrary::AbilityTargetDataFromActor(LyraCharacter);
 
 	for (TSubclassOf<UGameplayEffect> UtilityEffectClass : ItemFragment->UtilityEffectClasses)
@@ -64,7 +64,7 @@ void UA1GameplayAbility_Utility_Food::OnMontageFinished()
 		}
 	}
 
-	// ¿Â¬¯ ¿Â∫Ò ¡¶∞≈
+	// Ïû•Ï∞© Ïû•ÎπÑ Ï†úÍ±∞
 	EquipmentManager->RemoveEquipment_Unsafe(EquipedItem->GetEquipmentSlotType(), 1);
 
 	UA1ScoreBlueprintFunctionLibrary::AddConsumedItems();

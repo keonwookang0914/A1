@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -26,12 +26,12 @@ public:
     virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
 
-    // µ¨¸®°ÔÀÌÆ®
+    // ë¸ë¦¬ê²Œì´íŠ¸
     UPROPERTY(BlueprintAssignable)
     FOnScoreEntryClicked OnScoreEntryClicked;
 
 protected:
-    // UI ¿ä¼Òµé
+    // UI ìš”ì†Œë“¤
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     TObjectPtr<UBorder> Border_BG;
 
@@ -54,16 +54,16 @@ protected:
     TObjectPtr<UMaterialInstance> DeadMaterial;
 
 public:
-    // ¼³Á¤ ÇÔ¼ö
+    // ì„¤ì • í•¨ìˆ˜
     UFUNCTION(BlueprintCallable)
     void SetupScoreEntry(const FA1ScoreData& ScoreData, int32 Rank, int32 Index);
 
 protected:
-    // ¹öÆ° Å¬¸¯ ÀÌº¥Æ®
+    // ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸
     UFUNCTION()
     void OnButtonClicked();
 
 private:
-    // ÀúÀåµÈ ÀÎµ¦½º
+    // ì €ì¥ëœ ì¸ë±ìŠ¤
     int32 StoredIndex;
 };

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "A1Define.h"
 #include "Engine/DataAsset.h"
@@ -62,7 +62,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TMap<ECharacterSkinType, FA1DefaultArmorMeshSet> DefaultArmorMeshMap;
 
-	// TODO Á¦°ÅÇÒ ¿¹Á¤
+	// TODO ì œê±°í•  ì˜ˆì •
 public:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FA1DefaultItemEntry> DefaultItemEntries;

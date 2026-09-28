@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -24,7 +24,7 @@ public:
     virtual void NativeDestruct() override;
 
 protected:
-    // UI ¿ä¼Òµé (Blueprint¿¡¼­ ¹ÙÀÎµù)
+    // UI ìš”ì†Œë“¤ (Blueprintì—ì„œ ë°”ì¸ë”©)
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     UTextBlock* TotalScoreText;
 
@@ -53,15 +53,15 @@ protected:
     UTextBlock* DateText;
 
 public:
-    // ¸ŞÀÎ ±â´É
+    // ë©”ì¸ ê¸°ëŠ¥
     UFUNCTION(BlueprintCallable)
     void SetScoreData(const FA1ScoreData& ScoreData);
 
 private:
-    // ÀúÀåµÈ µ¥ÀÌÅÍ
+    // ì €ì¥ëœ ë°ì´í„°
     UPROPERTY()
     FA1ScoreData CurrentScoreData;
 
-    // À¯Æ¿¸®Æ¼ ÇÔ¼ö
+    // ìœ í‹¸ë¦¬í‹° í•¨ìˆ˜
     FString FormatScore(int32 Score) const;
 };

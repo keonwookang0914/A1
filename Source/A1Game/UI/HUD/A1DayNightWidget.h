@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -49,14 +49,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "DayNight|Icon UI")
 	TObjectPtr<UTexture2D> NightIcon;
 
-	// ½Ã°£ Ç¥½Ã ÅØ½ºÆ®
+	// ì‹œê°„ í‘œì‹œ í…ìŠ¤íŠ¸
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> Text_Time;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<AA1DayNightManager> DayNightManager;
 
-	// ½Ã°£ Ç¥½Ã Çü½Ä (12½Ã°£/24½Ã°£)
+	// ì‹œê°„ í‘œì‹œ í˜•ì‹ (12ì‹œê°„/24ì‹œê°„)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DayNight UI")
 	bool bUse12HourFormat = true;
 };

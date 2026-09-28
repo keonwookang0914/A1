@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1ItemEntryWidget.h"
 
@@ -104,7 +104,7 @@ void UA1ItemEntryWidget::NativeOnDragDetected(const FGeometry& InGeometry, const
 
 	RefreshWidgetOpacity(false);
 
-	// Tag¸¦ °¡Áö°í ÀÖÁö ¾Ê´Ù¸é Drag ÁßÀÌ¶ó´Â ÅÂ±× ºÎ¿©
+	// Tagë¥¼ ê°€ì§€ê³  ìžˆì§€ ì•Šë‹¤ë©´ Drag ì¤‘ì´ë¼ëŠ” íƒœê·¸ ë¶€ì—¬
 	FGameplayTag TagToCheck = FGameplayTag::RequestGameplayTag(FName("GameplayEvent.Inventory.Drag"));
 	bool HasTag = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(GetOwningPlayerPawn())->HasMatchingGameplayTag(TagToCheck);
 	if (!HasTag)

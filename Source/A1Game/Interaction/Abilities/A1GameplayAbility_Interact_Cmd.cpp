@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Cmd.h"
@@ -51,14 +51,14 @@ void UA1GameplayAbility_Interact_Cmd::ActivateAbility(const FGameplayAbilitySpec
 		ExitWidgetTask->ReadyForActivation();
 	}
 
-	// CMD ¿ÀÇÂ¿¡ µû¸¥ UI ºñÈ°¼ºÈ­
+	// CMD ì˜¤í”ˆì— ë”°ë¥¸ UI ë¹„í™œì„±í™”
 	FA1WidgetActiveMessage Message;
 	Message.bActive = false;
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_HUD_Active, Message);
 
-	// ½ÃÁ¡ ÀüÈ¯
+	// ì‹œì  ì „í™˜
 	ALyraPlayerController* LyraPlayerController = GetLyraPlayerControllerFromActorInfo();
 	if (LyraPlayerController == nullptr)
 	{
@@ -81,7 +81,7 @@ void UA1GameplayAbility_Interact_Cmd::EndAbility(const FGameplayAbilitySpecHandl
 
 void UA1GameplayAbility_Interact_Cmd::CloseCmd(FGameplayEventData Payload)
 {
-	// ½ÃÁ¡ ÀüÈ¯
+	// ì‹œì  ì „í™˜
 	ALyraPlayerController* LyraPlayerController = GetLyraPlayerControllerFromActorInfo();
 	if (LyraPlayerController == nullptr)
 	{
@@ -94,7 +94,7 @@ void UA1GameplayAbility_Interact_Cmd::CloseCmd(FGameplayEventData Payload)
 
 	DeactiveWidget();
 	
-	// CMD ¿ÀÇÂ¿¡ µû¸¥ UI È°¼ºÈ­
+	// CMD ì˜¤í”ˆì— ë”°ë¥¸ UI í™œì„±í™”
 	FA1WidgetActiveMessage Message;
 	Message.bActive = true;
 

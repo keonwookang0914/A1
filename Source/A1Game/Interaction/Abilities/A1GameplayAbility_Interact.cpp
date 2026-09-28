@@ -1,4 +1,4 @@
-#include "Interaction/Abilities/A1GameplayAbility_Interact.h"
+ï»¿#include "Interaction/Abilities/A1GameplayAbility_Interact.h"
 
 #include "AbilitySystemComponent.h"
 #include "A1GameplayTags.h"
@@ -13,7 +13,7 @@
 #include "Tasks/A1AbilityTask_WaitForInteractableTraceHit.h"
 #include "UI/IndicatorSystem/LyraIndicatorManagerComponent.h"
 
-//#include UE_INLINE_GENERATED_CPP_BY_NAME(A1GamePlayAbility_Interact) -> ÀÌ°Å ¶§¹®¿¡ Link Error ¹ß»ı.
+//#include UE_INLINE_GENERATED_CPP_BY_NAME(A1GamePlayAbility_Interact) -> ì´ê±° ë•Œë¬¸ì— Link Error ë°œìƒ.
 
 UA1GameplayAbility_Interact::UA1GameplayAbility_Interact(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {

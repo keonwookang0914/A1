@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "AbilitySystem/Abilities/Docker/A1GameplayAbility_DropItem.h"
 
@@ -36,7 +36,7 @@ void UA1GameplayAbility_DropItem::ActivateAbility(const FGameplayAbilitySpecHand
 	bool bActivateWidget = SourceASC->HasMatchingGameplayTag(CheckToWidget);
 	bool bTryInteract = SourceASC->HasMatchingGameplayTag(CheckToInteract);
 
-	// À§Á¬ÀÌ ÄÑÁø »óÅÂ°¡ ¾Æ´Ï°í, Interact°¡ °¡´ÉÇÑ »óÅÂ(¼Õ¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Â »óÅÂ)
+	// ìœ„ì ¯ì´ ì¼œì§„ ìƒíƒœê°€ ì•„ë‹ˆê³ , Interactê°€ ê°€ëŠ¥í•œ ìƒíƒœ(ì†ì— ì•„ì´í…œì´ ì—†ëŠ” ìƒíƒœ)
 	if (bActivateWidget == false && bTryInteract)
 	{
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);

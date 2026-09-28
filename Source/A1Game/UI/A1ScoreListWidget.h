@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -25,7 +25,7 @@ public:
     virtual TOptional<FUIInputConfig> GetDesiredInputConfig() const override;
 
 protected:
-    // UI ¿ä¼Òµé (Blueprint¿¡¼­ ¹ÙÀÎµù)
+    // UI ìš”ì†Œë“¤ (Blueprintì—ì„œ ë°”ì¸ë”©)
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     TObjectPtr<UScrollBox> ScoreScrollBox;
 
@@ -44,17 +44,17 @@ protected:
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     TObjectPtr<UTextBlock> HighestScoreText;
 
-    // ºí·çÇÁ¸°Æ® À§Á¬ Å¬·¡½ºµé (Blueprint¿¡¼­ ÇÒ´ç)
+    // ë¸”ë£¨í”„ë¦°íŠ¸ ìœ„ì ¯ í´ë˜ìŠ¤ë“¤ (Blueprintì—ì„œ í• ë‹¹)
     UPROPERTY(EditAnywhere, Category = "UI", BlueprintReadOnly)
     TSubclassOf<UA1ScoreEntryButtonWidget> ScoreEntryWidgetClass;
 
 public:
-    // ¸ŞÀÎ ±â´É
+    // ë©”ì¸ ê¸°ëŠ¥
     UFUNCTION(BlueprintCallable)
     void RefreshScoreList();
 
 protected:
-    // ÀÌº¥Æ® ÇÚµé·¯
+    // ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
     UFUNCTION()
     void OnSortChanged(FString SelectedItem, ESelectInfo::Type SelectionType);
 
@@ -65,11 +65,11 @@ protected:
     void OnClearClicked();
 
 private:
-    // ÇöÀç Ç¥½ÃµÈ Á¡¼ö ¸ñ·Ï
+    // í˜„ì¬ í‘œì‹œëœ ì ìˆ˜ ëª©ë¡
     UPROPERTY()
     TArray<FA1ScoreData> CurrentScores;
 
-    // ³»ºÎ ÇÔ¼ö
+    // ë‚´ë¶€ í•¨ìˆ˜
     void PopulateScoreList(const TArray<FA1ScoreData>& AllScores);
     void SortScores(TArray<FA1ScoreData>& Scores, int32 SortType);
     UA1ScoreEntryButtonWidget* CreateScoreEntry(const FA1ScoreData& ScoreData, int32 Rank, int32 Index);

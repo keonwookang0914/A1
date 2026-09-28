@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -20,13 +20,13 @@ class A1GAME_API UA1ScoreManager : public UObject
 {
 	GENERATED_BODY()
 public:
-    // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º °¡Á®¿À±â
+    // ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤ ê°€ì ¸ì˜¤ê¸°
     UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score", meta = (CallInEditor = "true"))
     static UA1ScoreManager* Get();
 
 
 public:
-    // ÀÌº¥Æ® µ¨¸®°ÔÀÌÆ®
+    // ì´ë²¤íŠ¸ ë¸ë¦¬ê²Œì´íŠ¸
     UPROPERTY(BlueprintAssignable, Category = "Score")
     FOnScoreChanged OnScoreChanged;
 
@@ -34,14 +34,14 @@ public:
     FOnGameEnded OnGameEnded;
 
 public:
-    // === °ÔÀÓ ¼¼¼Ç °ü¸® ===
+    // === ê²Œì„ ì„¸ì…˜ ê´€ë¦¬ ===
     UFUNCTION(BlueprintCallable, Category = "Score")
     void StartNewGame();
 
     UFUNCTION(BlueprintCallable, Category = "Score")
     void EndGame(EGameEndReason EndReason);
 
-    // === Á¡¼ö µ¥ÀÌÅÍ ¼³Á¤ ===
+    // === ì ìˆ˜ ë°ì´í„° ì„¤ì • ===
     UFUNCTION(BlueprintCallable, Category = "Score")
     void AddDaySurvived(int32 Count = 1);
 
@@ -78,14 +78,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Score")
     void SetRemainingFuel(int32 Fuel);
 
-    // === µ¥ÀÌÅÍ ÀúÀå/·Îµå ===
+    // === ë°ì´í„° ì €ì¥/ë¡œë“œ ===
     UFUNCTION(BlueprintCallable, Category = "Score")
     bool SaveScores();
 
     UFUNCTION(BlueprintCallable, Category = "Score")
     bool LoadScores();
 
-    // === µ¥ÀÌÅÍ °¡Á®¿À±â ===
+    // === ë°ì´í„° ê°€ì ¸ì˜¤ê¸° ===
     UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
     TArray<FA1ScoreData> GetAllScores() const;
 
@@ -98,11 +98,11 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
     int32 GetNextGameNumber() const;
 
-    // === À¯Æ¿¸®Æ¼ ===
+    // === ìœ í‹¸ë¦¬í‹° ===
     UFUNCTION(BlueprintCallable, Category = "Score")
     void ClearAllData();
 
-    // === Á¡¼ö ¹Ì¸®º¸±â (ÀúÀå Àü È®ÀÎ¿ë) ===
+    // === ì ìˆ˜ ë¯¸ë¦¬ë³´ê¸° (ì €ì¥ ì „ í™•ì¸ìš©) ===
     UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
     int32 CalculateCurrentScore() const;
 
@@ -115,11 +115,11 @@ public:
     void SetDoTutorial(bool InDoTutorial);
 
 protected:
-    // ÇöÀç °ÔÀÓ ¼¼¼Ç Á¡¼ö
+    // í˜„ì¬ ê²Œì„ ì„¸ì…˜ ì ìˆ˜
     UPROPERTY(BlueprintReadOnly, Category = "Score")
     FA1ScoreData CurrentGameScore;
 
-    // ÀúÀåµÈ ¸ğµç Á¡¼ö
+    // ì €ì¥ëœ ëª¨ë“  ì ìˆ˜
     UPROPERTY(BlueprintReadOnly, Category = "Score")
     TObjectPtr<UA1ScoreSaveGame> SavedScores;
 

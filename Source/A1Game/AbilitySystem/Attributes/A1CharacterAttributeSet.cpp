@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+Ôªø// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "AbilitySystem/Attributes/A1CharacterAttributeSet.h"
@@ -45,7 +45,7 @@ void UA1CharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Attr
 void UA1CharacterAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
 	// TODO Jerry
-	// Replication ¿€æ˜ Ω√ ¿Ã¡÷
+	// Replication ÏûëÏóÖ Ïãú Ïù¥Ï£º
 	bool bChange = (NewValue < OldValue);
 	int NoticeIndex = -1;
 
@@ -93,7 +93,7 @@ void UA1CharacterAttributeSet::PostAttributeChange(const FGameplayAttribute& Att
 			bHalf[3] = true;
 	}		
 
-	// 50∆€ ¿Ã«œ∑Œ ∞®º“µ… ∂ß «—π¯∏∏ Ω««‡µ«µµ∑œ
+	// 50Ìçº Ïù¥ÌïòÎ°ú Í∞êÏÜåÎê† Îïå ÌïúÎ≤àÎßå Ïã§ÌñâÎêòÎèÑÎ°ù
 	if (bChange && NoticeIndex >= 0 && bHalf[NoticeIndex])
 	{
 		OnNoticeWarning.Broadcast("System", NoticeIndex);

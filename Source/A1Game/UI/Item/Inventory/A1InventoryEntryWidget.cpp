@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1InventoryEntryWidget.h"
 
@@ -66,12 +66,12 @@ FReply UA1InventoryEntryWidget::NativeOnMouseButtonDown(const FGeometry& InGeome
 			}
 		}
 
-		// ÁÂÅ¬¸¯ ½Ã À§Á¬ Å¬¸¯
+		// ì¢Œí´ë¦­ ì‹œ ìœ„ì ¯ í´ë¦­
 		if (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
 		{
 			if (ItemManager && FromInventoryManager)
 			{
-				// ÀÌÀü clicked widget hidden
+				// ì´ì „ clicked widget hidden
 				FIntPoint PreviousClickedPos = FromInventoryManager->ClickedIndex;
 				if (PreviousClickedPos != NULL)
 				{
@@ -82,7 +82,7 @@ FReply UA1InventoryEntryWidget::NativeOnMouseButtonDown(const FGeometry& InGeome
 				// Clicked Widget On
 				Image_Clicked->SetVisibility(ESlateVisibility::Visible);
 
-				// ¼±ÅÃµÈ ÀÎµ¦½º Àü´Þ
+				// ì„ íƒëœ ì¸ë±ìŠ¤ ì „ë‹¬
 				FromInventoryManager->ClickedIndex = ItemSlotPos;
 
 				return FReply::Handled().DetectDrag(TakeWidget(), EKeys::LeftMouseButton);

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "A1GameplayAbility_Plunderer_Attack.h"
@@ -55,7 +55,7 @@ void UA1GameplayAbility_Plunderer_Attack::OnMontageFinished()
 			AA1StorageBase* Storage = Cast<AA1StorageBase>(BlackBoard->GetValueAsObject(AA1RaiderController::AggroTargetKey));
 			BlackBoard->SetValueAsBool(AA1RaiderController::CanAttackKey, false);
 
-			if (Storage->RemoveItem(ControllingPawn))					// ÅÐ ¾ÆÀÌÅÛÀÌ ¾ø´Â °æ¿ì
+			if (Storage->RemoveItem(ControllingPawn))					// í„¸ ì•„ì´í…œì´ ì—†ëŠ” ê²½ìš°
 			{
 				BlackBoard->SetValueAsObject(AA1RaiderController::AggroTargetKey, nullptr);
 			}

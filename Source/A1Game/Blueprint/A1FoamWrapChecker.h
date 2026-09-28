@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -14,11 +14,11 @@ class A1GAME_API UA1FoamWrapChecker : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-    // ¸ŞÀÎ ÇÔ¼ö - ¾×ÅÍ°¡ Æû¿¡ °¨½ÎÁ®ÀÖ´ÂÁö È®ÀÎ
+    // ë©”ì¸ í•¨ìˆ˜ - ì•¡í„°ê°€ í¼ì— ê°ì‹¸ì ¸ìˆëŠ”ì§€ í™•ì¸
     UFUNCTION(BlueprintCallable, Category = "Foam System")
     static bool IsActorWrappedByFoam(AActor* TargetActor, float WrapThreshold = 0.6f);
 
-    // Ä¿¹ö¸®Áö ÆÛ¼¾Æ® È®ÀÎ
+    // ì»¤ë²„ë¦¬ì§€ í¼ì„¼íŠ¸ í™•ì¸
     UFUNCTION(BlueprintCallable, Category = "Foam System")
     static float GetActorFoamCoverage(AActor* TargetActor);
 };

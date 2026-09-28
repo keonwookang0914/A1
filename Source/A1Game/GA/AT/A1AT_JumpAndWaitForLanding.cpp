@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "GA/AT/A1AT_JumpAndWaitForLanding.h"
@@ -23,7 +23,7 @@ void UA1AT_JumpAndWaitForLanding::Activate()
 	Character->LandedDelegate.AddDynamic(this, &UA1AT_JumpAndWaitForLanding::OnLandedCallback);
 	Character->Jump();
 
-	//¾ğÁ¦ ³¡³¯Áö ¸ğ¸£´Ï
+	//ì–¸ì œ ëë‚ ì§€ ëª¨ë¥´ë‹ˆ
 	SetWaitingOnAvatar();
 }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -39,7 +39,7 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
     TObjectPtr<UStaticMeshComponent> ProgressBarMesh;
 
-    // ÇÁ·Î±×·¹½º ¹ÙÀÇ ÀçÁú ÀÎ½ºÅÏ½º
+    // í”„ë¡œê·¸ë ˆìŠ¤ ë°”ì˜ ì¬ì§ˆ ì¸ìŠ¤í„´ìŠ¤
     UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UMaterialInstanceDynamic> ProgressBarMaterial;
 

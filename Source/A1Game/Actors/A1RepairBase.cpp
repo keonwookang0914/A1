@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Actors/A1RepairBase.h"
@@ -102,8 +102,8 @@ void AA1RepairBase::OnRepairChanged()
 {
 	//TODO eric1306
 	/*
-	 * Tutorial -> Complete ¿©¾ßÇÔ -> ÀÌÈÄ InnerMap ¿¡¼­ ÇØ´ç Foam °´Ã¼µéÀ» RepairBase -> FoamÀ¸·Î º¯°æ
-	 * not Tutorial -> Foamed ¿©¾ßÇÔ -> ÀÌÈÄ 
+	 * Tutorial -> Complete ì—¬ì•¼í•¨ -> ì´í›„ InnerMap ì—ì„œ í•´ë‹¹ Foam ê°ì²´ë“¤ì„ RepairBase -> Foamìœ¼ë¡œ ë³€ê²½
+	 * not Tutorial -> Foamed ì—¬ì•¼í•¨ -> ì´í›„ 
 	 */
 	if (CachedSpaceship)
 	{

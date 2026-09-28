@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "UI/HUD/A1GuideWidget.h"
@@ -112,7 +112,7 @@ void UA1GuideWidget::RenewGuide(UA1ItemInstance* ItemInstance)
 			ItemName = EnumPtr->GetDisplayNameTextByValue((int64)ItemFragment->UtilityType);
 		}
 
-		// ¾ÆÀÌÅÛ¿¡ ¸Â´Â GuideTextSet °¡Á®¿À±â
+		// ì•„ì´í…œì— ë§ëŠ” GuideTextSet ê°€ì ¸ì˜¤ê¸°
 		const FGuideTextSet& GuideTextSet = UA1GuideData::Get().GetTextSetByLabel(FName(*ItemName.ToString()));
 		if (GuideTextSet.TextEntries.IsEmpty())
 			return;

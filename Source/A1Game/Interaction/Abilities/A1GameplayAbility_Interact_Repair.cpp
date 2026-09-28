@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Repair.h"
@@ -85,7 +85,7 @@ bool UA1GameplayAbility_Interact_Repair::CheckHoldRefairKit()
 
 void UA1GameplayAbility_Interact_Repair::DoRepair()
 {
-    // ¼ö¸® kit ¼Ò¸ğ
+    // ìˆ˜ë¦¬ kit ì†Œëª¨
     ALyraCharacter* Character = Cast<ALyraCharacter>(GetAvatarActorFromActorInfo());
     UA1EquipmentManagerComponent* EquipmentManager = Character->FindComponentByClass<UA1EquipmentManagerComponent>();
     if (Character == nullptr || EquipmentManager == nullptr)
@@ -96,7 +96,7 @@ void UA1GameplayAbility_Interact_Repair::DoRepair()
     EquipmentManager->RemoveEquipment_Unsafe(EEquipmentSlotType::LeftHand, 1);
     UA1ScoreBlueprintFunctionLibrary::AddConsumedItems();
 
-    // ¼ö¸® °´Ã¼ Á¦°Å
+    // ìˆ˜ë¦¬ ê°ì²´ ì œê±°
     AA1RepairBase* RepairActor = Cast<AA1RepairBase>(InteractableActor);
     RepairActor->SetCurrentState(RepairState::Complete);
     UA1ScoreManager::Get()->SetTotalRepair(UA1ScoreManager::Get()->GetTotalRepair() + 1);

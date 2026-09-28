@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "UI/A1ScoreListWidget.h"
@@ -16,7 +16,7 @@ void UA1ScoreListWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-    // Á¤·Ä ¿É¼Ç Ãß°¡
+    // ì •ë ¬ ì˜µì…˜ ì¶”ê°€
     if (SortComboBox)
     {
         SortComboBox->ClearOptions();
@@ -28,7 +28,7 @@ void UA1ScoreListWidget::NativeConstruct()
         SortComboBox->OnSelectionChanged.AddDynamic(this, &UA1ScoreListWidget::OnSortChanged);
     }
 
-    // ¹öÆ° ÀÌº¥Æ® ¹ÙÀÎµù
+    // ë²„íŠ¼ ì´ë²¤íŠ¸ ë°”ì¸ë”©
     if (RefreshButton)
     {
         RefreshButton->OnClicked.AddDynamic(this, &UA1ScoreListWidget::OnRefreshClicked);
@@ -39,7 +39,7 @@ void UA1ScoreListWidget::NativeConstruct()
         ClearButton->OnClicked.AddDynamic(this, &UA1ScoreListWidget::OnClearClicked);
     }
 
-    // ÃÊ±â µ¥ÀÌÅÍ ·Îµå
+    // ì´ˆê¸° ë°ì´í„° ë¡œë“œ
     RefreshScoreList();
 
 }
@@ -68,20 +68,20 @@ TOptional<FUIInputConfig> UA1ScoreListWidget::GetDesiredInputConfig() const
 
 void UA1ScoreListWidget::RefreshScoreList()
 {
-    // ÇöÀç Ç¥½ÃµÈ Á¡¼ö ¸ñ·Ï ¾÷µ¥ÀÌÆ®
+    // í˜„ì¬ í‘œì‹œëœ ì ìˆ˜ ëª©ë¡ ì—…ë°ì´íŠ¸
     CurrentScores = UA1ScoreBlueprintFunctionLibrary::GetAllScores();
 
-    // Á¤·Ä Àû¿ë
+    // ì •ë ¬ ì ìš©
     if (SortComboBox)
     {
         int32 SortType = SortComboBox->GetSelectedIndex();
         SortScores(CurrentScores, SortType);
     }
 
-    // UI ¾÷µ¥ÀÌÆ®
+    // UI ì—…ë°ì´íŠ¸
     PopulateScoreList(CurrentScores);
 
-    // Åë°è ¾÷µ¥ÀÌÆ®
+    // í†µê³„ ì—…ë°ì´íŠ¸
     if (TotalGamesText)
     {
         TotalGamesText->SetText(FText::FromString(FString::Printf(TEXT("Total Game Count: %d"), CurrentScores.Num())));
@@ -118,12 +118,12 @@ void UA1ScoreListWidget::PopulateScoreList(const TArray<FA1ScoreData>& AllScores
         return;
     }
 
-    // ±âÁ¸ Ç×¸ñµé Á¦°Å
+    // ê¸°ì¡´ í•­ëª©ë“¤ ì œê±°
     ScoreScrollBox->ClearChildren();
 
     if (AllScores.Num() == 0)
     {
-        // ºó »óÅÂ ¸Ş½ÃÁö
+        // ë¹ˆ ìƒíƒœ ë©”ì‹œì§€
         UTextBlock* EmptyText = WidgetTree->ConstructWidget<UTextBlock>();
         if (EmptyText)
         {
@@ -134,7 +134,7 @@ void UA1ScoreListWidget::PopulateScoreList(const TArray<FA1ScoreData>& AllScores
         return;
     }
 
-    // °¢ Á¡¼ö Ç×¸ñ »ı¼º
+    // ê° ì ìˆ˜ í•­ëª© ìƒì„±
     for (int32 i = 0; i < AllScores.Num(); i++)
     {
         const FA1ScoreData& ScoreData = AllScores[i];
@@ -157,25 +157,25 @@ void UA1ScoreListWidget::SortScores(TArray<FA1ScoreData>& Scores, int32 SortType
 {
     switch (SortType)
     {
-    case 0: // Á¡¼ö ³ôÀº¼ø
+    case 0: // ì ìˆ˜ ë†’ì€ìˆœ
         Scores.Sort([](const FA1ScoreData& A, const FA1ScoreData& B) {
             return A.TotalScore > B.TotalScore;
             });
         break;
 
-    case 1: // Á¡¼ö ³·Àº¼ø
+    case 1: // ì ìˆ˜ ë‚®ì€ìˆœ
         Scores.Sort([](const FA1ScoreData& A, const FA1ScoreData& B) {
             return A.TotalScore < B.TotalScore;
             });
         break;
 
-    case 2: // ÃÖ½Å¼ø
+    case 2: // ìµœì‹ ìˆœ
         Scores.Sort([](const FA1ScoreData& A, const FA1ScoreData& B) {
             return A.Timestamp > B.Timestamp;
             });
         break;
 
-    case 3: // ¿À·¡µÈ¼ø
+    case 3: // ì˜¤ë˜ëœìˆœ
         Scores.Sort([](const FA1ScoreData& A, const FA1ScoreData& B) {
             return A.Timestamp < B.Timestamp;
             });
@@ -186,19 +186,19 @@ void UA1ScoreListWidget::SortScores(TArray<FA1ScoreData>& Scores, int32 SortType
 UA1ScoreEntryButtonWidget* UA1ScoreListWidget::CreateScoreEntry(const FA1ScoreData& ScoreData, int32 Rank,
 	int32 Index)
 {
-    // ºí·çÇÁ¸°Æ® À§Á¬ Å¬·¡½º°¡ ¼³Á¤µÇ¾ú´ÂÁö È®ÀÎ
+    // ë¸”ë£¨í”„ë¦°íŠ¸ ìœ„ì ¯ í´ë˜ìŠ¤ê°€ ì„¤ì •ë˜ì—ˆëŠ”ì§€ í™•ì¸
     if (!ScoreEntryWidgetClass)
     {
         UE_LOG(LogA1ScoreSystem, Error, TEXT("[ScoreList] ScoreEntryWidgetClass is not set! Please assign WBP_ScoreEntry in Blueprint."));
         return nullptr;
     }
 
-    // ºí·çÇÁ¸°Æ® À§Á¬ »ı¼º
+    // ë¸”ë£¨í”„ë¦°íŠ¸ ìœ„ì ¯ ìƒì„±
     UA1ScoreEntryButtonWidget* EntryWidget = CreateWidget<UA1ScoreEntryButtonWidget>(this, ScoreEntryWidgetClass);
 
     if (EntryWidget)
     {
-        // µ¥ÀÌÅÍ ¼³Á¤
+        // ë°ì´í„° ì„¤ì •
         EntryWidget->SetupScoreEntry(ScoreData, Rank, Index);
 
         UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Created entry widget for %s"), *ScoreData.GetGameName());

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1RaiderBase.h"
 #include "A1LogChannels.h"
@@ -131,7 +131,7 @@ void AA1RaiderBase::BeAttacked(AActor* InInstigator, float OldValue, float NewVa
 				BlackBoard->SetValueAsBool(AA1RaiderController::CanAttackKey, true);
 				BlackBoard->SetValueAsObject(AA1RaiderController::AggroTargetKey, InInstigator);
 
-				// ±âº» Idle À½¼º ¸ØÃß±â
+				// ê¸°ë³¸ Idle ìŒì„± ë©ˆì¶”ê¸°
 				EnterAttackMode(true);
 			}
 		}
@@ -141,14 +141,14 @@ void AA1RaiderBase::BeAttacked(AActor* InInstigator, float OldValue, float NewVa
 void AA1RaiderBase::HandleOutOfHealth(AActor* InActor, float OldValue, float NewValue)
 {
 	
-	// ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ Ã³¸®µÉ ½Ã°£ ±â´Ù¸®±â
+	// ì• ë‹ˆë©”ì´ì…˜ì´ ì²˜ë¦¬ë  ì‹œê°„ ê¸°ë‹¤ë¦¬ê¸°
 	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AA1RaiderBase::SpawnDropItem, 1.5f, false);
 
 
-	GetController()->UnPossess();  // AI°¡ ´õ ÀÌ»ó Ä³¸¯ÅÍ¸¦ Á¦¾îÇÏÁö ¾Êµµ·Ï ÇÔ
+	GetController()->UnPossess();  // AIê°€ ë” ì´ìƒ ìºë¦­í„°ë¥¼ ì œì–´í•˜ì§€ ì•Šë„ë¡ í•¨
 
-	// ±âº» Idle À½¼º ¸ØÃß±â
+	// ê¸°ë³¸ Idle ìŒì„± ë©ˆì¶”ê¸°
 	EnterAttackMode(false);
 
 	SetDead();
@@ -156,15 +156,15 @@ void AA1RaiderBase::HandleOutOfHealth(AActor* InActor, float OldValue, float New
 
 void AA1RaiderBase::SpawnDropItem()
 {
-	// ¾ÆÀÌÅÛ ½ºÆù
+	// ì•„ì´í…œ ìŠ¤í°
 	int ItemNum = dropItems.Num();
 	if (ItemNum > 0)
 	{
 		FVector ItemSpawnLocation = GetActorLocation();
 		ItemSpawnLocation.Z = 0;
 
-		//È®·ü¿¡ µû¶ó ¾ÆÀÌÅÛ ¼³Á¤(ÀÏ´Ü ¹«Á¶°Ç ½ºÆù)
-		//È®·ü Á¤ÇØÁø°Ô ¾ø¾î ÇÏµåÄÚµù
+		//í™•ë¥ ì— ë”°ë¼ ì•„ì´í…œ ì„¤ì •(ì¼ë‹¨ ë¬´ì¡°ê±´ ìŠ¤í°)
+		//í™•ë¥  ì •í•´ì§„ê²Œ ì—†ì–´ í•˜ë“œì½”ë”©
 		int32 index = FMath::RandRange(0, 100);
 		if (index >= 50)
 			GetWorld()->SpawnActor<AA1EquipmentBase>(dropItems[ItemNum - 1], ItemSpawnLocation, GetActorRotation());

@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "GA/A1GA_Jump.h"
@@ -38,7 +38,7 @@ bool UA1GA_Jump::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, con
 	{
 		return false;
 	}
-	//¾àÆ÷ÀÎÅÍ¶ó Get »ç¿ë
+	//ì•½í¬ì¸í„°ë¼ Get ì‚¬ìš©
 	const ACharacter* Character = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
 	return (Character && Character->CanJump());
 
@@ -46,7 +46,7 @@ bool UA1GA_Jump::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, con
 
 void UA1GA_Jump::OnEndedCallback()
 {
-	//¾îºô¸®Æ¼ Á¾·á±¸¹® Ãß°¡
+	//ì–´ë¹Œë¦¬í‹° ì¢…ë£Œêµ¬ë¬¸ ì¶”ê°€
 	bool bReplicatedEndAbility = true;
 	bool bWasCancelled = false;
 	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, bReplicatedEndAbility, bWasCancelled);

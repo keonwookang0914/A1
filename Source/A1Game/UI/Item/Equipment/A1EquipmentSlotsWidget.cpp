@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1EquipmentSlotsWidget.h"
 
@@ -108,5 +108,5 @@ void UA1EquipmentSlotsWidget::OnEquipmentEntryChanged(EEquipmentSlotType Equipme
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("Index Valid: %d"), SlotIndex);
-	// TODO Twohand Ã³¸® ±¸¹® 
+	// TODO Twohand ì²˜ë¦¬ êµ¬ë¬¸ 
 }

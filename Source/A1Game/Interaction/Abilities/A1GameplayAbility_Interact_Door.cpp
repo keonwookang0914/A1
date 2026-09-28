@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Door.h"
@@ -37,7 +37,7 @@ void UA1GameplayAbility_Interact_Door::ActivateAbility(const FGameplayAbilitySpe
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 		return;
 	}
-	//¿ÜºÎ ¸ÊÀÌ È°¼ºÈ­ µÆÀ» ¶§¸¸ ¹®°ú »óÈ£ÀÛ¿ë ÇÒ ¼ö ÀÖ°Ô Á¶Àý.
+	//ì™¸ë¶€ ë§µì´ í™œì„±í™” ëì„ ë•Œë§Œ ë¬¸ê³¼ ìƒí˜¸ìž‘ìš© í•  ìˆ˜ ìžˆê²Œ ì¡°ì ˆ.
 	if (AA1SpaceshipBase* Spaceship = DoorActor->GetOwningSpaceship())
 	{
 		if (!Spaceship->GetIsExternalMapActive())

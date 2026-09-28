@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1EquipmentSlotWidget.h"
 
@@ -114,7 +114,7 @@ bool UA1EquipmentSlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDr
 
 	OnDragEnded();
 
-	// Tag¸¦ °¡Áö°í ÀÖ´Ù¸é Drag ÁßÀÌ¶ó´Â ÅÂ±× Á¦°Å
+	// Tagë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´ Drag ì¤‘ì´ë¼ëŠ” íƒœê·¸ ì œê±°
 	FGameplayTag TagToCheck = FGameplayTag::RequestGameplayTag(FName("GameplayEvent.Inventory.Drag"));
 	bool HasTag = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(GetOwningPlayerPawn())->HasMatchingGameplayTag(TagToCheck);
 	if (HasTag)
@@ -149,7 +149,7 @@ bool UA1EquipmentSlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDr
 	{
 	case EEquipmentSlotType::LeftHand:	FromItemFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Utility>();	break;
 	case EEquipmentSlotType::RightHand:	FromItemFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Weapon>();	break;
-	default:			break;		// TwoHand´Â ÀÎº¥Åä¸®¿¡ ¾Èµé¾î°¨, µé¾î°¡ ÀÖ´Ù¸é Á¾·á
+	default:			break;		// TwoHandëŠ” ì¸ë²¤í† ë¦¬ì— ì•ˆë“¤ì–´ê°, ë“¤ì–´ê°€ ìˆë‹¤ë©´ ì¢…ë£Œ
 		
 	}
 	if (FromItemFragment == nullptr)

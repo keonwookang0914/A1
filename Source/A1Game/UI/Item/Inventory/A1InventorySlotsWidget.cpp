@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "A1InventorySlotsWidget.h"
 
@@ -127,7 +127,7 @@ bool UA1InventorySlotsWidget::NativeOnDrop(const FGeometry& InGeometry, const FD
 
 	FinishDrag();
 
-	//Tag¸¦ °¡Áö°í ÀÖ´Ù¸é Drag ÁßÀÌ¶ó´Â ÅÂ±× Á¦°Å
+	//Tagë¥¼ ê°€ì§€ê³  ìžˆë‹¤ë©´ Drag ì¤‘ì´ë¼ëŠ” íƒœê·¸ ì œê±°
 	FGameplayTag TagToCheck = FGameplayTag::RequestGameplayTag(FName("GameplayEvent.Inventory.Drag"));
 	bool HasTag = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(GetOwningPlayerPawn())->HasMatchingGameplayTag(TagToCheck);
 	if (HasTag)
@@ -284,7 +284,7 @@ const FGeometry& UA1InventorySlotsWidget::GetSlotContainerGeometry() const
 void UA1InventorySlotsWidget::SetHiddenClickedWidget(int InSlotPos)
 {
 	// TEMP Jerry
-	// Range Over¸¦ À§ÇÑ ÀÓ½Ã Á¶Ä¡
+	// Range Overë¥¼ ìœ„í•œ ìž„ì‹œ ì¡°ì¹˜
 	if (InSlotPos < 25 && EntryWidgets[InSlotPos])
 		EntryWidgets[InSlotPos]->ChangeStateClickedWidget(false);
 }

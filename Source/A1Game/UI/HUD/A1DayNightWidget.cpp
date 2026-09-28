@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "UI/HUD/A1DayNightWidget.h"
@@ -25,7 +25,7 @@ void UA1DayNightWidget::NativeConstruct()
         DayNightManager->OnDayChanged.AddDynamic(this, &UA1DayNightWidget::OnDayChanged);
 		DayNightManager->OnTimeChanged.AddDynamic(this, &UA1DayNightWidget::OnTimeChanged);
 
-		//ÃÊ±â UI ¼³Á¤
+		//ì´ˆê¸° UI ì„¤ì •
 		UpdateUI();
 		UpdateTimeDisplay(12, 0);
 		Text_Time->SetColorAndOpacity(FSlateColor(FLinearColor::White));
@@ -36,7 +36,7 @@ void UA1DayNightWidget::NativeConstruct()
 
 void UA1DayNightWidget::NativeDestruct()
 {
-	// ÀÌº¥Æ® ±¸µ¶ ÇØÁ¦
+	// ì´ë²¤íŠ¸ êµ¬ë… í•´ì œ
 	if (DayNightManager)
 	{
 		DayNightManager->OnDayPhaseChanged.Clear();
@@ -72,7 +72,7 @@ void UA1DayNightWidget::UpdateUI()
 		DayCount->SetText(FText::Format(NSLOCTEXT("DayNight", "DayCount", "DAY {0}"), DayNightManager->GetCurrentDay()));
 	}
 
-	// ¾ÆÀÌÄÜ ¾÷µ¥ÀÌÆ®
+	// ì•„ì´ì½˜ ì—…ë°ì´íŠ¸
 	if (DayNightIcon)
 	{
 		if (DayNightManager->GetCurrentPhase() == EDayPhase::Day)
@@ -91,7 +91,7 @@ void UA1DayNightWidget::UpdateTimeDisplay(int32 Hour, int32 Minute)
 	if (!Text_Time)
 		return;
 
-	// ½Ã°£ ¹®ÀÚ¿­ »ý¼º
+	// ì‹œê°„ ë¬¸ìžì—´ ìƒì„±
 	FString TimeString = DayNightManager->GetTimeString();
 	Text_Time->SetText(FText::FromString(TimeString));
 }

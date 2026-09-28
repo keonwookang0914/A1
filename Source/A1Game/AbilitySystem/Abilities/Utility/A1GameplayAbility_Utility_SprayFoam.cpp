@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 
 #include "AbilitySystem/Abilities/Utility/A1GameplayAbility_Utility_SprayFoam.h"
@@ -113,14 +113,14 @@ void UA1GameplayAbility_Utility_SprayFoam::TrySprayFoam()
 	if(bHit)
 	{
 		float rate = HitResult.GetActor()->GetActorScale3D().X;
-		// ¸ÂÀº ´ë»óÀÌ Æû ¾×ÅÍÀÌ°í Æ¯Á¤ Å©±â ÀÌÇÏÀÎ °æ¿ì
+		// ë§ì€ ëŒ€ìƒì´ í¼ ì•¡í„°ì´ê³  íŠ¹ì • í¬ê¸° ì´í•˜ì¸ ê²½ìš°
 		if ( FoamClass == HitResult.GetActor()->GetClass() && rate <= 0.5)
 		{
 			HitResult.GetActor()->SetActorScale3D(HitResult.GetActor()->GetActorScale3D() * 1.2f);	
 		}
 		else
 		{
-			// ¾×ÅÍ ½ºÆù
+			// ì•¡í„° ìŠ¤í°
 			FVector SpawnLocation = HitResult.Location + HitResult.Normal * 3.f;
 			FRotator SpawnRotation = FRotationMatrix::MakeFromZ(HitResult.Normal).Rotator();
 
@@ -130,28 +130,28 @@ void UA1GameplayAbility_Utility_SprayFoam::TrySprayFoam()
 			AActor* SpawnedFoam = GetWorld()->SpawnActor<AActor>(FoamClass, SpawnLocation, SpawnRotation, SpawnParameters);
 
 
-			// skeletal mesh ´ë»óÀÎ °æ¿ì
+			// skeletal mesh ëŒ€ìƒì¸ ê²½ìš°
 			USkeletalMeshComponent* MeshComp = HitResult.GetActor()->FindComponentByClass<USkeletalMeshComponent>();
 			if (MeshComp)
 			{
-				// 1. º» Áß¿¡¼­ HitResult.Location¿¡ °¡Àå °¡±î¿î º» Ã£±â
+				// 1. ë³¸ ì¤‘ì—ì„œ HitResult.Locationì— ê°€ì¥ ê°€ê¹Œìš´ ë³¸ ì°¾ê¸°
 				FName ClosestBoneName = MeshComp->FindClosestBone(HitResult.Location);
 				if (ClosestBoneName == NAME_None)
 					return;
 
-				// 2. »ó´ë À§Ä¡ °è»ê
+				// 2. ìƒëŒ€ ìœ„ì¹˜ ê³„ì‚°
 				FVector BoneWorldLocation = MeshComp->GetBoneLocation(ClosestBoneName);
 				FVector RelativeOffset = HitResult.Location - BoneWorldLocation;
 
-				// 3. ºÙÀÌ±â: »ó´ë À§Ä¡¸¦ À¯ÁöÇÏ¸ç ÇØ´ç º»¿¡ ºÙÀÌ±â
+				// 3. ë¶™ì´ê¸°: ìƒëŒ€ ìœ„ì¹˜ë¥¼ ìœ ì§€í•˜ë©° í•´ë‹¹ ë³¸ì— ë¶™ì´ê¸°
 				if (SpawnedFoam)
 				{
 					SpawnedFoam->AttachToComponent(MeshComp, FAttachmentTransformRules::KeepRelativeTransform, ClosestBoneName);
-					SpawnedFoam->SetActorRelativeLocation(RelativeOffset); // º» ±âÁØ »ó´ë À§Ä¡·Î ¸ÂÃçÁÜ
+					SpawnedFoam->SetActorRelativeLocation(RelativeOffset); // ë³¸ ê¸°ì¤€ ìƒëŒ€ ìœ„ì¹˜ë¡œ ë§ì¶°ì¤Œ
 				}
 			}
 
-			// Static MeshÀÎ °æ¿ì
+			// Static Meshì¸ ê²½ìš°
 			else               
 			{
 				if (HitResult.GetComponent() != nullptr)

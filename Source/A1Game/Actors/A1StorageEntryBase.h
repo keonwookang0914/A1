@@ -1,4 +1,4 @@
-// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+ï»¿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -53,10 +53,10 @@ public:
 
 	FOnItemEntryStateChanged OnItemEntryStateChanged;
 protected:
-	//ÇÊ¿äÇÑ ±â´É
+	//í•„ìš”í•œ ê¸°ëŠ¥
 	/*
-	 * 1. ¾ÆÀÌÅÛÀ» ÁöÁ¤µÈ À§Ä¡·Î °¡Á®¿À´Â ±â´É
-	 * 2. ¾ÆÀÌÅÛÀÌ TryInteract·Î ºüÁö¸é º¯¼ö ÇØÁ¦ÇÏ´Â ±â´É -> overlapÀ¸·Î ±¸Çö
+	 * 1. ì•„ì´í…œì„ ì§€ì •ëœ ìœ„ì¹˜ë¡œ ê°€ì ¸ì˜¤ëŠ” ê¸°ëŠ¥
+	 * 2. ì•„ì´í…œì´ TryInteractë¡œ ë¹ ì§€ë©´ ë³€ìˆ˜ í•´ì œí•˜ëŠ” ê¸°ëŠ¥ -> overlapìœ¼ë¡œ êµ¬í˜„
 	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UArrowComponent> ArrowComponent;
