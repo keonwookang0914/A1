@@ -111,7 +111,7 @@ void UA1GameplayAbility_Utility_RemoveFoam::TryRemoveFoam()
 
 	bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), StartLocation, EndLocation, UEngineTypes::ConvertToTraceType(A1_TraceChannel_AimAssist), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true);
 
-	TSubclassOf<AActor> FoamClass = ULyraAssetManager::Get().GetSubclassByName<AActor>("FoamBase");;
+	TSubclassOf<AActor> FoamClass = ULyraAssetManager::Get().GetSubclassByName<AActor>("FoamBase");
 
 	if(bHit)
 	{

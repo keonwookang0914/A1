@@ -461,7 +461,7 @@ void UA1EquipManagerComponent::Equip(EEquipmentSlotType EquipmentSlotType, UA1It
 
 void UA1EquipManagerComponent::Unequip(EEquipmentSlotType EquipmentSlotType)
 {
-	check(GetOwner()->HasAuthority())
+	check(GetOwner()->HasAuthority());
 
 	if (EquipmentSlotType == EEquipmentSlotType::Count)
 		return;

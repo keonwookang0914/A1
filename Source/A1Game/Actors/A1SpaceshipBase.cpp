@@ -343,7 +343,7 @@ void AA1SpaceshipBase::FindComponentsByTags()
 			continue;
 		if (Actor->ActorHasTag(DoorTag))
 		{
-			CacheDoor = Cast<AA1DoorBase>(Actor);;
+			CacheDoor = Cast<AA1DoorBase>(Actor);
 		}
 		else if (Actor->ActorHasTag(DockingSignalHandlerTag) && !DockingSignalHandler)
 		{

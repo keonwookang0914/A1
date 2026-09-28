@@ -106,7 +106,7 @@ namespace A1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Status_HitReact,									"Status.HitReact");
 	UE_DEFINE_GAMEPLAY_TAG(Status_RejectHitReact,							"Status.RejectHitReact");
 	UE_DEFINE_GAMEPLAY_TAG(Status_StaminaRecoveryBlock,						"Status.StaminaRecoveryBlock");
-	UE_DEFINE_GAMEPLAY_TAG(Status_FlashLight_ChargingZone,					"Status.FlashLight.ChargingZone")
+	UE_DEFINE_GAMEPLAY_TAG(Status_FlashLight_ChargingZone,					"Status.FlashLight.ChargingZone");
 	
 	// Gameplay Event
 	UE_DEFINE_GAMEPLAY_TAG(GameplayEvent_Death,								"GameplayEvent.Death");
@@ -254,7 +254,7 @@ namespace A1GameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Tutorial_Step_Mission2_TempRepair,				"Tutorial.Step.Mission2.TempRepair");
 	UE_DEFINE_GAMEPLAY_TAG(Tutorial_Step_ExternalAccess,					"Tutorial.Step.ExternalAccess");
 	UE_DEFINE_GAMEPLAY_TAG(Tutorial_Step_Mission3_RepairKit,				"Tutorial.Step.Mission3.RepairKit");
-	UE_DEFINE_GAMEPLAY_TAG(Tutorial_Step_SignalSending,						"Tutorial.Step.SignalSending")
+	UE_DEFINE_GAMEPLAY_TAG(Tutorial_Step_SignalSending,						"Tutorial.Step.SignalSending");
 	UE_DEFINE_GAMEPLAY_TAG(Tutorial_Step_Complete,							"Tutorial.Step.Complete");
 
 
