@@ -181,31 +181,12 @@
 			"Enabled": false
 		},
 		{
-			"Name": "LuminPlatformFeatures",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Lumin"
-			]
-		},
-		{
 			"Name": "MLSDK",
 			"Enabled": false
 		},
 		{
 			"Name": "OnlineFramework",
 			"Enabled": true
-		},
-		{
-			"Name": "PlayFabParty",
-			"Enabled": true,
-			"PlatformAllowList": [
-				"XB1",
-				"XSX"
-			],
-			"SupportedTargetPlatforms": [
-				"XB1",
-				"XSX"
-			]
 		},
 		{
 			"Name": "OnlineSubsystemEOS",
