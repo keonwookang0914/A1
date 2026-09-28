@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1StorageEntryBase.h"
 
 #include "A1EquipmentBase.h"
@@ -21,7 +20,7 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1StorageEntryBase)
 
 AA1StorageEntryBase::AA1StorageEntryBase(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("Root"));
 	ArrowComponent->SetHiddenInGame(true);
@@ -51,9 +50,12 @@ FA1InteractionInfo AA1StorageEntryBase::GetPreInteractionInfo(const FA1Interacti
 {
 	switch (ItemState)
 	{
-	case EItemEntryState::None: return ItemInputInfo;
-	case EItemEntryState::Exist: return ItemOutputInfo;
-	default: return FA1InteractionInfo();
+	case EItemEntryState::None:
+		return ItemInputInfo;
+	case EItemEntryState::Exist:
+		return ItemOutputInfo;
+	default:
+		return FA1InteractionInfo();
 	}
 }
 
@@ -73,8 +75,7 @@ void AA1StorageEntryBase::SetItemTransform(int32 ItemTemplateID, EItemRarity Ite
 			AttachmentFragment->ItemAttachInfo.SpawnItemClass,
 			SpawnLocation,
 			FRotator::ZeroRotator,
-			SpawnParams
-		);
+			SpawnParams);
 
 		if (NewCachedItem)
 		{
@@ -84,7 +85,6 @@ void AA1StorageEntryBase::SetItemTransform(int32 ItemTemplateID, EItemRarity Ite
 			SetItemInput();
 		}
 	}
-	
 }
 
 void AA1StorageEntryBase::SetItemInput()
@@ -98,11 +98,11 @@ void AA1StorageEntryBase::SetItemInput()
 void AA1StorageEntryBase::SetItemOutput()
 {
 	UE_LOG(LogTemp, Log, TEXT("[AA1StorageEntryBase] Remove Item"));
-	if (UA1ScoreManager::Get()->GetDoTutorial() )
+	if (UA1ScoreManager::Get()->GetDoTutorial())
 	{
 		const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(CachedItem->GetTemplateID());
 		const UA1ItemFragment_Equipable_Utility* ItemFragment = Cast<UA1ItemFragment_Equipable_Utility>(ItemTemplate.FindFragmentByClass(UA1ItemFragment_Equipable_Utility::StaticClass()));
-		if ( ItemFragment->UtilityType == EUtilityType::FoamGun )
+		if (ItemFragment->UtilityType == EUtilityType::FoamGun)
 		{
 			FGameplayEventData EventData;
 			UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());

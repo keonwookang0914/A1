@@ -13,45 +13,46 @@ UCLASS()
 class AA1FuelDisplayUI : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AA1FuelDisplayUI();
 
 protected:
-    virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 
 public:
-    // Fuel Update Function
-    UFUNCTION(BlueprintCallable, Category = "UI")
-    void UpdateFuelLevel(float NewFuelAmount);
+	// Fuel Update Function
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateFuelLevel(float NewFuelAmount);
 
-    UFUNCTION()
-    void UpdateUI() const;
+	UFUNCTION()
+	void UpdateUI() const;
 
-    void InitSetting(float InMaxFuel, float InInitFuel);
+	void InitSetting(float InMaxFuel, float InInitFuel);
+
 protected:
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
-    TObjectPtr<UTextRenderComponent> FuelTextComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	TObjectPtr<UTextRenderComponent> FuelTextComponent;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
-    TObjectPtr<UTextRenderComponent> TitleTextComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	TObjectPtr<UTextRenderComponent> TitleTextComponent;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
-    TObjectPtr<UStaticMeshComponent> ProgressBarMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	TObjectPtr<UStaticMeshComponent> ProgressBarMesh;
 
-    // 프로그레스 바의 재질 인스턴스
-    UPROPERTY(VisibleAnywhere)
+	// 프로그레스 바의 재질 인스턴스
+	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UMaterialInstanceDynamic> ProgressBarMaterial;
 
 private:
-    FTimerHandle UIUpdateTimerHandle;
+	FTimerHandle UIUpdateTimerHandle;
 
-    UPROPERTY(EditAnywhere, Category = "UI")
-    float UIUpdateInterval;
+	UPROPERTY(EditAnywhere, Category = "UI")
+	float UIUpdateInterval;
 
-    UPROPERTY(EditAnywhere, Category = "UI")
-    float CurrentFuelLevel;
+	UPROPERTY(EditAnywhere, Category = "UI")
+	float CurrentFuelLevel;
 
-    UPROPERTY(EditAnywhere, Category = "UI")
-    float MaxFuelLevel;
+	UPROPERTY(EditAnywhere, Category = "UI")
+	float MaxFuelLevel;
 };

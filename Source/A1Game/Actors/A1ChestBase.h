@@ -29,6 +29,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+
 public:
 	virtual FA1InteractionInfo GetPreInteractionInfo(const FA1InteractionQuery& InteractionQuery) const override;
 	virtual void GetMeshComponents(TArray<UMeshComponent*>& OutMeshComponents) const override;
@@ -41,7 +42,7 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE	void SetChestState(EChestState InChestState) { ChestState = InChestState; }
+	FORCEINLINE void SetChestState(EChestState InChestState) { ChestState = InChestState; }
 
 	UFUNCTION(BlueprintCallable)
 	EChestState GetChestState() const { return ChestState; }
@@ -49,11 +50,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpawnItems();
 
-
 	UFUNCTION(BlueprintCallable)
 	void SpawnItem(int32 idx);
-
-
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Bed|Info")
@@ -71,7 +69,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ChestState)
 	EChestState ChestState = EChestState::Close;
 
-	//Item Section
+	// Item Section
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<TObjectPtr<USceneComponent>> ItemLocations;
 

@@ -15,5 +15,4 @@ void AA1GunBase::BeginPlay()
 
 	if (bOnlyUseForLocal)
 		return;
-	
 }

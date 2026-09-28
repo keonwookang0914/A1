@@ -4,14 +4,15 @@
 #include "Interaction/A1Interactable.h"
 #include "Interaction/A1InteractionInfo.h"
 
-UA1AbilityTask_WaitForInteractableTraceHit::UA1AbilityTask_WaitForInteractableTraceHit(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UA1AbilityTask_WaitForInteractableTraceHit::UA1AbilityTask_WaitForInteractableTraceHit(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 }
 
-UA1AbilityTask_WaitForInteractableTraceHit* UA1AbilityTask_WaitForInteractableTraceHit::WaitForInteractableTraceHit(UGameplayAbility* OwningAbility, FA1InteractionQuery InteractionQuery, ECollisionChannel TraceChannel,FGameplayAbilityTargetingLocationInfo StartLocation, float InteractionTraceRange, float InteractionTraceRate,bool bShowDebug)
+UA1AbilityTask_WaitForInteractableTraceHit* UA1AbilityTask_WaitForInteractableTraceHit::WaitForInteractableTraceHit(UGameplayAbility* OwningAbility, FA1InteractionQuery InteractionQuery, ECollisionChannel TraceChannel, FGameplayAbilityTargetingLocationInfo StartLocation, float InteractionTraceRange, float InteractionTraceRate, bool bShowDebug)
 {
 	UA1AbilityTask_WaitForInteractableTraceHit* Task = NewAbilityTask<UA1AbilityTask_WaitForInteractableTraceHit>(OwningAbility);
-	//Setting AbilityTask
+	// Setting AbilityTask
 
 	Task->InteractionTraceRange = InteractionTraceRange;
 	Task->InteractionTraceRate = InteractionTraceRate;
@@ -121,15 +122,15 @@ void UA1AbilityTask_WaitForInteractableTraceHit::AimWithPlayerController(const A
 	const FVector CameraDirection = CameraRotation.Vector();
 	FVector CameraEnd = CameraStart + (CameraDirection * MaxRange);
 
-	//Restricts the ray in the direction of the camera to within the interactable range (sphere) based on the player's position.
+	// Restricts the ray in the direction of the camera to within the interactable range (sphere) based on the player's position.
 	ClipCameraRayToAbilityRange(CameraStart, CameraDirection, TraceStart, MaxRange, CameraEnd);
 
 	FHitResult HitResult;
 	LineTrace(CameraStart, CameraEnd, Params, HitResult);
 
-	//1. If the hit object is within the interactable range(Sphere), the hit location is set to the TraceEnd location.
-	//2. If there is no object hit or the object hit is outside the interactable range (Sphere), the hit location is ignored and CameraEnd is set to TraceEnd.
-	// - Afterwards, check the objects between the player and CameraEnd.
+	// 1. If the hit object is within the interactable range(Sphere), the hit location is set to the TraceEnd location.
+	// 2. If there is no object hit or the object hit is outside the interactable range (Sphere), the hit location is ignored and CameraEnd is set to TraceEnd.
+	//  - Afterwards, check the objects between the player and CameraEnd.
 	const bool bUseTraceResult = HitResult.bBlockingHit && (FVector::DistSquared(TraceStart, HitResult.Location) <= (MaxRange * MaxRange));
 	const FVector AdjustedEnd = bUseTraceResult ? HitResult.Location : CameraEnd;
 

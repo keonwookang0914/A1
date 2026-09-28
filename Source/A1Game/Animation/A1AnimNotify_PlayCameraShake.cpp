@@ -18,18 +18,18 @@ UA1AnimNotify_PlayCameraShake::UA1AnimNotify_PlayCameraShake(const FObjectInitia
 void UA1AnimNotify_PlayCameraShake::Notify(USkeletalMeshComponent* MeshComponent, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComponent, Animation, EventReference);
-	
+
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(MeshComponent->GetOwner());
 	if (LyraCharacter == nullptr)
 		return;
-	
+
 	ALyraPlayerController* LyraPlayerController = LyraCharacter->GetLyraPlayerController();
 	if (LyraPlayerController == nullptr)
 		return;
-	
+
 	APlayerCameraManager* PlayerCameraManager = LyraPlayerController->PlayerCameraManager;
 	if (PlayerCameraManager == nullptr)
 		return;
-	
+
 	ULegacyCameraShake::StartLegacyCameraShake(PlayerCameraManager, CameraShakeClass, PlayScale);
 }

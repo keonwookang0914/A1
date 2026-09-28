@@ -29,7 +29,7 @@ protected:
 
 private:
 	void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue) const;
-	
+
 public:
 	ATTRIBUTE_ACCESSORS(ThisClass, Health);
 	ATTRIBUTE_ACCESSORS(ThisClass, MaxHealth);
@@ -52,7 +52,7 @@ protected:
 private:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnRep_Health, meta=(AllowPrivateAccess="true"))
 	FGameplayAttributeData Health;
-	
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnRep_MaxHealth, meta=(AllowPrivateAccess="true"))
 	FGameplayAttributeData MaxHealth;
 
@@ -66,14 +66,14 @@ public:
 	ATTRIBUTE_ACCESSORS(ThisClass, IncomingHealth);
 	ATTRIBUTE_ACCESSORS(ThisClass, IncomingOxygen);
 	ATTRIBUTE_ACCESSORS(ThisClass, IncomingDamage);
-	
+
 private:
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	FGameplayAttributeData IncomingHealth;
-	
+
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	FGameplayAttributeData IncomingOxygen;
-	
+
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	FGameplayAttributeData IncomingDamage;
 
@@ -84,7 +84,7 @@ public:
 
 private:
 	bool bOutOfHealth;
-	
+
 	float MaxHealthBeforeAttributeChange;
 	float HealthBeforeAttributeChange;
 };

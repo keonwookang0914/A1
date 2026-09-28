@@ -10,7 +10,7 @@ UCLASS()
 class A1GAME_API AA1RaiderController : public AAIController
 {
 	GENERATED_BODY()
-	
+
 public:
 	AA1RaiderController();
 	virtual void BeginPlay() override;

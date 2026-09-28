@@ -26,7 +26,7 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1InventorySlotsWidget)
 
 UA1InventorySlotsWidget::UA1InventorySlotsWidget(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 }
 
@@ -127,7 +127,7 @@ bool UA1InventorySlotsWidget::NativeOnDrop(const FGeometry& InGeometry, const FD
 
 	FinishDrag();
 
-	//Tag를 가지고 있다면 Drag 중이라는 태그 제거
+	// Tag를 가지고 있다면 Drag 중이라는 태그 제거
 	FGameplayTag TagToCheck = FGameplayTag::RequestGameplayTag(FName("GameplayEvent.Inventory.Drag"));
 	bool HasTag = UAbilitySystemGlobals::GetAbilitySystemComponentFromActor(GetOwningPlayerPawn())->HasMatchingGameplayTag(TagToCheck);
 	if (HasTag)
@@ -196,7 +196,7 @@ void UA1InventorySlotsWidget::ConstructUI(FGameplayTag Channel, const FInventory
 	}
 
 	const TArray<FA1InventoryEntry>& Entries = InventoryManager->GetAllEntries();
-	for (int32 i = 0 ; i< Entries.Num();i++)
+	for (int32 i = 0; i < Entries.Num(); i++)
 	{
 		const FA1InventoryEntry& Entry = Entries[i];
 		if (UA1ItemInstance* ItemInstance = Entry.GetItemInstance())

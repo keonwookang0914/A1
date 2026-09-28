@@ -14,7 +14,6 @@
 UA1ItemInstance::UA1ItemInstance(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    
 }
 
 void UA1ItemInstance::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -82,7 +81,7 @@ EItemRarity UA1ItemInstance::DetermineItemRarity(const TArray<FA1ItemRarityProba
 
 	if (TotalProbability > 100.f)
 		return EItemRarity::Count;
-	
+
 	float SumProbability = 0.f;
 	float RandomValue = FMath::RandRange(0.f, 100.f);
 
@@ -94,7 +93,7 @@ EItemRarity UA1ItemInstance::DetermineItemRarity(const TArray<FA1ItemRarityProba
 			return ItemProbability.Rarity;
 		}
 	}
-	
+
 	return EItemRarity::Count;
 }
 

@@ -1,5 +1,5 @@
 ﻿#include "A1ItemManagerComponent.h"
-		  
+
 #include "A1EquipManagerComponent.h"
 #include "A1EquipmentManagerComponent.h"
 #include "A1GameplayTags.h"
@@ -30,11 +30,11 @@ void UA1ItemManagerComponent::Server_InventoryToEquipment_Implementation(UA1Inve
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromInventoryManager == nullptr || ToEquipmentManager == nullptr)
 		return;
 
-	if (IsAllowedComponent(FromInventoryManager) == false ||  IsAllowedComponent(ToEquipmentManager) == false)
+	if (IsAllowedComponent(FromInventoryManager) == false || IsAllowedComponent(ToEquipmentManager) == false)
 		return;
 
 	int32 MovableCount = ToEquipmentManager->CanMoveOrMergeEquipment(FromInventoryManager, FromItemSlotPos, ToEquipmentSlotType);
@@ -64,11 +64,11 @@ void UA1ItemManagerComponent::Server_EquipmentToInventory_Implementation(UA1Equi
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromEquipmentManager == nullptr || ToInventoryManager == nullptr)
 		return;
 
-	if (IsAllowedComponent(FromEquipmentManager) == false ||  IsAllowedComponent(ToInventoryManager) == false)
+	if (IsAllowedComponent(FromEquipmentManager) == false || IsAllowedComponent(ToInventoryManager) == false)
 		return;
 
 	int32 MovableCount = ToInventoryManager->CanMoveOrMergeItem(FromEquipmentManager, FromEquipmentSlotType, ToItemSlotPos);
@@ -84,11 +84,11 @@ void UA1ItemManagerComponent::Server_InventoryToInventory_Implementation(UA1Inve
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromInventoryManager == nullptr || ToInventoryManager == nullptr)
 		return;
 
-	if (IsAllowedComponent(FromInventoryManager) == false ||  IsAllowedComponent(ToInventoryManager) == false)
+	if (IsAllowedComponent(FromInventoryManager) == false || IsAllowedComponent(ToInventoryManager) == false)
 		return;
 
 	if (FromInventoryManager == ToInventoryManager && FromItemSlotPos == ToItemSlotPos)
@@ -106,11 +106,11 @@ void UA1ItemManagerComponent::Server_EquipmentToEquipment_Implementation(UA1Equi
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromEquipmentManager == nullptr || ToEquipmentManager == nullptr)
 		return;
 
-	if (IsAllowedComponent(FromEquipmentManager) == false ||  IsAllowedComponent(ToEquipmentManager) == false)
+	if (IsAllowedComponent(FromEquipmentManager) == false || IsAllowedComponent(ToEquipmentManager) == false)
 		return;
 
 	if (FromEquipmentManager == ToEquipmentManager && FromEquipmentSlotType == ToEquipmentSlotType)
@@ -126,7 +126,7 @@ void UA1ItemManagerComponent::Server_EquipmentToEquipment_Implementation(UA1Equi
 	{
 		const int32 FromItemCount = FromEquipmentManager->GetItemCount(FromEquipmentSlotType);
 		const int32 ToItemCount = ToEquipmentManager->GetItemCount(ToEquipmentSlotType);
-		
+
 		UA1ItemInstance* RemovedItemInstanceFrom = FromEquipmentManager->RemoveEquipment_Unsafe(FromEquipmentSlotType, FromItemCount);
 		UA1ItemInstance* RemovedItemInstanceTo = ToEquipmentManager->RemoveEquipment_Unsafe(ToEquipmentSlotType, ToItemCount);
 		FromEquipmentManager->AddEquipment_Unsafe(FromEquipmentSlotType, RemovedItemInstanceTo, ToItemCount);
@@ -138,13 +138,13 @@ void UA1ItemManagerComponent::Server_QuickFromInventory_Implementation(UA1Invent
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromInventoryManager == nullptr)
 		return;
 
 	if (IsAllowedComponent(FromInventoryManager) == false)
 		return;
-	
+
 	UA1InventoryManagerComponent* MyInventoryManager = GetMyInventoryManager();
 	UA1EquipmentManagerComponent* MyEquipmentManager = GetMyEquipmentManager();
 	if (MyInventoryManager == nullptr || MyEquipmentManager == nullptr)
@@ -160,7 +160,7 @@ void UA1ItemManagerComponent::Server_QuickFromInventory_Implementation(UA1Invent
 	if (FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable>())
 	{
 		// 1. [장비]
-		// 1-1. [내 인벤토리] -> 내 장비 교체 -> 내 장비 장착 
+		// 1-1. [내 인벤토리] -> 내 장비 교체 -> 내 장비 장착
 		// 1-2. [다른 인벤토리] -> 내 장비 교체 -> 내 장비 장착 -> 내 인벤토리
 
 		EEquipmentSlotType ToEquipmentSlotType;
@@ -169,7 +169,7 @@ void UA1ItemManagerComponent::Server_QuickFromInventory_Implementation(UA1Invent
 		{
 			const int32 FromItemCount = FromInventoryManager->GetItemCount(FromItemSlotPos);
 			const int32 ToItemCount = MyEquipmentManager->GetItemCount(ToEquipmentSlotType);
-				
+
 			UA1ItemInstance* RemovedItemInstanceFrom = FromInventoryManager->RemoveItem_Unsafe(FromItemSlotPos, FromItemCount);
 			UA1ItemInstance* RemovedItemInstanceTo = MyEquipmentManager->RemoveEquipment_Unsafe(ToEquipmentSlotType, ToItemCount);
 			FromInventoryManager->AddItem_Unsafe(ToItemSlotPos, RemovedItemInstanceTo, ToItemCount);
@@ -213,7 +213,7 @@ void UA1ItemManagerComponent::Server_QuickFromInventory_Implementation(UA1Invent
 		{
 			TArray<FIntPoint> ToItemSlotPoses;
 			TArray<int32> ToItemCounts;
-			
+
 			int32 MovableItemCount = MyInventoryManager->CanMoveOrMergeItem_Quick(FromInventoryManager, FromItemSlotPos, ToItemSlotPoses, ToItemCounts);
 			if (MovableItemCount > 0)
 			{
@@ -231,7 +231,7 @@ void UA1ItemManagerComponent::Server_QuickFromEquipment_Implementation(UA1Equipm
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromEquipmentManager == nullptr || FromEquipmentSlotType == EEquipmentSlotType::Count)
 		return;
 
@@ -239,7 +239,7 @@ void UA1ItemManagerComponent::Server_QuickFromEquipment_Implementation(UA1Equipm
 		return;
 
 	// 1. [내 장비창] -> 내 인벤토리
-	// 2. [다른 장비창] -> 내 장비 교체 -> 내 장비 장착 -> 내 인벤토리 
+	// 2. [다른 장비창] -> 내 장비 교체 -> 내 장비 장착 -> 내 인벤토리
 
 	UA1InventoryManagerComponent* MyInventoryManager = GetMyInventoryManager();
 	UA1EquipmentManagerComponent* MyEquipmentManager = GetMyEquipmentManager();
@@ -253,7 +253,7 @@ void UA1ItemManagerComponent::Server_QuickFromEquipment_Implementation(UA1Equipm
 	{
 		TArray<FIntPoint> ToItemSlotPoses;
 		TArray<int32> ToItemCounts;
-		
+
 		int32 MovableCount = MyInventoryManager->CanMoveOrMergeItem_Quick(FromEquipmentManager, FromEquipmentSlotType, ToItemSlotPoses, ToItemCounts);
 		if (MovableCount > 0)
 		{
@@ -271,7 +271,7 @@ void UA1ItemManagerComponent::Server_QuickFromEquipment_Implementation(UA1Equipm
 		{
 			const int32 FromItemCount = FromEquipmentManager->GetItemCount(FromEquipmentSlotType);
 			const int32 ToItemCount = MyEquipmentManager->GetItemCount(ToEquipmentSlotType);
-					
+
 			UA1ItemInstance* RemovedItemInstanceFrom = FromEquipmentManager->RemoveEquipment_Unsafe(FromEquipmentSlotType, FromItemCount);
 			UA1ItemInstance* RemovedItemInstanceTo = MyEquipmentManager->RemoveEquipment_Unsafe(ToEquipmentSlotType, ToItemCount);
 			FromEquipmentManager->AddEquipment_Unsafe(FromEquipmentSlotType, RemovedItemInstanceTo, ToItemCount);
@@ -322,7 +322,7 @@ void UA1ItemManagerComponent::Server_DropItemFromInventory_Implementation(UA1Inv
 	int32 FromItemCount = FromInventoryManager->GetItemCount(FromItemSlotPos);
 	if (FromItemCount <= 0)
 		return;
-	
+
 	if (TryDropItem(FromItemInstance, FromItemCount))
 	{
 		FromInventoryManager->RemoveItem_Unsafe(FromItemSlotPos, FromItemCount);
@@ -333,7 +333,7 @@ void UA1ItemManagerComponent::Server_DropItemFromEquipment_Implementation(UA1Equ
 {
 	if (HasAuthority() == false)
 		return;
-	
+
 	if (FromEquipmentManager == nullptr || FromEquipmentSlotType == EEquipmentSlotType::Count)
 		return;
 
@@ -347,7 +347,7 @@ void UA1ItemManagerComponent::Server_DropItemFromEquipment_Implementation(UA1Equ
 	int32 FromItemCount = FromEquipmentManager->GetItemCount(FromEquipmentSlotType);
 	if (FromItemCount <= 0)
 		return;
-	
+
 	if (TryDropItem(FromItemInstance, FromItemCount))
 	{
 		FromEquipmentManager->RemoveEquipment_Unsafe(FromEquipmentSlotType, FromItemCount);
@@ -372,13 +372,12 @@ void UA1ItemManagerComponent::Server_DropItem_Implementation(bool bActivateWidge
 		// Equip에서 제거
 		UA1EquipmentManagerComponent* MyEquipment = GetMyEquipmentManager();
 		UA1EquipManagerComponent* MyEquip = MyEquipment->GetEquipManager();
-		
-		if(MyEquip->GetEquippedActor(EEquipmentSlotType::TwoHand) != nullptr)
+
+		if (MyEquip->GetEquippedActor(EEquipmentSlotType::TwoHand) != nullptr)
 			Server_DropItemFromEquipment(MyEquipment, EEquipmentSlotType::TwoHand);
 		else
 			Server_DropItemFromEquipment(MyEquipment, MyEquip->ConvertToEquipmentSlotType(MyEquip->GetCurrentMainHand()));
 	}
-
 }
 
 bool UA1ItemManagerComponent::TryPickItem(AA1EquipmentBase* PickupableItemActor)
@@ -407,11 +406,11 @@ bool UA1ItemManagerComponent::TryPickItem(AA1EquipmentBase* PickupableItemActor)
 	const UA1ItemFragment_Equipable_Attachment* EquippableFragment = ItemTemplate.FindFragmentByClass<UA1ItemFragment_Equipable_Attachment>();
 	if (EquippableFragment == nullptr)
 		return false;
-	
+
 	int32 ItemTemplateID = PickupableItemActor->GetTemplateID();
 	EItemRarity ItemRarity = PickupableItemActor->GetItemRarity();
 	int32 ItemCount = 1;
-	
+
 	EEquipmentSlotType ToEquipmentSlotType = EquippableFragment->ItemHandType;
 
 	int32 MovableCount = MyEquipmentManager->CanMoveOrMergeEquipment_Quick(ItemTemplateID, ItemRarity, ItemCount, ToEquipmentSlotType);
@@ -432,7 +431,7 @@ bool UA1ItemManagerComponent::TryPickItem(AA1EquipmentBase* PickupableItemActor)
 			Character->OnGunEquipped.Broadcast(Character->bullets);
 		}
 
-		//Tutorial Code
+		// Tutorial Code
 		if (const UA1ItemFragment_Equipable_Utility* UtilityFragment = ItemTemplate.FindFragmentByClass<UA1ItemFragment_Equipable_Utility>())
 		{
 			if (UtilityFragment->UtilityType == EUtilityType::Repairkit)
@@ -471,7 +470,7 @@ bool UA1ItemManagerComponent::TryDropItem(UA1ItemInstance* FromItemInstance, int
 
 	FVector SpawnLocation = Character->GetActorLocation();
 	SpawnLocation.Z -= 90.0f;
-	
+
 	const UA1ItemFragment_Equipable_Attachment* EquippableFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Attachment>();
 	if (EquippableFragment == nullptr)
 		return false;
@@ -489,7 +488,7 @@ bool UA1ItemManagerComponent::TryDropItem(UA1ItemInstance* FromItemInstance, int
 		Character->bullets = 0;
 		Character->OnGunEquipped.Broadcast(Character->bullets);
 	}
-	
+
 	return true;
 }
 
@@ -511,7 +510,7 @@ bool UA1ItemManagerComponent::IsAllowedComponent(UActorComponent* ActorComponent
 UA1InventoryManagerComponent* UA1ItemManagerComponent::GetMyInventoryManager() const
 {
 	UA1InventoryManagerComponent* MyInventoryManager = nullptr;
-	
+
 	if (AController* Controller = Cast<AController>(GetOwner()))
 	{
 		if (APawn* Pawn = Controller->GetPawn())
@@ -526,7 +525,7 @@ UA1InventoryManagerComponent* UA1ItemManagerComponent::GetMyInventoryManager() c
 UA1EquipmentManagerComponent* UA1ItemManagerComponent::GetMyEquipmentManager() const
 {
 	UA1EquipmentManagerComponent* MyEquipmentManager = nullptr;
-	
+
 	if (AController* Controller = Cast<AController>(GetOwner()))
 	{
 		if (APawn* Pawn = Controller->GetPawn())

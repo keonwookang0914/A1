@@ -8,7 +8,7 @@ UCLASS(Blueprintable, meta=(DisplayName="Weapon Trail Niagara Effect"), MinimalA
 class UA1AnimNotifyState_WeaponTrailNiagaraEffect : public UAnimNotifyState_TimedNiagaraEffect
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotifyState_WeaponTrailNiagaraEffect(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -20,17 +20,17 @@ public:
 private:
 	void UpdateNiagaraParameters(USkeletalMeshComponent* WeaponMeshComponent);
 	USkeletalMeshComponent* GetWeaponMeshComponent(USkeletalMeshComponent* CharacterMeshComponent) const;
-	
+
 protected:
 	UPROPERTY(EditAnywhere)
 	EEquipmentSlotType WeaponHandType = EEquipmentSlotType::RightHand;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NiagaraSystem, meta = (ToolTip = "The socket or bone to attach the system to", AnimNotifyBoneName = "true"))
 	FName StartSocketName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NiagaraSystem)
 	FName StartParameterName;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NiagaraSystem, meta = (ToolTip = "The socket or bone to attach the system to", AnimNotifyBoneName = "true"))
 	FName EndSocketName;
 

@@ -4,7 +4,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
-UA1AbilityTask_WaitForInvalidInteraction::UA1AbilityTask_WaitForInvalidInteraction(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UA1AbilityTask_WaitForInvalidInteraction::UA1AbilityTask_WaitForInvalidInteraction(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 }
 

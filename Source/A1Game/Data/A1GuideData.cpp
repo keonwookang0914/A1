@@ -11,7 +11,6 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GuideData)
 
-
 const UA1GuideData& UA1GuideData::Get()
 {
 	return ULyraAssetManager::Get().GetGuideData();
@@ -23,10 +22,9 @@ void UA1GuideData::PreSave(FObjectPreSaveContext ObjectSaveContext)
 	Super::PreSave(ObjectSaveContext);
 
 	TextGroupNameToSet.KeySort([](const FName& A, const FName& B)
-	{
-		return (A.Compare(B) < 0);
-	});
-	
+		{
+			return (A.Compare(B) < 0);
+		});
 }
 
 EDataValidationResult UA1GuideData::IsDataValid(FDataValidationContext& Context) const

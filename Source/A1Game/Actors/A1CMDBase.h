@@ -13,7 +13,7 @@ enum class ECMDState : uint8
 };
 class UArrowComponent;
 /**
- * 
+ *
  */
 UCLASS()
 class AA1CMDBase : public AA1WorldInteractable
@@ -30,9 +30,7 @@ public:
 	virtual FA1InteractionInfo GetPreInteractionInfo(const FA1InteractionQuery& InteractionQuery) const override;
 	virtual void GetMeshComponents(TArray<UMeshComponent*>& OutMeshComponents) const override;
 
-
 protected:
-
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	ECMDState CMDState = ECMDState::None;
 
@@ -44,5 +42,4 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
-
 };

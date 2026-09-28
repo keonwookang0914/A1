@@ -13,18 +13,20 @@ struct FA1GameplayTagStack : public FFastArraySerializerItem
 	GENERATED_BODY()
 
 public:
-	FA1GameplayTagStack() { }
+	FA1GameplayTagStack() {}
 
 	FA1GameplayTagStack(FGameplayTag InTag, int32 InStackCount)
 		: Tag(InTag)
-		, StackCount(InStackCount) { }
+		, StackCount(InStackCount)
+	{
+	}
 
 public:
 	const FGameplayTag& GetStackTag() const { return Tag; }
 	int32 GetStackCount() const { return StackCount; }
-	
+
 	FString GetDebugString() const;
-	
+
 private:
 	friend FA1GameplayTagStackContainer;
 
@@ -41,7 +43,7 @@ struct FA1GameplayTagStackContainer : public FFastArraySerializer
 	GENERATED_BODY()
 
 public:
-	FA1GameplayTagStackContainer() { }
+	FA1GameplayTagStackContainer() {}
 
 public:
 	void AddStack(FGameplayTag Tag, int32 StackCount);
@@ -49,10 +51,10 @@ public:
 
 public:
 	const TArray<FA1GameplayTagStack>& GetStacks() const { return Stacks; }
-	
+
 	int32 GetStackCount(FGameplayTag Tag) const { return TagToCountMap.FindRef(Tag); }
 	bool ContainsTag(FGameplayTag Tag) const { return TagToCountMap.Contains(Tag); }
-	
+
 	void PreReplicatedRemove(const TArrayView<int32> RemovedIndices, int32 FinalSize);
 	void PostReplicatedAdd(const TArrayView<int32> AddedIndices, int32 FinalSize);
 	void PostReplicatedChange(const TArrayView<int32> ChangedIndices, int32 FinalSize);
@@ -70,7 +72,7 @@ private:
 	TMap<FGameplayTag, int32> TagToCountMap;
 };
 
-template<>
+template <>
 struct TStructOpsTypeTraits<FA1GameplayTagStackContainer> : public TStructOpsTypeTraitsBase2<FA1GameplayTagStackContainer>
 {
 	enum

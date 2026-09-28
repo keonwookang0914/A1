@@ -23,7 +23,7 @@ void UA1AnimNotify_WeaponNiagaraEffect::Notify(USkeletalMeshComponent* MeshCompo
 USkeletalMeshComponent* UA1AnimNotify_WeaponNiagaraEffect::GetWeaponMeshComponent(USkeletalMeshComponent* MeshComponent) const
 {
 	USkeletalMeshComponent* WeaponMeshComponent = nullptr;
-	
+
 	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(MeshComponent->GetOwner()))
 	{
 		if (UA1EquipManagerComponent* EquipManager = LyraCharacter->FindComponentByClass<UA1EquipManagerComponent>())

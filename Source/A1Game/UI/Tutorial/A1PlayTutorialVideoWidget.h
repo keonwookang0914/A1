@@ -9,7 +9,7 @@
 class UMediaPlayer;
 class UImage;
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1PlayTutorialVideoWidget : public UA1ActivatableWidget

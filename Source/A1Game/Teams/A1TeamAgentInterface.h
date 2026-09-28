@@ -6,7 +6,8 @@
 #include "UObject/WeakObjectPtr.h"
 #include "A1TeamAgentInterface.generated.h"
 
-template <typename InterfaceType> class TScriptInterface;
+template <typename InterfaceType>
+class TScriptInterface;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnA1TeamIndexChangedDelegate, UObject*, ObjectChangingTeam, int32, OldTeamID, int32, NewTeamID);
 
@@ -40,7 +41,7 @@ public:
 	virtual ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 
 	static void ConditionalBroadcastTeamChanged(TScriptInterface<IA1TeamAgentInterface> This, FGenericTeamId OldTeamID, FGenericTeamId NewTeamID);
-	
+
 	FOnA1TeamIndexChangedDelegate& GetTeamChangedDelegateChecked()
 	{
 		FOnA1TeamIndexChangedDelegate* Result = GetOnTeamIndexChangedDelegate();

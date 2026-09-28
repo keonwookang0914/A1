@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1CMDBase.h"
 
 #include "Components/ArrowComponent.h"
@@ -9,12 +8,12 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1CMDBase)
 
 AA1CMDBase::AA1CMDBase(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	SetRootComponent(ArrowComponent);
 
-	//Mesh
+	// Mesh
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMeshComponent"));
 	MeshComponent->SetupAttachment(GetRootComponent());
 	MeshComponent->SetCollisionProfileName(TEXT("Interactable"));
@@ -37,8 +36,10 @@ FA1InteractionInfo AA1CMDBase::GetPreInteractionInfo(const FA1InteractionQuery& 
 {
 	switch (CMDState)
 	{
-	case ECMDState::None: return CmdInteractionInfo;
-	default: return FA1InteractionInfo();
+	case ECMDState::None:
+		return CmdInteractionInfo;
+	default:
+		return FA1InteractionInfo();
 	}
 }
 

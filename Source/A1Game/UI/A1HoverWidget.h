@@ -12,7 +12,7 @@ UCLASS()
 class A1GAME_API UA1HoverWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1HoverWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

@@ -13,9 +13,10 @@
 #include "Tasks/A1AbilityTask_WaitForInteractableTraceHit.h"
 #include "UI/IndicatorSystem/LyraIndicatorManagerComponent.h"
 
-//#include UE_INLINE_GENERATED_CPP_BY_NAME(A1GamePlayAbility_Interact) -> 이거 때문에 Link Error 발생.
+// #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GamePlayAbility_Interact) -> 이거 때문에 Link Error 발생.
 
-UA1GameplayAbility_Interact::UA1GameplayAbility_Interact(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UA1GameplayAbility_Interact::UA1GameplayAbility_Interact(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ActivationPolicy = ELyraAbilityActivationPolicy::OnSpawn;
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;

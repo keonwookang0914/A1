@@ -11,7 +11,7 @@ class AA1ChestBase;
 class AA1EquipmentBase;
 class AA1RaiderBase;
 
-//Spawned Room Type
+// Spawned Room Type
 UENUM(BlueprintType)
 enum class ERoomType : uint8
 {
@@ -25,7 +25,7 @@ enum class ERoomType : uint8
 	SecondFloor UMETA(DisplayName = "SecondFloor")
 };
 
-//Spawn Queue
+// Spawn Queue
 USTRUCT()
 struct FSpawnQueueItem
 {
@@ -52,7 +52,11 @@ struct FSpawnQueueItem
 	}
 
 	FSpawnQueueItem(ESpawnType InType, const FTransform& InTransform, TSubclassOf<AA1CreatureBase> InEnemyClass = nullptr, int32 InItemIndex = 0)
-		: Type(InType), Transform(InTransform), EnemyClass(InEnemyClass), ItemIndex(InItemIndex) {
+		: Type(InType)
+		, Transform(InTransform)
+		, EnemyClass(InEnemyClass)
+		, ItemIndex(InItemIndex)
+	{
 	}
 };
 
@@ -73,10 +77,9 @@ protected:
 public:
 	virtual void Tick(float DeltaSeconds) override;
 
-
-/********************************************
-* Spawn Functions Section
-********************************************/
+	/********************************************
+	 * Spawn Functions Section
+	 ********************************************/
 	UFUNCTION(BlueprintCallable)
 	void SpawnEnemies(TSubclassOf<AA1CreatureBase> CreatureClass);
 
@@ -109,10 +112,9 @@ public:
 	FORCEINLINE ERoomType GetRoomType() const { return RoomType; }
 	FORCEINLINE bool GetCanMakeCliff() const { return bCanMakeCliff; }
 
-
-/********************************************
- * Spawn Queue Function Section
- ********************************************/
+	/********************************************
+	 * Spawn Queue Function Section
+	 ********************************************/
 private:
 	// Spawn Queue Functions
 	void AddEnemyToQueue(TSubclassOf<AA1CreatureBase> EnemyClass, const FTransform& Transform);
@@ -120,9 +122,9 @@ private:
 	void AddChestToQueue(const FTransform& Transform);
 	void ProcessSpawnQueue();
 
-/********************************************
-* Cliff Function Section
-********************************************/
+	/********************************************
+	 * Cliff Function Section
+	 ********************************************/
 public:
 	// Cliff Creation
 	void CreateCliffHole();
@@ -149,10 +151,9 @@ private:
 	bool IsVertexInSquareHole(const FVector& Vertex);
 
 protected:
-
-/********************************************
-* Core Component
-********************************************/
+	/********************************************
+	 * Core Component
+	 ********************************************/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Raider|Components")
 	TObjectPtr<UStaticMeshComponent> Inner;
 
@@ -165,10 +166,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Raider|Materials")
 	TArray<UMaterialInterface*> StaticMeshMaterials;
 
-
-/********************************************
-* Spawn Component
-********************************************/
+	/********************************************
+	 * Spawn Component
+	 ********************************************/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Raider|Spawn")
 	TObjectPtr<USceneComponent> EssentialSpawn;
 
@@ -184,10 +184,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Raider|Spawn")
 	TObjectPtr<USceneComponent> ItemBoxSpawnLocation;
 
-
-/********************************************
-* Replicated Arrays
-********************************************/
+	/********************************************
+	 * Replicated Arrays
+	 ********************************************/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Raider|Spawn")
 	TArray<TObjectPtr<USceneComponent>> ItemSpawnLocations;
 
@@ -203,20 +202,18 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Raider|Spawned", Replicated)
 	TArray<TObjectPtr<AA1ChestBase>> SpawnedChests;
 
-
-/********************************************
-* Class & Template
-********************************************/
+	/********************************************
+	 * Class & Template
+	 ********************************************/
 	UPROPERTY(EditDefaultsOnly, Category = "Raider|Classes")
 	TSubclassOf<AA1ChestBase> ChestClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Raider|Items")
 	TArray<TSubclassOf<class UA1ItemTemplate>> CachedItemTemplates;
 
-
-/********************************************
-* Spawn Setting
-********************************************/
+	/********************************************
+	 * Spawn Setting
+	 ********************************************/
 	UPROPERTY(EditDefaultsOnly, Category = "Raider|Settings")
 	int32 MinOptionalMonster;
 
@@ -232,19 +229,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Raider|Settings")
 	int32 SpawnPercentage;
 
-
-/********************************************
-* Room Type and Set
-********************************************/
+	/********************************************
+	 * Room Type and Set
+	 ********************************************/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Raider|Type")
 	ERoomType RoomType = ERoomType::Rounge;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Raider|Cliff")
 	bool bCanMakeCliff = false;
 
-/********************************************
-* Cliff Creation Section
-********************************************/
+	/********************************************
+	 * Cliff Creation Section
+	 ********************************************/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Raider|Cliff", meta = (ClampMin = "200", ClampMax = "600"))
 	float HoleSize = 400.0f;
 
@@ -261,9 +257,9 @@ protected:
 	TArray<int32> HoleBoundaryIndices;
 
 private:
-/********************************************
-* Spawn Queue & Timing
-********************************************/
+	/********************************************
+	 * Spawn Queue & Timing
+	 ********************************************/
 	TQueue<FSpawnQueueItem> SpawnQueue;
 
 	UPROPERTY(EditAnywhere, Category = "Raider|Performance")
@@ -273,21 +269,21 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Raider|Performance")
 	int32 SpawnPerTick = 1;
 
-/********************************************
- * Cliff Section
- ********************************************/
+	/********************************************
+	 * Cliff Section
+	 ********************************************/
 
-// Random Stream
+	// Random Stream
 	FRandomStream RandomStream;
 
-//Cliff Creation
+	// Cliff Creation
 	FTimerHandle CliffTimerHandle;
 	int32 CurrentCliffStep = 0;
 	bool bCliffInProgress = false;
 	double CliffStartTime = 0.0;
 	double StepStartTime = 0.0;
 
-// Procedural Mesh Data Storage
+	// Procedural Mesh Data Storage
 	TArray<FVector> OriginalVertices;
 	TArray<int32> OriginalTriangles;
 	TArray<FVector> OriginalNormals;
@@ -300,7 +296,7 @@ private:
 
 	FTransform OriginalFloorTransform;
 
-// Hole Geometry
+	// Hole Geometry
 	FVector HoleCenter;
 	float HoleHalfSize;
 	float FloorSizeX;

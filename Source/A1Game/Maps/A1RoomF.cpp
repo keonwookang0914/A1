@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Maps/A1RoomF.h"
 
 AA1RoomF::AA1RoomF()
@@ -17,7 +16,6 @@ AA1RoomF::AA1RoomF()
 	LeftWall->SetRelativeScale3D(FVector(1.f, 5.f, 2.f));
 	LeftWall->SetStaticMesh(BaseStaticMesh);
 	LeftWall->SetupAttachment(GeometryFolder);
-
 
 	RightWall = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RightWall"));
 	RightWall->SetRelativeLocation(FVector(1000.f, 950.f, 150.f));

@@ -43,7 +43,6 @@ void UA1GameplayAbility_DropItem::ActivateAbility(const FGameplayAbilitySpecHand
 		return;
 	}
 
-
 	ALyraPlayerController* LyraPlayerController = GetLyraPlayerControllerFromActorInfo();
 	UA1ItemManagerComponent* ItemManager = LyraPlayerController->FindComponentByClass<UA1ItemManagerComponent>();
 	if (LyraPlayerController == nullptr || ItemManager == nullptr)
@@ -61,8 +60,6 @@ bool UA1GameplayAbility_DropItem::CanActivateAbility(const FGameplayAbilitySpecH
 {
 	if (!Super::CanActivateAbility(Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags))
 		return false;
-	
 
-	
 	return true;
 }

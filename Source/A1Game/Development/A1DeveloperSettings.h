@@ -51,7 +51,7 @@ public:
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=A1)
 	bool bForceDisableDebugTrace = false;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=A1)
 	bool bForceDisableCooldown = true;
 
@@ -60,22 +60,22 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category="A1 Monster")
 	bool bAllowSpawnMonsters = true;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category="A1 Monster")
 	bool bAllowMonstersAttackPlayer = true;
-	
+
 	// The experience override to use for Play in Editor (if not set, the default for the world settings of the open map will be used)
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=Lyra, meta=(AllowedTypes="LyraExperienceDefinition"))
 	FPrimaryAssetId ExperienceOverride;
-	
+
 	// Do the full game flow when playing in the editor, or skip 'waiting for player' / etc... game phases?
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=Lyra)
 	bool bTestFullGameFlowInPIE = false;
 
 	/**
-	* Should force feedback effects be played, even if the last input device was not a gamepad?
-	* The default behavior in Lyra is to only play force feedback if the most recent input device was a gamepad.
-	*/
+	 * Should force feedback effects be played, even if the last input device was not a gamepad?
+	 * The default behavior in Lyra is to only play force feedback if the most recent input device was a gamepad.
+	 */
 	UPROPERTY(config, EditAnywhere, Category = Lyra, meta = (ConsoleVariable = "LyraPC.ShouldAlwaysPlayForceFeedback"))
 	bool bShouldAlwaysPlayForceFeedback = false;
 
@@ -86,7 +86,7 @@ public:
 	// List of cheats to auto-run during 'play in editor'
 	UPROPERTY(config, EditAnywhere, Category=Lyra)
 	TArray<FLyraCheatToRun> CheatsToRun;
-	
+
 	// Should messages broadcast through the gameplay message subsystem be logged?
 	UPROPERTY(config, EditAnywhere, Category=GameplayMessages, meta=(ConsoleVariable="GameplayMessageSubsystem.LogMessages"))
 	bool LogGameplayMessages = false;
@@ -96,7 +96,7 @@ public:
 	UPROPERTY(config, EditAnywhere, BlueprintReadOnly, Category=Maps, meta=(AllowedClasses="/Script/Engine.World"))
 	TArray<FSoftObjectPath> CommonEditorMaps;
 #endif
-	
+
 #if WITH_EDITOR
 public:
 	// Called by the editor engine to let us pop reminder notifications when cheats are active

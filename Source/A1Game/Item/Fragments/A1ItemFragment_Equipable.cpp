@@ -25,7 +25,6 @@ FRarityStatRangeSet::FRarityStatRangeSet()
 UA1ItemFragment_Equipable::UA1ItemFragment_Equipable(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    
 }
 
 void UA1ItemFragment_Equipable::AddStatTagStack(UA1ItemInstance* ItemInstance, const TArray<FRarityStatSet>& RarityStatSets) const
@@ -45,7 +44,7 @@ void UA1ItemFragment_Equipable::AddStatTagStack(UA1ItemInstance* ItemInstance, c
 {
 	if (ItemInstance == nullptr)
 		return;
-	
+
 	for (const FRarityStatRangeSet& RarityStatRangeSet : RarityStatRangeSets)
 	{
 		const FGameplayTag& StatTag = RarityStatRangeSet.StatTag;

@@ -3,7 +3,8 @@
 #include "Interaction/A1Interactable.h"
 #include "Interaction/A1InteractionQuery.h"
 
-UA1GameplayAbility_Interact_Info::UA1GameplayAbility_Interact_Info(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UA1GameplayAbility_Interact_Info::UA1GameplayAbility_Interact_Info(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 }
 

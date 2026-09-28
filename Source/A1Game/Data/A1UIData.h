@@ -54,7 +54,7 @@ class A1GAME_API UA1UIData : public UPrimaryDataAsset
 public:
 	static const UA1UIData& Get();
 
-public: 
+public:
 	UTexture2D* GetEntryRarityTexture(EItemRarity ItemRarity) const;
 	UTexture2D* GetHoverRarityTexture(EItemRarity ItemRarity) const;
 	FColor GetRarityColor(EItemRarity ItemRarity) const;
@@ -69,8 +69,8 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UA1ItemDragWidget> DragWidgetClass;
 
-	//UPROPERTY(EditDefaultsOnly)
-	//TSubclassOf<UA1ItemHoverWidget> ItemHoverWidgetClass;
+	// UPROPERTY(EditDefaultsOnly)
+	// TSubclassOf<UA1ItemHoverWidget> ItemHoverWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UA1EquipmentEntryWidget> EquipmentEntryWidgetClass;

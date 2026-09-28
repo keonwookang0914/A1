@@ -16,13 +16,13 @@ UA1GameplayAbility_Utility_FlashLight_Charge::UA1GameplayAbility_Utility_FlashLi
 	ActivationOwnedTags.AddTag(A1GameplayTags::Status_ActiveUtility);
 	ActivationRequiredTags.AddTag(A1GameplayTags::Status_MainHand_Left);
 	ActivationRequiredTags.AddTag(A1GameplayTags::Status_FlashLight_ChargingZone);
-	//ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Right);
+	// ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Right);
 }
 
 void UA1GameplayAbility_Utility_FlashLight_Charge::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	if (UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("ChargeFlashLight"), ChargeMontage, GetSnapshottedAttackRate(), NAME_None, false, 1.f, 0.f, false))
 	{
 		PlayMontageTask->OnCompleted.AddDynamic(this, &ThisClass::OnMontageFinished);

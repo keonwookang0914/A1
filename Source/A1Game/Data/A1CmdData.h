@@ -19,16 +19,16 @@ class UA1CmdData : public UPrimaryDataAsset
 
 public:
 	static const UA1CmdData& Get();
-	
+
 protected:
 #if WITH_EDITOR
 	virtual void PreSave(FObjectPreSaveContext ObjectSaveContext) override;
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
-	
+
 public:
 	const FCmdTextSet* GetTextSetByLabel(const FName& Label) const;
-	
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FName, FCmdTextSet> TextGroupNameToSet;

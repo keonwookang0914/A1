@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1SignalDetectionBase.h"
 
 #include "Components/ArrowComponent.h"
@@ -10,7 +9,7 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1SignalDetectionBase)
 
 AA1SignalDetectionBase::AA1SignalDetectionBase(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
 	SetRootComponent(ArrowComponent);
@@ -47,10 +46,14 @@ FA1InteractionInfo AA1SignalDetectionBase::GetPreInteractionInfo(const FA1Intera
 {
 	switch (SignalDetectionState)
 	{
-	case ESignalDetectionState::None: return StartDetectionInfo;
-	case ESignalDetectionState::Survey: return StopDetectionInfo;
-	case ESignalDetectionState::Find: return StopDetectionInfo;
-	default: return FA1InteractionInfo();
+	case ESignalDetectionState::None:
+		return StartDetectionInfo;
+	case ESignalDetectionState::Survey:
+		return StopDetectionInfo;
+	case ESignalDetectionState::Find:
+		return StopDetectionInfo;
+	default:
+		return FA1InteractionInfo();
 	}
 }
 

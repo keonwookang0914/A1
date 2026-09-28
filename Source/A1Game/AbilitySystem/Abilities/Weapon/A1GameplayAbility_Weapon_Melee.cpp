@@ -16,13 +16,12 @@
 UA1GameplayAbility_Weapon_Melee::UA1GameplayAbility_Weapon_Melee(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	
 }
 
 void UA1GameplayAbility_Weapon_Melee::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	ResetHitActors();
 }
 
@@ -45,13 +44,13 @@ void UA1GameplayAbility_Weapon_Melee::ParseTargetData(const FGameplayAbilityTarg
 				IA1TeamAgentInterface* TeamAgentInterface = Cast<IA1TeamAgentInterface>(TargetCharacter);
 				if (TeamAgentInterface && (TeamAgentInterface->GetTeamAttitudeTowards(*GetLyraCharacterFromActorInfo()) != ETeamAttitude::Hostile))
 					continue;
-				
+
 				bool bIsCharacterBlockingHit = TargetCharacter ? IsCharacterBlockingHit(TargetCharacter) : false;
-				
+
 				AA1EquipmentBase* HitWeaponActor = Cast<AA1EquipmentBase>(HitActor);
 				if (HitWeaponActor && (HitWeaponActor->bCanBlock == false || bIsCharacterBlockingHit == false))
 					continue;
-				
+
 				AActor* SelectedActor = TargetCharacter ? TargetCharacter : HitActor;
 				if (CachedHitActors.Contains(SelectedActor))
 					continue;
@@ -76,28 +75,28 @@ void UA1GameplayAbility_Weapon_Melee::ProcessHitResult(FHitResult HitResult, flo
 	ULyraAbilitySystemComponent* SourceASC = GetLyraAbilitySystemComponentFromActorInfo();
 	if (SourceASC == nullptr)
 		return;
-	
-	FScopedPredictionWindow	ScopedPrediction(SourceASC, GetCurrentActivationInfo().GetActivationPredictionKey());
-	
+
+	FScopedPredictionWindow ScopedPrediction(SourceASC, GetCurrentActivationInfo().GetActivationPredictionKey());
+
 	FGameplayCueParameters SourceCueParams;
 	SourceCueParams.Location = HitResult.ImpactPoint;
 	SourceCueParams.Normal = HitResult.ImpactNormal;
 	SourceCueParams.PhysicalMaterial = bBlockingHit ? nullptr : HitResult.PhysMaterial;
 	SourceASC->ExecuteGameplayCue(A1GameplayTags::GameplayCue_Weapon_Impact, SourceCueParams);
-	
+
 	if (BackwardMontage)
 	{
 		SourceASC->BlockAnimMontageForSeconds(BackwardMontage);
 	}
-	
+
 	if (HasAuthority(&CurrentActivationInfo))
 	{
 		if (BackwardMontage)
 		{
 			FOnMontageEnded MontageEnded = FOnMontageEnded::CreateWeakLambda(this, [this](UAnimMontage* AnimMontage, bool bInterrupted)
-			{
-				EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-			});
+				{
+					EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+				});
 			UAnimInstance* AnimInstance = SourceASC->AbilityActorInfo->GetAnimInstance();
 			AnimInstance->Montage_SetEndDelegate(MontageEnded, BackwardMontage);
 		}
@@ -111,7 +110,7 @@ void UA1GameplayAbility_Weapon_Melee::ProcessHitResult(FHitResult HitResult, flo
 				FGameplayEffectSpecHandle EffectSpecHandle = MakeOutgoingGameplayEffectSpec(DamageGE);
 				FGameplayEffectContextHandle EffectContextHandle = SourceASC->MakeEffectContext();
 				if (EffectSpecHandle.IsValid() && EffectContextHandle.IsValid())
-				{				
+				{
 					HitResult.bBlockingHit = bBlockingHit;
 					EffectContextHandle.AddHitResult(HitResult);
 					EffectContextHandle.AddInstigator(SourceASC->AbilityActorInfo->AvatarActor.Get(), WeaponActor);
@@ -125,7 +124,7 @@ void UA1GameplayAbility_Weapon_Melee::ProcessHitResult(FHitResult HitResult, flo
 			}
 		}
 	}
-	
+
 	DrawDebugHitPoint(HitResult);
 }
 
@@ -156,10 +155,10 @@ bool UA1GameplayAbility_Weapon_Melee::IsCharacterBlockingHit(ALyraCharacter* Tar
 	{
 		FVector TargetLocation = TargetCharacter->GetActorLocation();
 		FVector TargetDirection = TargetCharacter->GetActorForwardVector();
-								
+
 		FVector InstigatorLocation = GetAvatarActorFromActorInfo()->GetActorLocation();
 		FVector TargetToInstigator = InstigatorLocation - TargetLocation;
-								
+
 		float Degree = UKismetMathLibrary::DegAcos(TargetDirection.Dot(TargetToInstigator.GetSafeNormal()));
 		if (Degree <= BlockingAngle)
 			return true;

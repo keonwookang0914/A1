@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "GA/AT/A1AT_JumpAndWaitForLanding.h"
 #include "GameFramework/Character.h"
 
@@ -23,7 +22,7 @@ void UA1AT_JumpAndWaitForLanding::Activate()
 	Character->LandedDelegate.AddDynamic(this, &UA1AT_JumpAndWaitForLanding::OnLandedCallback);
 	Character->Jump();
 
-	//언제 끝날지 모르니
+	// 언제 끝날지 모르니
 	SetWaitingOnAvatar();
 }
 

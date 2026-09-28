@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_TryInteract.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_TryInteract : public ULyraGameplayAbility

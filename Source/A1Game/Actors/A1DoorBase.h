@@ -25,11 +25,12 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 public:
 	virtual FA1InteractionInfo GetPreInteractionInfo(const FA1InteractionQuery& InteractionQuery) const override;
 	virtual void GetMeshComponents(TArray<UMeshComponent*>& OutMeshComponents) const override;
 
-	//IA1SpaceshipComponent
+	// IA1SpaceshipComponent
 	virtual void RegisterWithSpaceship(AA1SpaceshipBase* Spaceship) override;
 	virtual ESpaceshipComponentType GetComponentType() const override { return ESpaceshipComponentType::Door; }
 
@@ -37,7 +38,6 @@ public:
 	void SetDoorState(EDoorState NewDoorState);
 
 protected:
-
 	void SetupTags();
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -45,13 +45,15 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	AA1SpaceshipBase* FindSpaceshipOwner() const;
+
 private:
 	UFUNCTION()
 	void OnRep_DoorState();
+
 public:
 	EDoorState GetDoorState() const { return DoorState; }
 
-	FORCEINLINE	AA1SpaceshipBase* GetOwningSpaceship() const { return OwningSpaceship.IsValid() ? OwningSpaceship.Get() : nullptr; }
+	FORCEINLINE AA1SpaceshipBase* GetOwningSpaceship() const { return OwningSpaceship.IsValid() ? OwningSpaceship.Get() : nullptr; }
 
 protected:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_DoorState)

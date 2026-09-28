@@ -6,7 +6,6 @@
 #include "Engine/DataAsset.h"
 #include "A1RaiderData.generated.h"
 
-
 class UBlackboardData;
 class UBehaviorTree;
 
@@ -47,7 +46,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TMap<ERaiderType, FA1RaiderBaseSet> RaiderDataMap;
 
-//public:
-//	UPROPERTY(EditDefaultsOnly)
-//	TArray<FA1DefaultItemEntry> DefaultItemEntries;
+	// public:
+	//	UPROPERTY(EditDefaultsOnly)
+	//	TArray<FA1DefaultItemEntry> DefaultItemEntries;
 };

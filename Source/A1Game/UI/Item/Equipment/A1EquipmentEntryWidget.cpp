@@ -17,7 +17,6 @@
 UA1EquipmentEntryWidget::UA1EquipmentEntryWidget(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-
 }
 
 void UA1EquipmentEntryWidget::Init(UA1ItemInstance* InItemInstance, int32 InItemCount, EEquipmentSlotType InEquipmentSlotType, UA1EquipmentManagerComponent* InEquipmentManager)

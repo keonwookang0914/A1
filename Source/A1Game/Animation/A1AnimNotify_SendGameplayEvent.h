@@ -8,7 +8,7 @@ UCLASS(meta=(DisplayName="Send Gameplay Event"))
 class UA1AnimNotify_SendGameplayEvent : public UAnimNotify
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotify_SendGameplayEvent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

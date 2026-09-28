@@ -27,7 +27,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TSubclassOf<UGameplayEffect>> UtilityEffectClasses;
-	
+
 	UPROPERTY(EditDefaultsOnly, meta=(ForceInlineRow))
 	TArray<FRarityStatSet> RarityStatSets;
 };

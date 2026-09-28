@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Repair.h"
 
 #include "A1GameplayTags.h"
@@ -19,12 +18,12 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GameplayAbility_Interact_Repair)
 
 UA1GameplayAbility_Interact_Repair::UA1GameplayAbility_Interact_Repair(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
-    AbilityTags.AddTag(A1GameplayTags::Ability_Interact_Repair);
-    ActivationOwnedTags.AddTag(A1GameplayTags::Status_Repair);
-    ActivationRequiredTags.AddTag(A1GameplayTags::Status_MainHand_Left);
-    ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Right);
+	AbilityTags.AddTag(A1GameplayTags::Ability_Interact_Repair);
+	ActivationOwnedTags.AddTag(A1GameplayTags::Status_Repair);
+	ActivationRequiredTags.AddTag(A1GameplayTags::Status_MainHand_Left);
+	ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Right);
 }
 
 void UA1GameplayAbility_Interact_Repair::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
@@ -33,74 +32,74 @@ void UA1GameplayAbility_Interact_Repair::ActivateAbility(const FGameplayAbilityS
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-    if (TriggerEventData == nullptr || bInitialized == false)
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return;
-    }
+	if (TriggerEventData == nullptr || bInitialized == false)
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return;
+	}
 
-    if (HasAuthority(&CurrentActivationInfo) == false)
-    {
-        EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-        return;
-    }
+	if (HasAuthority(&CurrentActivationInfo) == false)
+	{
+		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+		return;
+	}
 
-    AA1RepairBase* RepairActor = Cast<AA1RepairBase>(InteractableActor);
-    if (RepairActor == nullptr || RepairActor->CurrentState != RepairState::Break && RepairActor->CurrentState != RepairState::Foamed)
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return;
-    }
+	AA1RepairBase* RepairActor = Cast<AA1RepairBase>(InteractableActor);
+	if (RepairActor == nullptr || RepairActor->CurrentState != RepairState::Break && RepairActor->CurrentState != RepairState::Foamed)
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return;
+	}
 
-    if (!CheckHoldRefairKit())
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return;
-    }
+	if (!CheckHoldRefairKit())
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return;
+	}
 
-    DoRepair();
+	DoRepair();
 }
 
 bool UA1GameplayAbility_Interact_Repair::CheckHoldRefairKit()
 {
-    ALyraCharacter* Character = Cast<ALyraCharacter>(GetAvatarActorFromActorInfo());
-    UA1EquipManagerComponent* EquipManager = Character->FindComponentByClass<UA1EquipManagerComponent>();
-    if (Character == nullptr || EquipManager == nullptr)
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return false;
-    }
+	ALyraCharacter* Character = Cast<ALyraCharacter>(GetAvatarActorFromActorInfo());
+	UA1EquipManagerComponent* EquipManager = Character->FindComponentByClass<UA1EquipManagerComponent>();
+	if (Character == nullptr || EquipManager == nullptr)
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return false;
+	}
 
-    AA1EquipmentBase* RefairKit = EquipManager->GetEquippedActor(EEquipmentSlotType::LeftHand);
-    const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(RefairKit->GetTemplateID());
-    const UA1ItemFragment_Equipable_Utility* ItemFragment = ItemTemplate.FindFragmentByClass<UA1ItemFragment_Equipable_Utility>();
-    if (ItemFragment == nullptr)
-        return false;
+	AA1EquipmentBase* RefairKit = EquipManager->GetEquippedActor(EEquipmentSlotType::LeftHand);
+	const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(RefairKit->GetTemplateID());
+	const UA1ItemFragment_Equipable_Utility* ItemFragment = ItemTemplate.FindFragmentByClass<UA1ItemFragment_Equipable_Utility>();
+	if (ItemFragment == nullptr)
+		return false;
 
-    if (ItemFragment->UtilityType != EUtilityType::Repairkit)
-        return false;
+	if (ItemFragment->UtilityType != EUtilityType::Repairkit)
+		return false;
 
-    return true;
+	return true;
 }
 
 void UA1GameplayAbility_Interact_Repair::DoRepair()
 {
-    // 수리 kit 소모
-    ALyraCharacter* Character = Cast<ALyraCharacter>(GetAvatarActorFromActorInfo());
-    UA1EquipmentManagerComponent* EquipmentManager = Character->FindComponentByClass<UA1EquipmentManagerComponent>();
-    if (Character == nullptr || EquipmentManager == nullptr)
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return;
-    }
-    EquipmentManager->RemoveEquipment_Unsafe(EEquipmentSlotType::LeftHand, 1);
-    UA1ScoreBlueprintFunctionLibrary::AddConsumedItems();
+	// 수리 kit 소모
+	ALyraCharacter* Character = Cast<ALyraCharacter>(GetAvatarActorFromActorInfo());
+	UA1EquipmentManagerComponent* EquipmentManager = Character->FindComponentByClass<UA1EquipmentManagerComponent>();
+	if (Character == nullptr || EquipmentManager == nullptr)
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return;
+	}
+	EquipmentManager->RemoveEquipment_Unsafe(EEquipmentSlotType::LeftHand, 1);
+	UA1ScoreBlueprintFunctionLibrary::AddConsumedItems();
 
-    // 수리 객체 제거
-    AA1RepairBase* RepairActor = Cast<AA1RepairBase>(InteractableActor);
-    RepairActor->SetCurrentState(RepairState::Complete);
-    UA1ScoreManager::Get()->SetTotalRepair(UA1ScoreManager::Get()->GetTotalRepair() + 1);
-    UA1ScoreManager::Get()->SetCompleteRepair(UA1ScoreManager::Get()->GetCompleteRepair() + 1);
+	// 수리 객체 제거
+	AA1RepairBase* RepairActor = Cast<AA1RepairBase>(InteractableActor);
+	RepairActor->SetCurrentState(RepairState::Complete);
+	UA1ScoreManager::Get()->SetTotalRepair(UA1ScoreManager::Get()->GetTotalRepair() + 1);
+	UA1ScoreManager::Get()->SetCompleteRepair(UA1ScoreManager::Get()->GetCompleteRepair() + 1);
 
-    EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 }

@@ -4,7 +4,8 @@
 #include "Character/LyraCharacter.h"
 #include "Net/UnrealNetwork.h"
 
-AA1WorldInteractable::AA1WorldInteractable(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+AA1WorldInteractable::AA1WorldInteractable(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	bReplicates = true;
 }
@@ -54,7 +55,7 @@ void AA1WorldInteractable::OnInteractionSuccess(AActor* Interactor)
 
 	if (HasAuthority())
 	{
-		//Only Server Code
+		// Only Server Code
 		if (bCanUsed)
 		{
 			bIsUsed = true;

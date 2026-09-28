@@ -18,7 +18,8 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GameplayAbility_Interact_Active)
 
-UA1GameplayAbility_Interact_Active::UA1GameplayAbility_Interact_Active(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UA1GameplayAbility_Interact_Active::UA1GameplayAbility_Interact_Active(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ActivationPolicy = ELyraAbilityActivationPolicy::Manual;
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
@@ -118,11 +119,11 @@ void UA1GameplayAbility_Interact_Active::ActivateAbility(const FGameplayAbilityS
 		InvalidInteractionTask->ReadyForActivation();
 	}
 
-	//if (UAbilityTask_WaitInputRelease* InputReleaseTask = UAbilityTask_WaitInputRelease::WaitInputRelease(this, false))
+	// if (UAbilityTask_WaitInputRelease* InputReleaseTask = UAbilityTask_WaitInputRelease::WaitInputRelease(this, false))
 	//{
 	//	InputReleaseTask->OnRelease.AddDynamic(this, &ThisClass::OnInputReleased);
 	//	InputReleaseTask->ReadyForActivation();
-	//}
+	// }
 
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ThisClass::OnDurationEnded, InteractionInfo.Duration, false);
@@ -228,8 +229,7 @@ bool UA1GameplayAbility_Interact_Active::TriggerInteraction()
 				AbilitySystem->AbilityActorInfo.Get(),
 				A1GameplayTags::Ability_Interact,
 				&Payload,
-				*AbilitySystem
-			);
+				*AbilitySystem);
 		}
 	}
 

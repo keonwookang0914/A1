@@ -11,7 +11,7 @@ UCLASS()
 class UA1GameplayAbility_Weapon_Gun_ADS : public UA1GameplayAbility_Equipment
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1GameplayAbility_Weapon_Gun_ADS(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -25,7 +25,7 @@ protected:
 
 	UFUNCTION()
 	void OnADSStartBegin(FGameplayEventData Payload);
-	
+
 	UFUNCTION()
 	void OnInputRelease(float TimeHeld);
 
@@ -35,21 +35,21 @@ protected:
 private:
 	void StartADS();
 	void ResetADS();
-	
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="A1|Gun ADS")
 	TObjectPtr<UAnimMontage> ADSStartMontage;
 
 	UPROPERTY(EditDefaultsOnly, Category="A1|Gun ADS")
 	TObjectPtr<UAnimMontage> ADSEndMontage;
-	
+
 private:
 	UPROPERTY()
 	TObjectPtr<UAbilityTask_WaitGameplayEvent> ADSEventTask;
 
 	UPROPERTY()
 	TObjectPtr<UAbilityTask_WaitGameplayEvent> ADSStartBeginEventTask;
-	
+
 	UPROPERTY()
 	TObjectPtr<UAbilityTask_WaitInputRelease> InputReleaseTask;
 };

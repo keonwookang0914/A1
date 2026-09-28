@@ -17,9 +17,9 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_DamageSelfDestruct, "Gameplay.Damage.SelfDes
 UE_DEFINE_GAMEPLAY_TAG(TAG_Gameplay_FellOutOfWorld, "Gameplay.Damage.FellOutOfWorld");
 UE_DEFINE_GAMEPLAY_TAG(TAG_Lyra_Damage_Message, "Lyra.Damage.Message");
 
-UA1VitalSet::UA1VitalSet() :
-	 MaxHealth(100.f),
-	MaxOxygen(100.f)
+UA1VitalSet::UA1VitalSet()
+	: MaxHealth(100.f)
+	, MaxOxygen(100.f)
 {
 	InitHealth(GetMaxHealth());
 	InitOxygen(GetMaxOxygen());
@@ -45,7 +45,7 @@ void UA1VitalSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 
 	const float CurrentHealth = GetHealth();
 	const float EstimatedMagnitude = CurrentHealth - OldValue.GetCurrentValue();
-	
+
 	OnHealthChanged.Broadcast(nullptr, nullptr, nullptr, EstimatedMagnitude, OldValue.GetCurrentValue(), CurrentHealth);
 
 	if (bOutOfHealth == false && CurrentHealth <= 0.0f)
@@ -59,7 +59,7 @@ void UA1VitalSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 void UA1VitalSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(ThisClass, MaxHealth, OldValue);
-	
+
 	OnMaxHealthChanged.Broadcast(nullptr, nullptr, nullptr, GetMaxHealth() - OldValue.GetCurrentValue(), OldValue.GetCurrentValue(), GetMaxHealth());
 }
 
@@ -77,7 +77,7 @@ bool UA1VitalSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data)
 {
 	if (Super::PreGameplayEffectExecute(Data) == false)
 		return false;
-	
+
 	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
 	{
 		if (Data.EvaluatedData.Magnitude > 0.0f)
@@ -99,10 +99,10 @@ bool UA1VitalSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data)
 #endif // #if !UE_BUILD_SHIPPING
 		}
 	}
-	
+
 	HealthBeforeAttributeChange = GetHealth();
 	MaxHealthBeforeAttributeChange = GetMaxHealth();
-	
+
 	return true;
 }
 
@@ -124,7 +124,7 @@ void UA1VitalSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData
 	const FGameplayEffectContextHandle& EffectContext = Data.EffectSpec.GetEffectContext();
 	AActor* Instigator = EffectContext.GetOriginalInstigator();
 	AActor* Causer = EffectContext.GetEffectCauser();
-	
+
 	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
 	{
 		if (Data.EvaluatedData.Magnitude > 0.0f)
@@ -140,7 +140,7 @@ void UA1VitalSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData
 			UGameplayMessageSubsystem& MessageSystem = UGameplayMessageSubsystem::Get(GetWorld());
 			MessageSystem.BroadcastMessage(Message.Verb, Message);
 		}
-		
+
 		SetHealth(FMath::Clamp(GetHealth() - GetIncomingDamage(), MinimumHealth, GetMaxHealth()));
 		SetIncomingDamage(0.0f);
 	}
@@ -166,7 +166,7 @@ void UA1VitalSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData
 	{
 		OnMaxHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, MaxHealthBeforeAttributeChange, GetMaxHealth());
 	}
-	
+
 	if (GetHealth() != HealthBeforeAttributeChange)
 	{
 		OnHealthChanged.Broadcast(Instigator, Causer, &Data.EffectSpec, Data.EvaluatedData.Magnitude, HealthBeforeAttributeChange, GetHealth());

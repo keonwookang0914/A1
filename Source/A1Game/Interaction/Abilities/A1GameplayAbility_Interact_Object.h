@@ -3,7 +3,6 @@
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Info.h"
 #include "A1GameplayAbility_Interact_Object.generated.h"
 
-
 UCLASS()
 class UA1GameplayAbility_Interact_Object : public UA1GameplayAbility_Interact_Info
 {

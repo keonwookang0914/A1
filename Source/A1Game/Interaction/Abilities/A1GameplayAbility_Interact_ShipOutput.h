@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Interact_ShipOutput.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UA1GameplayAbility_Interact_ShipOutput : public UA1GameplayAbility_Interact_Object

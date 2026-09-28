@@ -53,13 +53,13 @@ protected:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "A1|Interaction")
-	float InteractionTraceRange = 1000.f; //Temp eric1306 after FP, must fix distance
+	float InteractionTraceRange = 1000.f; // Temp eric1306 after FP, must fix distance
 
 	UPROPERTY(EditDefaultsOnly, Category = "A1|Interaction")
 	float InteractionTraceRate = 0.1f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "A1|Interaction")
-	float InteractionScanRange = 1000.f;//Temp eric1306 after FP, must fix distance
+	float InteractionScanRange = 1000.f; // Temp eric1306 after FP, must fix distance
 
 	UPROPERTY(EditDefaultsOnly, Category = "A1|Interaction")
 	float InteractionScanRate = 0.1f;

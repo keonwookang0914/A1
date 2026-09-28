@@ -60,8 +60,7 @@ void UA1AbilityTask_GrantNearbyInteraction::QueryInteractables()
 		FRotator CameraRotation;
 		PlayerController->GetPlayerViewPoint(CameraStart, CameraRotation);
 		const FVector CameraDirection = CameraRotation.Vector();
-		FVector CameraEnd = CameraStart + (CameraDirection * 1000.f); //Temp eric1306 hardcoding, after FP, must fix distance
-		
+		FVector CameraEnd = CameraStart + (CameraDirection * 1000.f); // Temp eric1306 hardcoding, after FP, must fix distance
 
 		FA1InteractionQuery InteractionQuery;
 		InteractionQuery.RequestingAvatar = AvatarActor;
@@ -75,7 +74,7 @@ void UA1AbilityTask_GrantNearbyInteraction::QueryInteractables()
 			for (const FHitResult& HitResult : HitResults)
 			{
 				TScriptInterface<IA1Interactable> InteractableActor(HitResult.GetActor());
-				
+
 				if (InteractableActor)
 				{
 					if (InteractableActor->CanInteraction(InteractionQuery))
@@ -84,7 +83,7 @@ void UA1AbilityTask_GrantNearbyInteraction::QueryInteractables()
 					}
 				}
 
-				TScriptInterface<IA1Interactable> InteractableComponent(HitResult.GetComponent());		
+				TScriptInterface<IA1Interactable> InteractableComponent(HitResult.GetComponent());
 				if (InteractableComponent)
 				{
 					if (InteractableComponent->CanInteraction(InteractionQuery))

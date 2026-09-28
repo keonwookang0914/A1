@@ -2,7 +2,6 @@
 
 #include "A1NoticeData.generated.h"
 
-
 USTRUCT()
 struct FNoticeTextSet
 {
@@ -20,16 +19,16 @@ class UA1NoticeData : public UPrimaryDataAsset
 
 public:
 	static const UA1NoticeData& Get();
-	
+
 protected:
 #if WITH_EDITOR
 	virtual void PreSave(FObjectPreSaveContext ObjectSaveContext) override;
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
-	
+
 public:
 	const FNoticeTextSet& GetTextSetByLabel(const FName& Label) const;
-	
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FName, FNoticeTextSet> TextGroupNameToSet;

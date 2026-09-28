@@ -8,8 +8,8 @@ UCLASS(Abstract, Blueprintable)
 class A1GAME_API AA1WorldPickupable : public AActor, public IA1Interactable, public IA1Pickupable
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AA1WorldPickupable(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:

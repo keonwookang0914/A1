@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "AbilitySystem/Abilities/Utility/A1GameplayAbility_Utility_Food.h"
 
 #include "A1GameplayTags.h"
@@ -27,7 +26,7 @@ UA1GameplayAbility_Utility_Food::UA1GameplayAbility_Utility_Food(const FObjectIn
 void UA1GameplayAbility_Utility_Food::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	if (HasAuthority(&CurrentActivationInfo) == false)
 		return;
 
@@ -40,7 +39,7 @@ void UA1GameplayAbility_Utility_Food::ActivateAbility(const FGameplayAbilitySpec
 
 void UA1GameplayAbility_Utility_Food::OnMontageFinished()
 {
-	
+
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(CurrentActorInfo->AvatarActor.Get());
 	UA1EquipmentManagerComponent* EquipmentManager = LyraCharacter->GetComponentByClass<UA1EquipmentManagerComponent>();
 	if (LyraCharacter == nullptr || EquipmentManager == nullptr)
@@ -68,7 +67,6 @@ void UA1GameplayAbility_Utility_Food::OnMontageFinished()
 	EquipmentManager->RemoveEquipment_Unsafe(EquipedItem->GetEquipmentSlotType(), 1);
 
 	UA1ScoreBlueprintFunctionLibrary::AddConsumedItems();
-	
+
 	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-	
 }

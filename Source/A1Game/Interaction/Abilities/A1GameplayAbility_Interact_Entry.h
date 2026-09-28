@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Interact_Entry.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UA1GameplayAbility_Interact_Entry : public UA1GameplayAbility_Interact_Object
@@ -14,8 +14,7 @@ class UA1GameplayAbility_Interact_Entry : public UA1GameplayAbility_Interact_Obj
 	GENERATED_BODY()
 public:
 	UA1GameplayAbility_Interact_Entry(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
 protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
-
-
 };

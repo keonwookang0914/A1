@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Interact_Repair.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UA1GameplayAbility_Interact_Repair : public UA1GameplayAbility_Interact_Object

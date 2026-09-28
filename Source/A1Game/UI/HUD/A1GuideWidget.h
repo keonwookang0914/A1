@@ -15,7 +15,7 @@ UCLASS()
 class A1GAME_API UA1GuideWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1GuideWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

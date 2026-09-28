@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Entry.h"
 
 #include "Actors/A1EquipmentBase.h"
@@ -104,7 +103,7 @@ void UA1GameplayAbility_Interact_Entry::ActivateAbility(const FGameplayAbilitySp
 	EquipManager->ChangeEquipState(SlotToCheck, false);
 
 	EquipManager->CanInteract();
-	
+
 	EntryActor->SetItemTransform(ItemTemplateID, ItemRarity, SlotToCheck);
 
 	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);

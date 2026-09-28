@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "AbilitySystem/Abilities/Utility/A1GameplayAbility_Utility_SprayFoam.h"
 
 #include "A1GameplayTags.h"
@@ -51,7 +50,7 @@ void UA1GameplayAbility_Utility_SprayFoam::ActivateAbility(const FGameplayAbilit
 			NAME_None,
 			FVector::ZeroVector,
 			EAttachLocation::KeepRelativeOffset,
-			true  // Looping
+			true // Looping
 		);
 
 		if (LoopingAudioComponent)
@@ -104,19 +103,17 @@ void UA1GameplayAbility_Utility_SprayFoam::TrySprayFoam()
 	FVector StartLocation = CameraLocation;
 	FVector EndLocation = StartLocation + (CameraRotation.Vector() * MaxDistance);
 
-
 	bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), StartLocation, EndLocation, UEngineTypes::ConvertToTraceType(A1_TraceChannel_AimAssist), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true);
 
 	TSubclassOf<AActor> FoamClass = ULyraAssetManager::Get().GetSubclassByName<AActor>("FoamBase");
 
-
-	if(bHit)
+	if (bHit)
 	{
 		float rate = HitResult.GetActor()->GetActorScale3D().X;
 		// 맞은 대상이 폼 액터이고 특정 크기 이하인 경우
-		if ( FoamClass == HitResult.GetActor()->GetClass() && rate <= 0.5)
+		if (FoamClass == HitResult.GetActor()->GetClass() && rate <= 0.5)
 		{
-			HitResult.GetActor()->SetActorScale3D(HitResult.GetActor()->GetActorScale3D() * 1.2f);	
+			HitResult.GetActor()->SetActorScale3D(HitResult.GetActor()->GetActorScale3D() * 1.2f);
 		}
 		else
 		{
@@ -126,9 +123,8 @@ void UA1GameplayAbility_Utility_SprayFoam::TrySprayFoam()
 
 			FActorSpawnParameters SpawnParameters;
 			SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-		
-			AActor* SpawnedFoam = GetWorld()->SpawnActor<AActor>(FoamClass, SpawnLocation, SpawnRotation, SpawnParameters);
 
+			AActor* SpawnedFoam = GetWorld()->SpawnActor<AActor>(FoamClass, SpawnLocation, SpawnRotation, SpawnParameters);
 
 			// skeletal mesh 대상인 경우
 			USkeletalMeshComponent* MeshComp = HitResult.GetActor()->FindComponentByClass<USkeletalMeshComponent>();
@@ -152,11 +148,11 @@ void UA1GameplayAbility_Utility_SprayFoam::TrySprayFoam()
 			}
 
 			// Static Mesh인 경우
-			else               
+			else
 			{
 				if (HitResult.GetComponent() != nullptr)
 				{
-					if(SpawnedFoam)
+					if (SpawnedFoam)
 					{
 						SpawnedFoam->AttachToComponent(HitResult.GetComponent(), FAttachmentTransformRules::KeepWorldTransform);
 					}

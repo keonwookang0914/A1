@@ -28,7 +28,6 @@ void AA1ArmorBase::InitializeActor(TSoftObjectPtr<USkeletalMesh> InDefaultArmorM
 	SetArmorMesh(DefaultArmorMesh);
 }
 
-
 void AA1ArmorBase::SetArmorMesh(TSoftObjectPtr<USkeletalMesh> InArmorMesh)
 {
 	USkeletalMesh* LoadedArmorMesh = nullptr;

@@ -21,10 +21,10 @@ USTRUCT(BlueprintType)
 struct FA1EquipEntry : public FFastArraySerializerItem
 {
 	GENERATED_BODY()
-	
+
 private:
 	void Init(UA1ItemInstance* InItemInstance);
-	
+
 	void Equip();
 	void Unequip();
 
@@ -33,11 +33,11 @@ public:
 
 	void SetEquipmentActor(AA1EquipmentBase* InEquipmentActor) { SpawnedEquipmentActor = InEquipmentActor; }
 	AA1EquipmentBase* GetEquipmentActor() const { return SpawnedEquipmentActor; }
-	
+
 private:
 	friend struct FA1EquipList;
 	friend class UA1EquipManagerComponent;
-	
+
 	UPROPERTY()
 	TObjectPtr<UA1ItemInstance> ItemInstance;
 
@@ -70,8 +70,14 @@ struct FA1EquipList : public FFastArraySerializer
 	GENERATED_BODY()
 
 public:
-	FA1EquipList() : EquipManager(nullptr) { }
-	FA1EquipList(UA1EquipManagerComponent* InOwnerComponent) : EquipManager(InOwnerComponent) { }
+	FA1EquipList()
+		: EquipManager(nullptr)
+	{
+	}
+	FA1EquipList(UA1EquipManagerComponent* InOwnerComponent)
+		: EquipManager(InOwnerComponent)
+	{
+	}
 
 public:
 	bool NetDeltaSerialize(FNetDeltaSerializeInfo& DeltaParams);
@@ -81,21 +87,21 @@ public:
 private:
 	void Equip(EEquipmentSlotType EquipmentSlotType, UA1ItemInstance* ItemInstance);
 	void Unequip(EEquipmentSlotType EquipmentSlotType);
-	
+
 public:
 	TArray<FA1EquipEntry>& GetAllEntries() { return Entries; }
-	
+
 private:
 	friend class UA1EquipManagerComponent;
 
 	UPROPERTY()
 	TArray<FA1EquipEntry> Entries;
-	
+
 	UPROPERTY(NotReplicated)
 	TObjectPtr<UA1EquipManagerComponent> EquipManager;
 };
 
-template<>
+template <>
 struct TStructOpsTypeTraits<FA1EquipList> : public TStructOpsTypeTraitsBase2<FA1EquipList>
 {
 	enum
@@ -108,22 +114,22 @@ UCLASS(BlueprintType)
 class UA1EquipManagerComponent : public UPawnComponent
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1EquipManagerComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
 	virtual void InitializeComponent() override;
 	virtual void UninitializeComponent() override;
-	
+
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual bool ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags) override;
 	virtual void ReadyForReplication() override;
-	
+
 public:
 	void Equip(EEquipmentSlotType EquipmentSlotType, UA1ItemInstance* ItemInstance);
 	void Unequip(EEquipmentSlotType EquipmentSlotType);
-	
+
 public:
 	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly)
 	void ChangeEquipState(EEquipmentSlotType EquipSlotType, bool bWear);
@@ -150,7 +156,7 @@ private:
 public:
 	ALyraCharacter* GetCharacter() const;
 	ALyraPlayerController* GetPlayerController() const;
-	
+
 	TArray<FA1EquipEntry>& GetAllEntries();
 	UAbilitySystemComponent* GetAbilitySystemComponent() const;
 	UA1EquipmentManagerComponent* GetEquipmentManager() const;
@@ -159,22 +165,22 @@ public:
 	static EEquipmentSlotType ConvertToEquipmentSlotType(EMainHandState EquipState);
 	static EEquipState ConvertToEquipState(EEquipmentSlotType ItemSlotType);
 	static EEquipState ConvertToAnotherHand(EEquipmentSlotType EquipmentSlotType);
-	
+
 	UFUNCTION(BlueprintCallable)
 	void ChangeShouldHiddenEquipments(bool bNewShouldHiddenEquipments);
-	
+
 	bool ShouldHiddenEquipments() const { return bShouldHiddenEquipments; }
 	EEquipState GetCurrentEquipState() const { return CurrentEquipState; }
 	EMainHandState GetCurrentMainHand() const { return CurrentMainHand; }
 	FORCEINLINE EEquipmentSlotType GetItemHandType() const { return GetCurrentEquipState() == EEquipState::Both ? EEquipmentSlotType::TwoHand : (GetCurrentEquipState() == EEquipState::Left ? EEquipmentSlotType::LeftHand : EEquipmentSlotType::RightHand); }
-	
+
 	AA1EquipmentBase* GetEquippedActor(EEquipmentSlotType WeaponHandType) const;
 	UA1ItemInstance* GetEquippedItemInstance(EEquipmentSlotType EquipmentSlotType) const;
 
 public:
 	FOnEquipStateChanged OnEquipStateChanged;
 	FOnMainHandChanged OnMainHandChanged;
-	
+
 private:
 	UPROPERTY(Replicated)
 	FA1EquipList EquipList;

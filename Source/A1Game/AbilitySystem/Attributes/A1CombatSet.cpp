@@ -8,7 +8,6 @@
 
 UA1CombatSet::UA1CombatSet()
 {
-	
 }
 
 void UA1CombatSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
@@ -40,7 +39,7 @@ void UA1CombatSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLife
 	DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, BaseDamage, COND_OwnerOnly, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, BaseHealth, COND_OwnerOnly, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, BaseOxygen, COND_OwnerOnly, REPNOTIFY_Always);
-	
+
 	DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, MoveSpeed, COND_OwnerOnly, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, MoveSpeedPercent, COND_OwnerOnly, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(ThisClass, AttackSpeedPercent, COND_OwnerOnly, REPNOTIFY_Always);

@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Interact_Flash_Charge.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UA1GameplayAbility_Interact_Flash_Charge : public UA1GameplayAbility_Interact_Object

@@ -7,7 +7,7 @@
 #include "A1GameplayAbility_Utility_Food.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_Utility_Food : public UA1GameplayAbility_Equipment

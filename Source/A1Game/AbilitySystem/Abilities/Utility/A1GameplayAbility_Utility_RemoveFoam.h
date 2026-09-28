@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Utility_RemoveFoam.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_Utility_RemoveFoam : public UA1GameplayAbility_Equipment
@@ -15,7 +15,7 @@ class A1GAME_API UA1GameplayAbility_Utility_RemoveFoam : public UA1GameplayAbili
 
 public:
 	UA1GameplayAbility_Utility_RemoveFoam(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-	
+
 protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 

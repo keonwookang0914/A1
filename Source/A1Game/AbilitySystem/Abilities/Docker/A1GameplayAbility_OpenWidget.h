@@ -6,13 +6,13 @@
 #include "A1GameplayAbility_OpenWidget.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_OpenWidget : public ULyraGameplayAbility
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1GameplayAbility_OpenWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

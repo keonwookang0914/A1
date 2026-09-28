@@ -13,7 +13,6 @@
 UA1AnimNotifyState_PlayWeaponSound::UA1AnimNotifyState_PlayWeaponSound(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    
 }
 
 void UA1AnimNotifyState_PlayWeaponSound::NotifyBegin(USkeletalMeshComponent* MeshComponent, UAnimSequenceBase* Animation, float TotalDuration, const FAnimNotifyEventReference& EventReference)
@@ -26,11 +25,11 @@ void UA1AnimNotifyState_PlayWeaponSound::NotifyBegin(USkeletalMeshComponent* Mes
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(MeshComponent->GetOwner());
 	if (LyraCharacter == nullptr)
 		return;
-	
+
 	UA1EquipManagerComponent* EquipManager = LyraCharacter->FindComponentByClass<UA1EquipManagerComponent>();
 	if (EquipManager == nullptr)
 		return;
-	
+
 	UA1ItemInstance* ItemInstance = EquipManager->GetEquippedItemInstance(WeaponHandType);
 	if (ItemInstance == nullptr)
 		return;
@@ -38,17 +37,21 @@ void UA1AnimNotifyState_PlayWeaponSound::NotifyBegin(USkeletalMeshComponent* Mes
 	AA1EquipmentBase* WeaponActor = EquipManager->GetEquippedActor(WeaponHandType);
 	if (WeaponActor == nullptr)
 		return;
-	
+
 	const UA1ItemFragment_Equipable_Weapon* WeaponFragment = ItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Weapon>();
 	if (WeaponFragment == nullptr)
 		return;
 
 	USoundBase* SelectedSound = nullptr;
-	
+
 	switch (WeaponSoundType)
 	{
-	case EWeaponSoundType::Swing:	SelectedSound = WeaponFragment->AttackSwingSound;	break;
-	case EWeaponSoundType::Custom:	SelectedSound = CustomSound;						break;
+	case EWeaponSoundType::Swing:
+		SelectedSound = WeaponFragment->AttackSwingSound;
+		break;
+	case EWeaponSoundType::Custom:
+		SelectedSound = CustomSound;
+		break;
 	}
 
 	if (SelectedSound)
@@ -63,6 +66,6 @@ void UA1AnimNotifyState_PlayWeaponSound::NotifyEnd(USkeletalMeshComponent* MeshC
 	{
 		AudioComponent->DestroyComponent();
 	}
-	
+
 	Super::NotifyEnd(MeshComponent, Animation, EventReference);
 }

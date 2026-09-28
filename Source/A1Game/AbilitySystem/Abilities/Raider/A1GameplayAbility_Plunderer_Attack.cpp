@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "A1GameplayAbility_Plunderer_Attack.h"
 
 #include "A1GameplayTags.h"
@@ -19,7 +18,6 @@
 #include "System/LyraAssetManager.h"
 #include "System/LyraGameData.h"
 
-
 UA1GameplayAbility_Plunderer_Attack::UA1GameplayAbility_Plunderer_Attack(const FObjectInitializer& ObjectInitializer)
 {
 	AbilityTags.AddTag(A1GameplayTags::Ability_Attack);
@@ -28,7 +26,7 @@ UA1GameplayAbility_Plunderer_Attack::UA1GameplayAbility_Plunderer_Attack(const F
 
 void UA1GameplayAbility_Plunderer_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-    Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	SourceASC = Cast<AA1Plunderer>(ActorInfo->AvatarActor.Get())->GetAbilitySystemComponent();
 	if (SourceASC == nullptr)
@@ -55,15 +53,15 @@ void UA1GameplayAbility_Plunderer_Attack::OnMontageFinished()
 			AA1StorageBase* Storage = Cast<AA1StorageBase>(BlackBoard->GetValueAsObject(AA1RaiderController::AggroTargetKey));
 			BlackBoard->SetValueAsBool(AA1RaiderController::CanAttackKey, false);
 
-			if (Storage->RemoveItem(ControllingPawn))					// 털 아이템이 없는 경우
+			if (Storage->RemoveItem(ControllingPawn)) // 털 아이템이 없는 경우
 			{
 				BlackBoard->SetValueAsObject(AA1RaiderController::AggroTargetKey, nullptr);
 			}
 		}
 	}
 
-    if (HasAuthority(&CurrentActivationInfo))
-    {
-        EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-    }
+	if (HasAuthority(&CurrentActivationInfo))
+	{
+		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+	}
 }

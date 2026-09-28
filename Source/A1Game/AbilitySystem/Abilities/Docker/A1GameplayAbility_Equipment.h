@@ -20,7 +20,7 @@ public:
 public:
 	UPROPERTY(EditAnywhere, Category="A1|Equipment", meta=(EditCondition="EquipmentType!=EEquipmentType::Armor", EditConditionHides))
 	EEquipmentSlotType ItemSlotType = EEquipmentSlotType::Count;
-	
+
 	UPROPERTY(EditAnywhere, Category="A1|Equipment", meta=(EditCondition="EquipmentType==EEquipmentType::Weapon", EditConditionHides))
 	EWeaponType RequiredWeaponType = EWeaponType::Count;
 
@@ -37,7 +37,7 @@ UCLASS(Blueprintable)
 class UA1GameplayAbility_Equipment : public ULyraGameplayAbility
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1GameplayAbility_Equipment(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -48,14 +48,14 @@ protected:
 public:
 	AA1EquipmentBase* GetFirstEquipmentActor() const;
 	UA1ItemInstance* GetEquipmentItemInstance(const AA1EquipmentBase* InEquipmentActor) const;
-	
+
 	int32 GetEquipmentStatValue(FGameplayTag InStatTag, const AA1EquipmentBase* InEquipmentActor) const;
 	float GetSnapshottedAttackRate() const { return SnapshottedAttackRate; }
-	
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="A1|Equipment")
 	TArray<FA1EquipmentInfo> EquipmentInfos;
-	
+
 	UPROPERTY(EditDefaultsOnly, Category="A1|Equipment")
 	float DefaultAttackRate = 1.f;
 

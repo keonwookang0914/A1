@@ -17,7 +17,7 @@ UCLASS(BlueprintType, Abstract)
 class AA1EquipmentBase : public AActor, public IAbilitySystemInterface, public IA1HighlightInterface
 {
 	GENERATED_BODY()
-	
+
 public:
 	AA1EquipmentBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -48,7 +48,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	UAnimMontage* GetEquipMontage();
-	
+
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	UAnimMontage* GetHitMontage(AActor* InstigatorActor, const FVector& HitLocation, bool IsBlocked);
 
@@ -65,7 +65,7 @@ protected:
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UArrowComponent> ArrowComponent;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USkeletalMeshComponent> MeshComponent;
 
@@ -73,24 +73,24 @@ public:
 	TObjectPtr<UBoxComponent> TraceDebugCollision;
 
 	FOnItemPickupChanged OnItemPickupChanged;
-	
+
 protected:
 	UPROPERTY(EditAnyWhere, Replicated)
 	int32 TemplateID;
-	
+
 	UPROPERTY(ReplicatedUsing=OnRep_EquipmentSlotType)
 	EEquipmentSlotType EquipmentSlotType = EEquipmentSlotType::Count;
 
 	UPROPERTY(EditAnyWhere)
 	EItemRarity ItemRarity = EItemRarity::Count;
-	
+
 public:
 	UPROPERTY(ReplicatedUsing=OnRep_CanBlock)
 	bool bCanBlock = false;
 
 public:
 	bool bOnlyUseForLocal = false;
-	
+
 protected:
 	FLyraAbilitySet_GrantedHandles SkillAbilitySetHandles;
 };

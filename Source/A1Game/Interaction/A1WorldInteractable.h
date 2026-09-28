@@ -7,12 +7,13 @@ UCLASS(Abstract, BlueprintType, Blueprintable)
 class A1GAME_API AA1WorldInteractable : public AActor, public IA1Interactable
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AA1WorldInteractable(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+
 public:
 	virtual bool CanInteraction(const FA1InteractionQuery& InteractionQuery) const override;
 
@@ -44,5 +45,4 @@ protected:
 
 	UPROPERTY()
 	TSet<TWeakObjectPtr<AActor>> CachedInteractors;
-
 };

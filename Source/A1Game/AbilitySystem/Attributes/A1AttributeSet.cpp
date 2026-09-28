@@ -6,7 +6,6 @@
 
 UA1AttributeSet::UA1AttributeSet()
 {
-	
 }
 
 UWorld* UA1AttributeSet::GetWorld() const

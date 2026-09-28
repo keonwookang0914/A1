@@ -7,7 +7,6 @@
 
 UA1EnhancedPlayerInput::UA1EnhancedPlayerInput()
 {
-    
 }
 
 void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
@@ -31,7 +30,7 @@ void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
 					}
 				}
 			}
-			
+
 			UWorld* World = GetWorld();
 			check(World);
 			float TimeSeconds = World->GetRealTimeSeconds();
@@ -43,7 +42,7 @@ void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
 				KeyState->bDownPrevious = false;
 				KeyState->LastUpDownTransitionTime = TimeSeconds;
 			}
-			
+
 			bIsFlushingInputThisFrame = true;
 		}
 	}

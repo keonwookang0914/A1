@@ -16,7 +16,7 @@ UCLASS()
 class UA1WeaponSlotWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1WeaponSlotWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -30,7 +30,7 @@ private:
 	void OnMainHandChanged(EMainHandState NewEquipState);
 	void TryInitPawn();
 	void DisplayBullet(int count);
-	
+
 public:
 	EMainHandState ChoosedItemSlot = EMainHandState::Count;
 
@@ -56,22 +56,20 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> Image_OverlayRight;
 
-
-
-//private:
-//	UPROPERTY(meta=(BindWidgetAnim), Transient)
-//	TObjectPtr<UWidgetAnimation> Animation_ExpandSlot;
-//	
-//	UPROPERTY(meta=(BindWidgetAnim), Transient)
-//	TObjectPtr<UWidgetAnimation> Animation_ShowCrossLine;
+	// private:
+	//	UPROPERTY(meta=(BindWidgetAnim), Transient)
+	//	TObjectPtr<UWidgetAnimation> Animation_ExpandSlot;
+	//
+	//	UPROPERTY(meta=(BindWidgetAnim), Transient)
+	//	TObjectPtr<UWidgetAnimation> Animation_ShowCrossLine;
 
 private:
 	UPROPERTY()
 	TObjectPtr<UA1EquipmentManagerComponent> EquipmentManager;
-	
+
 	UPROPERTY()
 	TObjectPtr<UA1EquipManagerComponent> EquipManager;
-	
+
 private:
 	FDelegateHandle EntryChangedDelegateHandle;
 	FDelegateHandle MainHandChangedDelegateHandle;

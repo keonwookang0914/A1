@@ -25,8 +25,7 @@ void UA1TutorialManager::Initialize(FSubsystemCollectionBase& Collection)
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetGameInstance());
 	MessageListenerHandle = MessageSubsystem.RegisterListener(FGameplayTag(), this,
-			&UA1TutorialManager::OnGameplayEventReceived);
-	
+		&UA1TutorialManager::OnGameplayEventReceived);
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Initialized with %d steps"), StepDataMap.Num());
 }
@@ -35,7 +34,7 @@ void UA1TutorialManager::Deinitialize()
 {
 	StopTutorial();
 
-	if ( MessageListenerHandle.IsValid() )
+	if (MessageListenerHandle.IsValid())
 	{
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetGameInstance());
 		MessageSubsystem.UnregisterListener(MessageListenerHandle);
@@ -47,7 +46,7 @@ void UA1TutorialManager::Deinitialize()
 
 void UA1TutorialManager::StartTutorial()
 {
-	if ( bIsTutorialActive )
+	if (bIsTutorialActive)
 		return;
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Starting Tutorial"));
@@ -60,11 +59,11 @@ void UA1TutorialManager::StartTutorial()
 	BP_OnTutorialStarted();
 
 	// 첫 번째 단계 시작
-	if ( !FirstStepID.IsEmpty() && StepDataMap.Contains(FirstStepID) )
+	if (!FirstStepID.IsEmpty() && StepDataMap.Contains(FirstStepID))
 	{
 		StartStep(FirstStepID);
 	}
-	else if ( !StepDataMap.IsEmpty() )
+	else if (!StepDataMap.IsEmpty())
 	{
 		// FirstStepID가 없으면 첫 번째 단계 사용
 		auto It = StepDataMap.CreateConstIterator();
@@ -74,12 +73,12 @@ void UA1TutorialManager::StartTutorial()
 
 void UA1TutorialManager::StopTutorial()
 {
-	if ( !bIsTutorialActive )
+	if (!bIsTutorialActive)
 		return;
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Stopping Tutorial"));
 
-	if ( CurrentStep )
+	if (CurrentStep)
 	{
 		CurrentStep->CleanupStep();
 		CurrentStep = nullptr;
@@ -93,7 +92,7 @@ void UA1TutorialManager::StopTutorial()
 
 void UA1TutorialManager::PauseTutorial()
 {
-	if ( !bIsTutorialActive || bIsTutorialPaused )
+	if (!bIsTutorialActive || bIsTutorialPaused)
 		return;
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Pausing Tutorial"));
@@ -104,7 +103,7 @@ void UA1TutorialManager::PauseTutorial()
 
 void UA1TutorialManager::ResumeTutorial()
 {
-	if ( !bIsTutorialActive || !bIsTutorialPaused )
+	if (!bIsTutorialActive || !bIsTutorialPaused)
 		return;
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Resuming Tutorial"));
@@ -115,11 +114,11 @@ void UA1TutorialManager::ResumeTutorial()
 
 void UA1TutorialManager::StartStep(const FString& StepID)
 {
-	if ( !bIsTutorialActive || bIsTutorialPaused || StepID.IsEmpty() )
+	if (!bIsTutorialActive || bIsTutorialPaused || StepID.IsEmpty())
 		return;
 
 	FA1TutorialStepInfo* StepInfo = StepDataMap.Find(StepID);
-	if ( !StepInfo)
+	if (!StepInfo)
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("[TutorialManager] Tutorial Step not found: %s"), *StepID);
 		return;
@@ -128,14 +127,14 @@ void UA1TutorialManager::StartStep(const FString& StepID)
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Starting Step: %s"), *StepID);
 
 	// 현재 단계 정리
-	if ( CurrentStep )
+	if (CurrentStep)
 	{
 		CurrentStep->CleanupStep();
 	}
 
 	// 새 단계 생성 및 시작
 	CurrentStep = CreateStepInstance(StepInfo);
-	if ( CurrentStep )
+	if (CurrentStep)
 	{
 		CurrentStepID = StepID;
 		CurrentStep->StartStep();
@@ -145,10 +144,10 @@ void UA1TutorialManager::StartStep(const FString& StepID)
 
 void UA1TutorialManager::CompleteCurrentStep()
 {
-	if ( CurrentStep && !CurrentStep->IsStepCompleted() )
+	if (CurrentStep && !CurrentStep->IsStepCompleted())
 	{
 		// 완료된 단계 기록
-		if ( !CurrentStepID.IsEmpty() )
+		if (!CurrentStepID.IsEmpty())
 		{
 			CompletedSteps.AddUnique(CurrentStepID);
 		}
@@ -159,7 +158,7 @@ void UA1TutorialManager::CompleteCurrentStep()
 
 void UA1TutorialManager::SkipToStep(const FString& StepID)
 {
-	if ( !bIsTutorialActive )
+	if (!bIsTutorialActive)
 		return;
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Skipping to Step: %s"), *StepID);
@@ -169,7 +168,7 @@ void UA1TutorialManager::SkipToStep(const FString& StepID)
 void UA1TutorialManager::SendGameplayEvent(FGameplayTag EventTag, const FGameplayEventData& EventData)
 {
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetGameInstance());
-	
+
 	MessageSubsystem.BroadcastMessage(EventTag, EventData);
 	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Sent Gameplay Event: %s"), *EventTag.ToString());
 }
@@ -181,7 +180,7 @@ FString UA1TutorialManager::GetCurrentStepID() const
 
 int32 UA1TutorialManager::GetCurrentStepIndex() const
 {
-	if ( CurrentStepID.IsEmpty() )
+	if (CurrentStepID.IsEmpty())
 		return -1;
 
 	return StepOrder.Find(CurrentStepID);
@@ -189,19 +188,19 @@ int32 UA1TutorialManager::GetCurrentStepIndex() const
 
 float UA1TutorialManager::GetTutorialProgress() const
 {
-	if ( StepOrder.Num() == 0 )
+	if (StepOrder.Num() == 0)
 		return 0.0f;
 
 	int32 CurrentIndex = GetCurrentStepIndex();
-	if ( CurrentIndex < 0 )
+	if (CurrentIndex < 0)
 		return 0.0f;
 
-	return static_cast< float >(CurrentIndex) / static_cast< float >(StepOrder.Num());
+	return static_cast<float>(CurrentIndex) / static_cast<float>(StepOrder.Num());
 }
 
 void UA1TutorialManager::AdvanceDialogue()
 {
-	if ( CurrentStep )
+	if (CurrentStep)
 	{
 		CurrentStep->AdvanceDialogue();
 	}
@@ -231,7 +230,7 @@ void UA1TutorialManager::ClearNavigationTarget()
 
 void UA1TutorialManager::BroadcastTutorialMessage(const FA1TutorialMessage& Message)
 {
-	//TODO eric1306 -> bool 값에 따라 다른 messsage 보내게 구현
+	// TODO eric1306 -> bool 값에 따라 다른 messsage 보내게 구현
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 	MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_Tutorial_Dialogue, Message);
 }
@@ -243,7 +242,7 @@ void UA1TutorialManager::TransitionToStep(const FString& StepID)
 
 void UA1TutorialManager::OnGameplayEventReceived(FGameplayTag EventTag, const FGameplayEventData& EventData)
 {
-	if ( !bIsTutorialActive || bIsTutorialPaused || !CurrentStep )
+	if (!bIsTutorialActive || bIsTutorialPaused || !CurrentStep)
 		return;
 
 	CurrentStep->OnGameplayEvent(EventTag, EventData);
@@ -254,7 +253,7 @@ void UA1TutorialManager::LoadTutorialSteps()
 	StepDataMap.Empty();
 	StepOrder.Empty();
 
-	//Tutorial Data를 로드
+	// Tutorial Data를 로드
 	TArray<FA1TutorialStepInfo> TutorialStepInfos = UA1TutorialData::Get().TutorialStepInfos;
 
 	for (FA1TutorialStepInfo TutorialStepInfo : TutorialStepInfos)
@@ -271,7 +270,7 @@ void UA1TutorialManager::LoadTutorialSteps()
 
 UA1TutorialStep* UA1TutorialManager::CreateStepInstance(const FA1TutorialStepInfo* StepData)
 {
-	if ( !StepData )
+	if (!StepData)
 		return nullptr;
 
 	UA1TutorialStep* NewStep = NewObject<UA1TutorialStep>(this);

@@ -16,21 +16,21 @@ UA1GameplayAbility_Weapon_Gun_ADS::UA1GameplayAbility_Weapon_Gun_ADS(const FObje
 	AbilityTags.AddTag(A1GameplayTags::Ability_ADS_Gun);
 	ActivationOwnedTags.AddTag(A1GameplayTags::Status_ADS_Gun);
 	ActivationBlockedTags.AddTag(A1GameplayTags::Status_Attack);
-	//ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Left);
-	//ActivationRequiredTags.AddTag(A1GameplayTags::Status_MainHand_Right);
+	// ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Left);
+	// ActivationRequiredTags.AddTag(A1GameplayTags::Status_MainHand_Right);
 }
 
 void UA1GameplayAbility_Weapon_Gun_ADS::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	ADSEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Gun_ADS, nullptr, false, true);
 	if (ADSEventTask)
 	{
 		ADSEventTask->EventReceived.AddDynamic(this, &ThisClass::OnADSEvent);
 		ADSEventTask->ReadyForActivation();
 	}
-	
+
 	SetCameraMode(CameraModeClass);
 
 	InputReleaseTask = UAbilityTask_WaitInputRelease::WaitInputRelease(this, true);
@@ -49,12 +49,12 @@ void UA1GameplayAbility_Weapon_Gun_ADS::EndAbility(const FGameplayAbilitySpecHan
 
 	if (bWasCancelled)
 	{
-		//if (UAbilityTask_PlayMontageAndWait* ADSEndMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("ADSEndMontage"), ADSEndMontage, 1.f, NAME_None, false))
+		// if (UAbilityTask_PlayMontageAndWait* ADSEndMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("ADSEndMontage"), ADSEndMontage, 1.f, NAME_None, false))
 		//{
 		//	ADSEndMontageTask->ReadyForActivation();
-		//}
+		// }
 	}
-	
+
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 }
 
@@ -99,7 +99,7 @@ void UA1GameplayAbility_Weapon_Gun_ADS::StartADS()
 	{
 		ADSStartMontageTask->ReadyForActivation();
 	}
-	
+
 	ADSStartBeginEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Montage_Begin, nullptr, true, true);
 	if (ADSStartBeginEventTask)
 	{

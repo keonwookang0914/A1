@@ -8,7 +8,7 @@
 class USphereComponent;
 class UArrowComponent;
 /**
- * 
+ *
  */
 UCLASS()
 class AA1FlashChargerBase : public AA1WorldInteractable

@@ -30,7 +30,7 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 public:
-	//IA1SpaceshipComponent
+	// IA1SpaceshipComponent
 	virtual void RegisterWithSpaceship(AA1SpaceshipBase* Spaceship) override;
 	virtual ESpaceshipComponentType GetComponentType() const override { return ESpaceshipComponentType::Storage; }
 
@@ -46,7 +46,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	AA1SpaceshipBase* FindSpaceshipOwner() const;
 
-	FORCEINLINE	AA1SpaceshipBase* GetOwningSpaceship() const { return OwningSpaceship.IsValid() ? OwningSpaceship.Get() : nullptr; }
+	FORCEINLINE AA1SpaceshipBase* GetOwningSpaceship() const { return OwningSpaceship.IsValid() ? OwningSpaceship.Get() : nullptr; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -64,8 +64,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Replicated)
 	TArray<TObjectPtr<AA1StorageEntryBase>> StorageEntries;
 
-	
 	int32 StorageWidthNum;
 	int32 StorageHeightNum;
-	FVector SpawnStartLocation;	
+	FVector SpawnStartLocation;
 };

@@ -15,7 +15,7 @@
 // Sets default values
 AA1Plunderer::AA1Plunderer()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 	warlike = false;
@@ -39,7 +39,7 @@ void AA1Plunderer::BeginPlay()
 			AA1StorageBase* Storage = Cast<AA1StorageBase>(UGameplayStatics::GetActorOfClass(GetWorld(), AA1StorageBase::StaticClass()));
 			if (Storage)
 			{
-				
+
 				BlackBoard->SetValueAsBool(AA1RaiderController::CanAttackKey, true);
 				BlackBoard->SetValueAsObject(AA1RaiderController::AggroTargetKey, Storage);
 			}
@@ -62,7 +62,7 @@ void AA1Plunderer::SpawnDropItem()
 		for (int i = 0; i < ItemNum; i++)
 		{
 			GetWorld()->SpawnActor<AA1EquipmentBase>(dropItems[i], ItemSpawnLocation, FRotator::ZeroRotator, SpawnParameters);
-		}	
+		}
 	}
 
 	DeatState = EA1DeathState::DeathFinished;

@@ -12,13 +12,13 @@ class UA1AbilityTask_WaitInputStart : public UAbilityTask
 
 public:
 	UA1AbilityTask_WaitInputStart(const FObjectInitializer& ObjectInitializer);
-	
+
 	UFUNCTION(BlueprintCallable, Category="Ability|Tasks", meta=(HidePin="OwningAbility", DefaultToSelf="OwningAbility", BlueprintInternalUseOnly="true"))
 	static UA1AbilityTask_WaitInputStart* WaitInputStart(UGameplayAbility* OwningAbility);
-	
+
 public:
 	virtual void Activate() override;
-	
+
 public:
 	UFUNCTION()
 	void OnStartCallback();
@@ -26,7 +26,7 @@ public:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FInputStartDelegate OnStart;
-	
+
 protected:
 	FDelegateHandle DelegateHandle;
 };

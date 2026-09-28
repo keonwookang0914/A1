@@ -7,7 +7,7 @@
 #include "A1RoomLFR.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API AA1RoomLFR : public AA1Room
@@ -15,6 +15,7 @@ class A1GAME_API AA1RoomLFR : public AA1Room
 	GENERATED_BODY()
 public:
 	AA1RoomLFR();
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UArrowComponent> LeftArrow;

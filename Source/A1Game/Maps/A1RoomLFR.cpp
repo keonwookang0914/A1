@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Maps/A1RoomLFR.h"
 
 AA1RoomLFR::AA1RoomLFR()

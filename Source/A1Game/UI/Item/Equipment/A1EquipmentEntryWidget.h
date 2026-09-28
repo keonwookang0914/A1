@@ -25,7 +25,6 @@ protected:
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 protected:
-
 protected:
 	UPROPERTY()
 	TObjectPtr<UA1EquipmentManagerComponent> EquipmentManager;

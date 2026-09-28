@@ -13,7 +13,7 @@ UA1AnimNotifyState_WeaponTrailNiagaraEffect::UA1AnimNotifyState_WeaponTrailNiaga
 #if WITH_EDITORONLY_DATA
 	bShouldFireInEditor = false;
 #endif
-	
+
 	Template = nullptr;
 	LocationOffset.Set(0.0f, 0.0f, 0.0f);
 	RotationOffset = FRotator(0.0f, 0.0f, 0.0f);
@@ -31,7 +31,7 @@ void UA1AnimNotifyState_WeaponTrailNiagaraEffect::NotifyTick(USkeletalMeshCompon
 {
 	USkeletalMeshComponent* WeaponMeshComponent = GetWeaponMeshComponent(MeshComponent);
 	Super::NotifyTick(WeaponMeshComponent ? WeaponMeshComponent : MeshComponent, Animation, FrameDeltaTime, EventReference);
-	
+
 	UpdateNiagaraParameters(WeaponMeshComponent);
 }
 
@@ -39,7 +39,7 @@ void UA1AnimNotifyState_WeaponTrailNiagaraEffect::NotifyEnd(class USkeletalMeshC
 {
 	USkeletalMeshComponent* WeaponMeshComponent = GetWeaponMeshComponent(MeshComponent);
 	Super::NotifyEnd(WeaponMeshComponent ? WeaponMeshComponent : MeshComponent, Animation, EventReference);
-	
+
 	UpdateNiagaraParameters(WeaponMeshComponent);
 }
 
@@ -66,7 +66,7 @@ void UA1AnimNotifyState_WeaponTrailNiagaraEffect::UpdateNiagaraParameters(USkele
 USkeletalMeshComponent* UA1AnimNotifyState_WeaponTrailNiagaraEffect::GetWeaponMeshComponent(USkeletalMeshComponent* CharacterMeshComponent) const
 {
 	USkeletalMeshComponent* WeaponMeshComponent = nullptr;
-	
+
 	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(CharacterMeshComponent->GetOwner()))
 	{
 		if (UA1EquipManagerComponent* EquipManager = LyraCharacter->FindComponentByClass<UA1EquipManagerComponent>())

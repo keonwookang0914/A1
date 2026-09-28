@@ -20,7 +20,7 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void BeginPlay() override;
 
-// Component
+	// Component
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Lyra|Character", Meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<ULyraCameraComponent> CameraComponent;

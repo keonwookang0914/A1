@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "UI/HUD/A1GuideWidget.h"
 
 #include "Character/LyraCharacter.h"
@@ -68,7 +67,7 @@ void UA1GuideWidget::TryInitPawn()
 void UA1GuideWidget::OnEquipmentEntryChanged(EEquipmentSlotType EquipmentSlotType, UA1ItemInstance* ItemInstance, int32 ItemCount)
 {
 	EMainHandState CurrentMainHand = EquipManager->GetCurrentMainHand();
-	if (EquipmentSlotType!=EEquipmentSlotType::TwoHand && EquipmentSlotType != EquipManager->ConvertToEquipmentSlotType(CurrentMainHand))
+	if (EquipmentSlotType != EEquipmentSlotType::TwoHand && EquipmentSlotType != EquipManager->ConvertToEquipmentSlotType(CurrentMainHand))
 		return;
 
 	RenewGuide(ItemInstance);
@@ -116,7 +115,6 @@ void UA1GuideWidget::RenewGuide(UA1ItemInstance* ItemInstance)
 		const FGuideTextSet& GuideTextSet = UA1GuideData::Get().GetTextSetByLabel(FName(*ItemName.ToString()));
 		if (GuideTextSet.TextEntries.IsEmpty())
 			return;
-		
 
 		TxtLMB->SetText(GuideTextSet.TextEntries[0]);
 

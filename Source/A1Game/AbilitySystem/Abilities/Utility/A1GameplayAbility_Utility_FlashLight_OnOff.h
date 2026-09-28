@@ -7,7 +7,7 @@ UCLASS()
 class UA1GameplayAbility_Utility_FlashLight_OnOff : public UA1GameplayAbility_Equipment
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1GameplayAbility_Utility_FlashLight_OnOff(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

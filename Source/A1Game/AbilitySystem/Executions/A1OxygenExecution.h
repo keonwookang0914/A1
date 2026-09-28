@@ -6,7 +6,7 @@
 #include "A1OxygenExecution.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1OxygenExecution : public UGameplayEffectExecutionCalculation
@@ -14,7 +14,7 @@ class A1GAME_API UA1OxygenExecution : public UGameplayEffectExecutionCalculation
 	GENERATED_BODY()
 
 public:
-    UA1OxygenExecution();
+	UA1OxygenExecution();
 
-    virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
+	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
 };

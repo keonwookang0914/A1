@@ -25,23 +25,22 @@ void UA1GameplayAbility_Weapon_MeleeAttack::ActivateAbility(const FGameplayAbili
 	bBlocked = false;
 
 	if (UAbilityTask_WaitGameplayEvent* GameplayEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Trace, nullptr, false, true))
-    {
-    	GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnTargetDataReady);
-    	GameplayEventTask->ReadyForActivation();
-    }
+	{
+		GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnTargetDataReady);
+		GameplayEventTask->ReadyForActivation();
+	}
 
-    if (UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("MeleeAttack"), AttackMontage, GetSnapshottedAttackRate(), NAME_None, false, 1.f, 0.f, false))
-    {
-    	PlayMontageTask->OnCompleted.AddDynamic(this, &ThisClass::OnMontageFinished);
-    	PlayMontageTask->ReadyForActivation();
-    }
+	if (UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("MeleeAttack"), AttackMontage, GetSnapshottedAttackRate(), NAME_None, false, 1.f, 0.f, false))
+	{
+		PlayMontageTask->OnCompleted.AddDynamic(this, &ThisClass::OnMontageFinished);
+		PlayMontageTask->ReadyForActivation();
+	}
 
 	if (UAbilityTask_WaitGameplayEvent* GameplayEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Montage_End, nullptr, true, true))
 	{
 		GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnMontageEventTriggered);
 		GameplayEventTask->ReadyForActivation();
 	}
-
 
 	ConsumeOxygen();
 }
@@ -54,11 +53,11 @@ void UA1GameplayAbility_Weapon_MeleeAttack::OnTargetDataReady(FGameplayEventData
 	AA1EquipmentBase* WeaponActor = const_cast<AA1EquipmentBase*>(Cast<AA1EquipmentBase>(Payload.Instigator));
 	if (WeaponActor == nullptr)
 		return;
-	
+
 	ULyraAbilitySystemComponent* SourceASC = GetLyraAbilitySystemComponentFromActorInfo();
 	if (SourceASC == nullptr)
 		return;
-	
+
 	if (SourceASC->FindAbilitySpecFromHandle(CurrentSpecHandle))
 	{
 		FGameplayAbilityTargetDataHandle LocalTargetDataHandle(MoveTemp(const_cast<FGameplayAbilityTargetDataHandle&>(Payload.TargetData)));
@@ -68,7 +67,7 @@ void UA1GameplayAbility_Weapon_MeleeAttack::OnTargetDataReady(FGameplayEventData
 		ParseTargetData(LocalTargetDataHandle, CharacterHitIndexes, BlockHitIndexes);
 
 		float Damage = GetEquipmentStatValue(A1GameplayTags::SetByCaller_BaseDamage, WeaponActor);
-		
+
 		if (BlockHitIndexes.Num() > 0)
 		{
 			FHitResult HitResult = *(LocalTargetDataHandle.Data[BlockHitIndexes[0]]->GetHitResult());
@@ -133,7 +132,7 @@ void UA1GameplayAbility_Weapon_MeleeAttack::ConsumeOxygen()
 
 			if (OxygenEffectSpecHandle.IsValid())
 			{
-				// 무기에 희귀도에 따른 대미지 차별화			
+				// 무기에 희귀도에 따른 대미지 차별화
 				OxygenEffectSpecHandle.Data->SetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseOxygen, Oxygen);
 				float DamageSet = OxygenEffectSpecHandle.Data->GetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseOxygen, false);
 				ApplyGameplayEffectSpecToTarget(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, OxygenEffectSpecHandle, TargetDataHandle);

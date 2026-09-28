@@ -16,64 +16,64 @@ class AA1SpaceshipBase;
 UCLASS()
 class AA1FuelBase : public AA1WorldInteractable, public IA1SpaceshipComponent
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 public:
-    AA1FuelBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+	AA1FuelBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
-    virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 
-    virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 public:
-    virtual FA1InteractionInfo GetPreInteractionInfo(const FA1InteractionQuery& InteractionQuery) const override;
-    virtual void GetMeshComponents(TArray<UMeshComponent*>& OutMeshComponents) const override;
+	virtual FA1InteractionInfo GetPreInteractionInfo(const FA1InteractionQuery& InteractionQuery) const override;
+	virtual void GetMeshComponents(TArray<UMeshComponent*>& OutMeshComponents) const override;
 
-    //IA1SpaceshipComponent
-    virtual void RegisterWithSpaceship(class AA1SpaceshipBase* Spaceship) override;
-    virtual ESpaceshipComponentType GetComponentType() const override { return ESpaceshipComponentType::Fuel; }
+	// IA1SpaceshipComponent
+	virtual void RegisterWithSpaceship(class AA1SpaceshipBase* Spaceship) override;
+	virtual ESpaceshipComponentType GetComponentType() const override { return ESpaceshipComponentType::Fuel; }
 
-    UFUNCTION(BlueprintCallable)
-    bool IsFuelItem(AActor* Item) const;
+	UFUNCTION(BlueprintCallable)
+	bool IsFuelItem(AActor* Item) const;
 
-    UFUNCTION(BlueprintCallable)
-    void DetectAndAbsorbFuelItems();
+	UFUNCTION(BlueprintCallable)
+	void DetectAndAbsorbFuelItems();
 
-    UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly)
-    void AddFuel(float FuelAmount);
-
-protected:
-    void SetupTags();
-
-    UFUNCTION()
-    AA1SpaceshipBase* FindSpaceshipOwner() const;
+	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly)
+	void AddFuel(float FuelAmount);
 
 protected:
-    UPROPERTY(EditDefaultsOnly, Category = "Info")
-    FA1InteractionInfo InteractionInfo;
+	void SetupTags();
 
-    UPROPERTY(EditDefaultsOnly, Category = "Fuel")
-    float DetectionRadius = 500.0f;
+	UFUNCTION()
+	AA1SpaceshipBase* FindSpaceshipOwner() const;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    TObjectPtr<UArrowComponent> ArrowComponent;
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Info")
+	FA1InteractionInfo InteractionInfo;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    TObjectPtr<UStaticMeshComponent> MeshComponent;
+	UPROPERTY(EditDefaultsOnly, Category = "Fuel")
+	float DetectionRadius = 500.0f;
 
-    UPROPERTY(VisibleAnywhere, Transient)
-    TWeakObjectPtr<AA1SpaceshipBase> OwningSpaceship;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UArrowComponent> ArrowComponent;
 
-    UPROPERTY(VisibleAnywhere)
-    TArray<TWeakObjectPtr<AActor>> DetectedFuelItems;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UStaticMeshComponent> MeshComponent;
 
-    UPROPERTY(EditDefaultsOnly)
-    TSubclassOf<AA1FuelDisplayUI> FuelUI;
+	UPROPERTY(VisibleAnywhere, Transient)
+	TWeakObjectPtr<AA1SpaceshipBase> OwningSpaceship;
 
-    UPROPERTY(VisibleAnywhere)
-    TObjectPtr<AA1FuelDisplayUI> SpawnedFuelUI;
+	UPROPERTY(VisibleAnywhere)
+	TArray<TWeakObjectPtr<AActor>> DetectedFuelItems;
 
-    FVector UILocation;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AA1FuelDisplayUI> FuelUI;
 
-    FRotator UIRotation;
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<AA1FuelDisplayUI> SpawnedFuelUI;
+
+	FVector UILocation;
+
+	FRotator UIRotation;
 };

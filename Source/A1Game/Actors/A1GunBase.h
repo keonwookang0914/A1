@@ -7,10 +7,9 @@ UCLASS(BlueprintType, Abstract)
 class AA1GunBase : public AA1EquipmentBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	AA1GunBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-
 
 protected:
 	virtual void BeginPlay() override;

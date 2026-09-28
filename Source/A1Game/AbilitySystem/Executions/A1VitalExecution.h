@@ -11,7 +11,7 @@ class A1GAME_API UA1VitalExecution : public UGameplayEffectExecutionCalculation
 	GENERATED_BODY()
 
 public:
-    UA1VitalExecution();
+	UA1VitalExecution();
 
-    virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
+	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
 };

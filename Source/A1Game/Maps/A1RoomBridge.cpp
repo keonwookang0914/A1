@@ -1,25 +1,24 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Maps/A1RoomBridge.h"
 
 AA1RoomBridge::AA1RoomBridge()
 {
-	//Arrow
+	// Arrow
 	FrontArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("FrontArrow"));
 	FrontArrow->SetRelativeLocation(FVector(2000.f, 0.f, 0.f));
 	FrontArrow->ArrowColor = FColor::Green;
 	FrontArrow->ArrowSize = 10.f;
 	FrontArrow->SetupAttachment(ExitsFolder);
 
-	//Floor
+	// Floor
 	Floor = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Floor"));
 	Floor->SetRelativeLocation(FVector(1000.f, 0.f, -30.f));
 	Floor->SetRelativeScale3D(FVector(20.f, 5.f, 1.f));
 	Floor->SetStaticMesh(BaseStaticMesh);
 	Floor->SetupAttachment(GeometryFolder);
 
-	//Wall
+	// Wall
 	LeftWall = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftWall"));
 	LeftWall->SetRelativeLocation(FVector(1000.f, -300.f, 120.f));
 	LeftWall->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));

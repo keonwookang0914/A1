@@ -29,7 +29,7 @@ UCLASS()
 class A1GAME_API UA1InventorySlotsWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1InventorySlotsWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

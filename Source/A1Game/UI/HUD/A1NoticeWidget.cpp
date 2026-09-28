@@ -16,11 +16,11 @@ void UA1NoticeWidget::NativeConstruct()
 
 	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &UA1NoticeWidget::TryInitPawn);
 
-	//ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(GetOwningPlayerPawn());
-	//if (LyraCharacter == nullptr)
+	// ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(GetOwningPlayerPawn());
+	// if (LyraCharacter == nullptr)
 	//	return;
 	//
-	//LyraCharacter->OnNotice.AddUObject(this, &ThisClass::ShowWarning);
+	// LyraCharacter->OnNotice.AddUObject(this, &ThisClass::ShowWarning);
 }
 
 void UA1NoticeWidget::TryInitPawn()
@@ -49,6 +49,5 @@ void UA1NoticeWidget::ShowWarning(FText WarningText)
 			SetVisibility(ESlateVisibility::Hidden);
 		},
 		2.0f,
-		false
-	);
+		false);
 }

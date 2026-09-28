@@ -16,7 +16,8 @@ class FA1InteractionInfoBuilder
 public:
 	FA1InteractionInfoBuilder(TScriptInterface<IA1Interactable> InInteractable, TArray<FA1InteractionInfo>& InInteractionInfos)
 		: Interactable(InInteractable)
-		, InteractionInfos(InInteractionInfos) {
+		, InteractionInfos(InInteractionInfos)
+	{
 	}
 
 public:

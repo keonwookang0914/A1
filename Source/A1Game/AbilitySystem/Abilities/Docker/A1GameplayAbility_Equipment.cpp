@@ -28,7 +28,7 @@ UA1GameplayAbility_Equipment::UA1GameplayAbility_Equipment(const FObjectInitiali
 void UA1GameplayAbility_Equipment::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(ActorInfo->AvatarActor.Get());
 	if (LyraCharacter == nullptr)
 	{
@@ -44,7 +44,7 @@ void UA1GameplayAbility_Equipment::ActivateAbility(const FGameplayAbilitySpecHan
 	}
 
 	UA1ItemInstance* ItemInstance = nullptr;
-	
+
 	for (FA1EquipmentInfo& EquipmentInfo : EquipmentInfos)
 	{
 		switch (EquipmentInfo.EquipmentType)
@@ -55,14 +55,14 @@ void UA1GameplayAbility_Equipment::ActivateAbility(const FGameplayAbilitySpecHan
 			EquipmentInfo.EquipmentActor = EquipManager->GetEquippedActor(EquipmentInfo.ItemSlotType);
 			break;
 		}
-		
+
 		if ((ItemInstance == nullptr) || (EquipmentInfo.EquipmentType != EEquipmentType::Armor && EquipmentInfo.EquipmentActor == nullptr))
 		{
 			CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 			return;
 		}
 	}
-	
+
 	SnapshottedAttackRate = DefaultAttackRate;
 	if (UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo())
 	{
@@ -86,7 +86,7 @@ bool UA1GameplayAbility_Equipment::CanActivateAbility(const FGameplayAbilitySpec
 	UA1EquipManagerComponent* EquipManager = LyraCharacter->FindComponentByClass<UA1EquipManagerComponent>();
 	if (EquipManager == nullptr)
 		return false;
-	
+
 	for (const FA1EquipmentInfo& EquipmentInfo : EquipmentInfos)
 	{
 		if (EquipmentInfo.EquipmentType == EEquipmentType::Count)
@@ -101,7 +101,7 @@ bool UA1GameplayAbility_Equipment::CanActivateAbility(const FGameplayAbilitySpec
 			const UA1ItemFragment_Equipable_Weapon* WeaponFragment = ItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Weapon>();
 			if (WeaponFragment == nullptr)
 				return false;
-	
+
 			if (WeaponFragment->WeaponType != EquipmentInfo.RequiredWeaponType)
 				return false;
 		}
@@ -137,16 +137,16 @@ UA1ItemInstance* UA1GameplayAbility_Equipment::GetEquipmentItemInstance(const AA
 {
 	if (InEquipmentActor == nullptr)
 		return nullptr;
-	
+
 	UA1EquipManagerComponent* EquipManager = GetLyraCharacterFromActorInfo()->FindComponentByClass<UA1EquipManagerComponent>();
 	if (EquipManager == nullptr)
 		return nullptr;
-	
+
 	for (const FA1EquipmentInfo& EquipmentInfo : EquipmentInfos)
 	{
 		if (EquipmentInfo.EquipmentActor != InEquipmentActor)
 			continue;
-		
+
 		return EquipManager->GetEquippedItemInstance(InEquipmentActor->GetEquipmentSlotType());
 	}
 
@@ -157,11 +157,11 @@ int32 UA1GameplayAbility_Equipment::GetEquipmentStatValue(FGameplayTag InStatTag
 {
 	if (InStatTag.IsValid() == false || InEquipmentActor == nullptr)
 		return 0;
-	
+
 	if (UA1ItemInstance* ItemInstance = GetEquipmentItemInstance(InEquipmentActor))
 		return ItemInstance->GetStackCountByTag(InStatTag);
 
 	check(true);
-	
+
 	return 0;
 }

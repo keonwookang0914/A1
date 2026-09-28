@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Interact_SignalDetection.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UA1GameplayAbility_Interact_SignalDetection : public UA1GameplayAbility_Interact_Object

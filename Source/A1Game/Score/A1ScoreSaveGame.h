@@ -8,7 +8,7 @@
 
 struct FA1ScoreData;
 /**
- * 
+ *
  */
 UCLASS(BlueprintType)
 class A1GAME_API UA1ScoreSaveGame : public USaveGame
@@ -32,5 +32,4 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Score")
 	int32 HighestScore;
-
 };

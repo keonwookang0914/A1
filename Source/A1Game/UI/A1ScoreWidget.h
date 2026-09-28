@@ -7,7 +7,7 @@
 
 class UTextBlock;
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1ScoreWidget : public UA1ActivatableWidget

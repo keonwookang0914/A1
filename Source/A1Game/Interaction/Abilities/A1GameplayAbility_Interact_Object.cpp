@@ -11,7 +11,8 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GameplayAbility_Interact_Object)
 
-UA1GameplayAbility_Interact_Object::UA1GameplayAbility_Interact_Object(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UA1GameplayAbility_Interact_Object::UA1GameplayAbility_Interact_Object(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ActivationPolicy = ELyraAbilityActivationPolicy::Manual;
 

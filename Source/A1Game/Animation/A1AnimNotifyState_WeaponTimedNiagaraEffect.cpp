@@ -7,12 +7,12 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1AnimNotifyState_WeaponTimedNiagaraEffect)
 
 UA1AnimNotifyState_WeaponTimedNiagaraEffect::UA1AnimNotifyState_WeaponTimedNiagaraEffect(const FObjectInitializer& ObjectInitializer)
-: Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 #if WITH_EDITORONLY_DATA
 	bShouldFireInEditor = false;
 #endif
-	
+
 	Template = nullptr;
 	LocationOffset.Set(0.0f, 0.0f, 0.0f);
 	RotationOffset = FRotator(0.0f, 0.0f, 0.0f);
@@ -33,7 +33,7 @@ void UA1AnimNotifyState_WeaponTimedNiagaraEffect::NotifyEnd(USkeletalMeshCompone
 USkeletalMeshComponent* UA1AnimNotifyState_WeaponTimedNiagaraEffect::GetWeaponMeshComponent(USkeletalMeshComponent* CharacterMeshComponent) const
 {
 	USkeletalMeshComponent* WeaponMeshComponent = nullptr;
-	
+
 	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(CharacterMeshComponent->GetOwner()))
 	{
 		if (UA1EquipManagerComponent* EquipManager = LyraCharacter->FindComponentByClass<UA1EquipManagerComponent>())

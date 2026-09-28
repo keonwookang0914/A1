@@ -25,7 +25,7 @@ UCLASS(Abstract, Const)
 class UA1ItemFragment_Equipable_Attachment : public UA1ItemFragment_Equipable
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1ItemFragment_Equipable_Attachment(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -41,7 +41,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSoftObjectPtr<UAnimMontage> FrontHitMontage;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	TSoftObjectPtr<UAnimMontage> BackHitMontage;
 

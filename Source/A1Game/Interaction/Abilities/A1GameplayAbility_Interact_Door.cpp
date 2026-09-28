@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Door.h"
 #include "Actors/A1DoorBase.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -8,9 +7,8 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GameplayAbility_Interact_Door)
 
 UA1GameplayAbility_Interact_Door::UA1GameplayAbility_Interact_Door(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
-
 }
 
 void UA1GameplayAbility_Interact_Door::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
@@ -37,7 +35,7 @@ void UA1GameplayAbility_Interact_Door::ActivateAbility(const FGameplayAbilitySpe
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 		return;
 	}
-	//외부 맵이 활성화 됐을 때만 문과 상호작용 할 수 있게 조절.
+	// 외부 맵이 활성화 됐을 때만 문과 상호작용 할 수 있게 조절.
 	if (AA1SpaceshipBase* Spaceship = DoorActor->GetOwningSpaceship())
 	{
 		if (!Spaceship->GetIsExternalMapActive())

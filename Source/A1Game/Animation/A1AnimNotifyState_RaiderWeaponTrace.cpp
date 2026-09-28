@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Animation/A1AnimNotifyState_RaiderWeaponTrace.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
@@ -26,7 +25,7 @@ void UA1AnimNotifyState_RaiderWeaponTrace::NotifyBegin(USkeletalMeshComponent* M
 #if UE_EDITOR
 	check(MeshComponent->DoesSocketExist(TraceSocketName));
 #endif
-		
+
 	HitActors.Empty();
 }
 
@@ -78,7 +77,7 @@ void UA1AnimNotifyState_RaiderWeaponTrace::PerformTrace(USkeletalMeshComponent* 
 
 		TArray<FHitResult> HitResults;
 
-		bool bHit = MeshComponent->GetWorld()->SweepMultiByChannel(HitResults, StartTraceTransform.GetLocation(), EndTraceTransform.GetLocation(), 
+		bool bHit = MeshComponent->GetWorld()->SweepMultiByChannel(HitResults, StartTraceTransform.GetLocation(), EndTraceTransform.GetLocation(),
 			CapsuleRotator.Quaternion(), A1_TraceChannel_Raider, FCollisionShape::MakeCapsule(CapsuleRadius, CapsuleHalfHeight), Params);
 
 		for (const FHitResult& HitResult : HitResults)
@@ -110,18 +109,18 @@ void UA1AnimNotifyState_RaiderWeaponTrace::PerformTrace(USkeletalMeshComponent* 
 	if (FinalHitResults.Num() > 0)
 	{
 		FGameplayAbilityTargetDataHandle TargetDataHandle;
-		
+
 		for (const FHitResult& HitResult : FinalHitResults)
 		{
 			FGameplayAbilityTargetData_SingleTargetHit* NewTargetData = new FGameplayAbilityTargetData_SingleTargetHit();
 			NewTargetData->HitResult = HitResult;
 			TargetDataHandle.Add(NewTargetData);
 		}
-		
+
 		FGameplayEventData EventData;
 		EventData.TargetData = TargetDataHandle;
 		EventData.Instigator = MeshComponent->GetOwner();
-		
+
 		if (EventTag.IsValid())
 		{
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(MeshComponent->GetOwner(), EventTag, EventData);

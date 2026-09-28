@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "A1RaiderController.h"
 #include "A1LogChannels.h"
 #include "BehaviorTree/BehaviorTree.h"
@@ -15,7 +14,6 @@ const FName AA1RaiderController::PatrolPosKey(TEXT("PatrolPos"));
 const FName AA1RaiderController::AggroTargetKey(TEXT("AggroTarget"));
 const FName AA1RaiderController::CanAttackKey(TEXT("CanAttack"));
 
-
 AA1RaiderController::AA1RaiderController()
 {
 }
@@ -23,7 +21,6 @@ AA1RaiderController::AA1RaiderController()
 void AA1RaiderController::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 void AA1RaiderController::OnPossess(APawn* InPawn)
@@ -34,7 +31,7 @@ void AA1RaiderController::OnPossess(APawn* InPawn)
 	if (AA1RaiderBase* PossesedPawn = Cast<AA1RaiderBase>(InPawn))
 	{
 		const FA1RaiderBaseSet& RaiderBase = RaiderData.GetRaiderDataSet(PossesedPawn->RaiderType);
-		
+
 		if (RaiderBase.BBAsset != nullptr && RaiderBase.BTAsset != nullptr)
 		{
 			BBAsset = RaiderBase.BBAsset;

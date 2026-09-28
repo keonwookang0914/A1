@@ -14,7 +14,7 @@ class UA1HighlightInterface : public UInterface
 };
 
 /**
- * 
+ *
  */
 class A1GAME_API IA1HighlightInterface
 {

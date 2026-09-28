@@ -10,10 +10,10 @@ struct FAssetEntry
 public:
 	UPROPERTY(EditDefaultsOnly)
 	FName AssetName;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	FSoftObjectPath AssetPath;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FName> AssetLabels;
 };
@@ -35,21 +35,21 @@ class UA1AssetData : public UPrimaryDataAsset
 
 public:
 	static const UA1AssetData& Get();
-	
+
 protected:
 #if WITH_EDITOR
 	virtual void PreSave(FObjectPreSaveContext ObjectSaveContext) override;
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
-	
+
 public:
 	FSoftObjectPath GetAssetPathByName(const FName& AssetName) const;
 	const FAssetSet& GetAssetSetByLabel(const FName& Label) const;
-	
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FName, FAssetSet> AssetGroupNameToSet;
-	
+
 	UPROPERTY()
 	TMap<FName, FSoftObjectPath> AssetNameToPath;
 

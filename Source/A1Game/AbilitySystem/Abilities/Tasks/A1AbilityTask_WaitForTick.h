@@ -9,10 +9,10 @@ UCLASS()
 class UA1AbilityTask_WaitForTick : public UAbilityTask
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AbilityTask_WaitForTick(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-	
+
 	UFUNCTION(BlueprintCallable, Category="Ability|Tasks", meta=(HidePin="OwningAbility", DefaultToSelf="OwningAbility", BlueprintInternalUseOnly="true"))
 	static UA1AbilityTask_WaitForTick* WaitForTick(UGameplayAbility* OwningAbility);
 

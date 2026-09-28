@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1BedBase.h"
 
 #include "A1GameplayTags.h"
@@ -15,7 +14,8 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1BedBase)
 
-AA1BedBase::AA1BedBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+AA1BedBase::AA1BedBase(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	SetRootComponent(ArrowComponent);
@@ -25,8 +25,8 @@ AA1BedBase::AA1BedBase(const FObjectInitializer& ObjectInitializer) : Super(Obje
 	MeshComponent->SetCollisionProfileName(TEXT("Interactable"));
 	MeshComponent->SetCanEverAffectNavigation(true);
 
-	MaxLyingTimeRate = 300.f; //TODO eric1306 -> Original Value : 300.f(5 minute)
-	DecreaseWeightTimeRate = 30.f; //TODO eric1306 -> Original Value : 30.f(30 second)
+	MaxLyingTimeRate = 300.f;      // TODO eric1306 -> Original Value : 300.f(5 minute)
+	DecreaseWeightTimeRate = 30.f; // TODO eric1306 -> Original Value : 30.f(30 second)
 }
 
 void AA1BedBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -64,9 +64,12 @@ FA1InteractionInfo AA1BedBase::GetPreInteractionInfo(const FA1InteractionQuery& 
 {
 	switch (BedState)
 	{
-	case EBedState::Empty: return EmptyInteractionInfo;
-	case EBedState::Occupied: return OccupiedInteractionInfo;
-	default: return FA1InteractionInfo();
+	case EBedState::Empty:
+		return EmptyInteractionInfo;
+	case EBedState::Occupied:
+		return OccupiedInteractionInfo;
+	default:
+		return FA1InteractionInfo();
 	}
 }
 
@@ -92,7 +95,7 @@ void AA1BedBase::SetBedState(EBedState NewBedState)
 	if (HasAuthority() == false || NewBedState == BedState)
 		return;
 
-	//TODO eric1306 - change BedState After 10 minutes
+	// TODO eric1306 - change BedState After 10 minutes
 
 	BedState = NewBedState;
 	OnRep_BedState();
@@ -126,7 +129,7 @@ void AA1BedBase::WakeUpOccupyingCharacter()
 	if (!OccupyingCharacter)
 		return;
 
-	//Actor가 LyraCharacter인지 체크
+	// Actor가 LyraCharacter인지 체크
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(OccupyingCharacter);
 	if (!LyraCharacter)
 		return;
@@ -157,7 +160,7 @@ void AA1BedBase::WakeUpOccupyingCharacter()
 	// 캐릭터 참조 제거
 	OccupyingCharacter = nullptr;
 
-	//Temp eric1306 (fuck)
+	// Temp eric1306 (fuck)
 	bCanUsed = true;
 	bIsUsed = false;
 }
@@ -170,7 +173,7 @@ void AA1BedBase::SetOccupyingCharacter(AActor* Character)
 		{
 			OccupyingCharacter = Character;
 
-			//Health Changed Delegate 등록
+			// Health Changed Delegate 등록
 			UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OccupyingCharacter);
 			if (ASC)
 			{
@@ -183,9 +186,10 @@ void AA1BedBase::SetOccupyingCharacter(AActor* Character)
 
 			GetWorldTimerManager().SetTimer(MaxLyingTimerHandle, [&]()
 				{
-					//Multicast_Wakeup();
-					WakeUpOccupyingCharacter(); //Temp Code eric1306 -> for standalone
-				}, MaxLyingTimeRate, false);
+					// Multicast_Wakeup();
+					WakeUpOccupyingCharacter(); // Temp Code eric1306 -> for standalone
+				},
+				MaxLyingTimeRate, false);
 
 			ActivateDecreaseWeight();
 		}
@@ -195,7 +199,7 @@ void AA1BedBase::SetOccupyingCharacter(AActor* Character)
 
 			DeactivateDecreaseWeight();
 
-			//델리게이트 제거
+			// 델리게이트 제거
 			UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OccupyingCharacter);
 			if (ASC)
 			{
@@ -203,7 +207,7 @@ void AA1BedBase::SetOccupyingCharacter(AActor* Character)
 				Attribute->OnHealthChanged.RemoveAll(this);
 			}
 
-			//후 nullptr로 초기화
+			// 후 nullptr로 초기화
 			OccupyingCharacter = Character;
 		}
 	}
@@ -249,8 +253,8 @@ void AA1BedBase::ActivateDecreaseWeight()
 					ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 				}
 			}
-
-		}, DecreaseWeightTimeRate, true);
+		},
+		DecreaseWeightTimeRate, true);
 }
 
 void AA1BedBase::DeactivateDecreaseWeight()
@@ -275,6 +279,6 @@ void AA1BedBase::SetupTags()
 
 void AA1BedBase::OnHealthChanged(AActor* InInstigator, float OldValue, float NewValue)
 {
-	//HP 감소 상관없이 플레이어 깨우기
+	// HP 감소 상관없이 플레이어 깨우기
 	WakeUpOccupyingCharacter();
 }

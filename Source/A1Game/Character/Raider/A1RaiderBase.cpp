@@ -19,7 +19,7 @@
 // Sets default values
 AA1RaiderBase::AA1RaiderBase()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	AIControllerClass = AA1RaiderController::StaticClass();
@@ -70,7 +70,6 @@ void AA1RaiderBase::BeginPlay()
 void AA1RaiderBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 UAnimMontage* AA1RaiderBase::GetHitMontage(AActor* InstigatorActor, const FVector& HitLocation, bool IsBlocked)
@@ -140,13 +139,12 @@ void AA1RaiderBase::BeAttacked(AActor* InInstigator, float OldValue, float NewVa
 
 void AA1RaiderBase::HandleOutOfHealth(AActor* InActor, float OldValue, float NewValue)
 {
-	
+
 	// 애니메이션이 처리될 시간 기다리기
 	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AA1RaiderBase::SpawnDropItem, 1.5f, false);
 
-
-	GetController()->UnPossess();  // AI가 더 이상 캐릭터를 제어하지 않도록 함
+	GetController()->UnPossess(); // AI가 더 이상 캐릭터를 제어하지 않도록 함
 
 	// 기본 Idle 음성 멈추기
 	EnterAttackMode(false);
@@ -163,8 +161,8 @@ void AA1RaiderBase::SpawnDropItem()
 		FVector ItemSpawnLocation = GetActorLocation();
 		ItemSpawnLocation.Z = 0;
 
-		//확률에 따라 아이템 설정(일단 무조건 스폰)
-		//확률 정해진게 없어 하드코딩
+		// 확률에 따라 아이템 설정(일단 무조건 스폰)
+		// 확률 정해진게 없어 하드코딩
 		int32 index = FMath::RandRange(0, 100);
 		if (index >= 50)
 			GetWorld()->SpawnActor<AA1EquipmentBase>(dropItems[ItemNum - 1], ItemSpawnLocation, GetActorRotation());

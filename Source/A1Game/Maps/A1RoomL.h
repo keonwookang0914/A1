@@ -7,7 +7,7 @@
 #include "A1RoomL.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API AA1RoomL : public AA1Room
@@ -15,12 +15,13 @@ class A1GAME_API AA1RoomL : public AA1Room
 	GENERATED_BODY()
 public:
 	AA1RoomL();
+
 protected:
-	//Arrow
+	// Arrow
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UArrowComponent> LeftArrow;
 
-	//Front, Right Walls
+	// Front, Right Walls
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UStaticMeshComponent> FrontWall;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

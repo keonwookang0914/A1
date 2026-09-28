@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1SpaceshipBase.h"
 
 #include "A1BedBase.h"
@@ -32,29 +31,28 @@ void AA1SpaceshipBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if ( UA1ScoreManager::Get()->GetDoTutorial())
+	if (UA1ScoreManager::Get()->GetDoTutorial())
 	{
-		if ( UGameInstance* GameInstance = GetGameInstance() )
+		if (UGameInstance* GameInstance = GetGameInstance())
 		{
-			if ( UA1TutorialManager* TutorialManager = GameInstance->GetSubsystem<UA1TutorialManager>() )
+			if (UA1TutorialManager* TutorialManager = GameInstance->GetSubsystem<UA1TutorialManager>())
 			{
 				TutorialManager->StartTutorial();
 			}
 		}
 	}
-	 
+
 	UA1ScoreBlueprintFunctionLibrary::StartNewGame();
 
 	if (HasAuthority())
 	{
 		FindComponentsByTags();
 
-		if (!DockingSignalHandler || !CacheDoor || !FuelSystem || !ShipOutput || Beds.IsEmpty()/*|| Storages.IsEmpty()*/)
+		if (!DockingSignalHandler || !CacheDoor || !FuelSystem || !ShipOutput || Beds.IsEmpty() /*|| Storages.IsEmpty()*/)
 		{
 			FindSpaceshipComponents();
 		}
 	}
-
 
 	GetWorldTimerManager().SetTimer(FuelConsumeTimer, this, &AA1SpaceshipBase::ConsumeDefaultFuel, 1.f, true);
 
@@ -68,7 +66,6 @@ void AA1SpaceshipBase::BeginPlay()
 void AA1SpaceshipBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 
 	if (HasAuthority() && !bGameEndHandled)
 	{
@@ -92,7 +89,6 @@ void AA1SpaceshipBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(AA1SpaceshipBase, bIsExternalMapActive);
 	DOREPLIFETIME(AA1SpaceshipBase, GameEndState);
 	DOREPLIFETIME(AA1SpaceshipBase, bMeetRescueShip);
-
 }
 
 void AA1SpaceshipBase::RegisterDoor(AA1DoorBase* Door)
@@ -163,7 +159,6 @@ void AA1SpaceshipBase::HandleGameOver()
 
 	GetWorldTimerManager().ClearTimer(FuelConsumeTimer);
 
-	
 	if (ALyraGameMode* GameMode = Cast<ALyraGameMode>(GetWorld()->GetAuthGameMode()))
 	{
 		GameMode->HandleGameEnd(this, false);
@@ -218,25 +213,26 @@ void AA1SpaceshipBase::CheckTwoDaysAgo(int32 NewDay)
 
 void AA1SpaceshipBase::BreakFoam()
 {
-	//Select RepairBase Random and change state
+	// Select RepairBase Random and change state
 	int32 idx = FMath::RandRange(0, CachedNonBrokenRepairs.Num() - 1);
 
-	CachedNonBrokenRepairs[ idx ]->SetCurrentState(RepairState::Break);
-	UE_LOG(LogA1, Log, TEXT("[AA1Spaceship] %s Changed to break!"), *CachedNonBrokenRepairs[ idx ]->GetName());
-	CachedNonBrokenRepairs[ idx ]->ActivateCheckOverlap();
+	CachedNonBrokenRepairs[idx]->SetCurrentState(RepairState::Break);
+	UE_LOG(LogA1, Log, TEXT("[AA1Spaceship] %s Changed to break!"), *CachedNonBrokenRepairs[idx]->GetName());
+	CachedNonBrokenRepairs[idx]->ActivateCheckOverlap();
 
-	//Add Fuel Consume Amount after 5 seconds
+	// Add Fuel Consume Amount after 5 seconds
 
 	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, [ this ] ()
+	GetWorldTimerManager().SetTimer(TimerHandle, [this]()
 		{
 			CurrentFuelConsumeAmount += 1.f;
-		}, 5.f, false);
+		},
+		5.f, false);
 
 	CachedNonBrokenRepairs.RemoveAt(idx);
 
-	//Game Over if all repair base activate
-	if ( CachedNonBrokenRepairs.Num() == 0 )
+	// Game Over if all repair base activate
+	if (CachedNonBrokenRepairs.Num() == 0)
 	{
 		HandleGameOver();
 	}
@@ -267,7 +263,6 @@ void AA1SpaceshipBase::FindSpaceshipComponents()
 		{
 			CacheDoor = Cast<AA1DoorBase>(FoundDoor[0]);
 		}
-
 	}
 
 	if (!FuelSystem)
@@ -378,7 +373,7 @@ void AA1SpaceshipBase::FindComponentsByTags()
 
 void AA1SpaceshipBase::SpawnOneRepairBaseByTutoMode()
 {
-	
+
 	const FVector SpawnLocation = FVector(-6026.f, -600.f, 170.f);
 	const FVector SpawnLocation2 = FVector(-6129.f, -600.f, 170.f);
 	FActorSpawnParameters Params;
@@ -386,13 +381,13 @@ void AA1SpaceshipBase::SpawnOneRepairBaseByTutoMode()
 	if (UA1ScoreManager::Get()->GetDoTutorial())
 	{
 		AActor* Actor = GetWorld()->SpawnActor(PipeRepairBase, &SpawnLocation, &FRotator::ZeroRotator);
-		if (AA1RepairBase* RepairBase = Cast<AA1RepairBase>(Actor) )
+		if (AA1RepairBase* RepairBase = Cast<AA1RepairBase>(Actor))
 		{
 			RepairBase->SetCurrentState(RepairState::NotBroken);
 			UE_LOG(LogA1, Log, TEXT("RepairBase Name: %s"), *RepairBase->GetName());
 			RepairBase->SetActorHiddenInGame(true);
 
-			//Caching Specific Actor
+			// Caching Specific Actor
 			SpecificRepairBase = RepairBase;
 
 			UE_LOG(LogA1, Log, TEXT("RepairBase Name: %s"), *SpecificRepairBase->GetName());
@@ -401,7 +396,7 @@ void AA1SpaceshipBase::SpawnOneRepairBaseByTutoMode()
 	else
 	{
 		AActor* Actor = GetWorld()->SpawnActor(DefaultRepairBaseClass, &SpawnLocation2, &FRotator::ZeroRotator);
-		if ( AA1RepairBase* RepairBase = Cast<AA1RepairBase>(Actor) )
+		if (AA1RepairBase* RepairBase = Cast<AA1RepairBase>(Actor))
 		{
 			RepairBase->SetCurrentState(RepairState::NotBroken);
 		}
@@ -414,7 +409,6 @@ void AA1SpaceshipBase::BreakPipeRepairBase()
 	SpecificRepairBase->SetCurrentState(RepairState::Break);
 	SpecificRepairBase->ActivateCheckOverlap();
 	CachedNonBrokenRepairs.Remove(SpecificRepairBase);
-
 }
 
 void AA1SpaceshipBase::OnRep_CurrentFuel()
@@ -430,9 +424,9 @@ void AA1SpaceshipBase::OnRep_GameEndState()
 
 void AA1SpaceshipBase::FindAllRepairBases()
 {
-	//TODO eric1306 -> Tutorial인지 아닌지에 따라 캐싱 객체 수정하게
+	// TODO eric1306 -> Tutorial인지 아닌지에 따라 캐싱 객체 수정하게
 	TArray<AActor*> Results;
-	//AActor* 객체 -> A1RepairBase*로 변환
+	// AActor* 객체 -> A1RepairBase*로 변환
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AA1RepairBase::StaticClass(), OUT Results);
 	for (auto Result : Results)
 	{
@@ -442,18 +436,18 @@ void AA1SpaceshipBase::FindAllRepairBases()
 		}
 	}
 
-	//Change State
+	// Change State
 	for (auto Repair : CachedRepairs)
 	{
 		Repair->SetCurrentState(RepairState::NotBroken);
 		CachedNonBrokenRepairs.Add(Repair);
 	}
 
-	//튜토리얼이 아니라면 랜덤으로 10개의 객체 부수고 시작.
-	if ( !UA1ScoreManager::Get()->GetDoTutorial() )
+	// 튜토리얼이 아니라면 랜덤으로 10개의 객체 부수고 시작.
+	if (!UA1ScoreManager::Get()->GetDoTutorial())
 	{
 		int32 iter = 10;
-		while ( iter-- )
+		while (iter--)
 		{
 			BreakFoam();
 		}
@@ -466,7 +460,6 @@ void AA1SpaceshipBase::FindAllRepairBases()
 			DayNight->OnDayChanged.AddDynamic(this, &AA1SpaceshipBase::CheckTwoDaysAgo);
 		}
 	}
-	
 
 	UE_LOG(LogA1, Log, TEXT("Find %d Repair Objects"), CachedRepairs.Num());
 }
@@ -474,12 +467,12 @@ void AA1SpaceshipBase::FindAllRepairBases()
 void AA1SpaceshipBase::SetIsExternamMapActive(bool InExternalMapActive)
 {
 	bIsExternalMapActive = InExternalMapActive;
-	UE_LOG(LogTemp, Log, TEXT("Change ExternalMapActive : %s"), bIsExternalMapActive ? TEXT("True") :  TEXT("False"));
+	UE_LOG(LogTemp, Log, TEXT("Change ExternalMapActive : %s"), bIsExternalMapActive ? TEXT("True") : TEXT("False"));
 }
 
 void AA1SpaceshipBase::AddFuel(float AmountToAdd)
 {
-	if (!HasAuthority()/*Only Server*/)
+	if (!HasAuthority() /*Only Server*/)
 		return;
 	if (AmountToAdd <= 0.f)
 		return;
@@ -492,12 +485,11 @@ void AA1SpaceshipBase::AddFuel(float AmountToAdd)
 	{
 		OnRep_CurrentFuel();
 	}
-
 }
 
 void AA1SpaceshipBase::ConsumeFuel(float AmountToConsume)
 {
-	if (!HasAuthority()/*Only Server*/)
+	if (!HasAuthority() /*Only Server*/)
 		return;
 
 	if (AmountToConsume <= 0.f)
@@ -522,7 +514,7 @@ void AA1SpaceshipBase::ConsumeFuel(float AmountToConsume)
 void AA1SpaceshipBase::ConsumeDefaultFuel()
 {
 
-	if (!HasAuthority()/*Only Server*/)
+	if (!HasAuthority() /*Only Server*/)
 		return;
 
 	if (CurrentFuelConsumeAmount <= 0.f)
@@ -546,16 +538,15 @@ void AA1SpaceshipBase::ConsumeDefaultFuel()
 
 void AA1SpaceshipBase::ActivateExternalMap()
 {
-	if (!HasAuthority()/*Only Server*/)
+	if (!HasAuthority() /*Only Server*/)
 		return;
 
 	bIsExternalMapActive = true;
-
 }
 
 void AA1SpaceshipBase::DeactivateExternalMap()
 {
-	if (!HasAuthority()/*Only Server*/)
+	if (!HasAuthority() /*Only Server*/)
 		return;
 
 	bIsExternalMapActive = false;
@@ -601,11 +592,10 @@ void AA1SpaceshipBase::OnStopFuelConsume(const FA1ScoreData& FinalScore)
 		{
 			UA1ScoreManager::Get()->SetTotalRepair(UA1ScoreManager::Get()->GetTotalRepair() + 1);
 		}
-		else //Complete
+		else // Complete
 		{
 			UA1ScoreManager::Get()->SetTotalRepair(UA1ScoreManager::Get()->GetTotalRepair() + 1);
 			UA1ScoreManager::Get()->SetCompleteRepair(UA1ScoreManager::Get()->GetCompleteRepair() + 1);
 		}
 	}
 }
-

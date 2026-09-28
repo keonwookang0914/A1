@@ -22,7 +22,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -37,7 +37,7 @@ public:
 protected:
 	void BeAttacked(AActor* Instigator, float OldValue, float NewValue);
 	void HandleOutOfHealth(AActor* InActor, float OldValue, float NewValue);
-	
+
 	UFUNCTION()
 	virtual void SpawnDropItem();
 

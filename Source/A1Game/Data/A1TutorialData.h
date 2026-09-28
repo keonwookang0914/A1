@@ -94,7 +94,7 @@ struct A1GAME_API FA1TutorialAction
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Action", meta = ( DisplayPriority = "2" ))
 	FText ActionName;
 
-	//Fade
+	// Fade
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Fade Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Fade", EditConditionHides ))
 	float FadeStart = 1.0f;
@@ -111,42 +111,42 @@ struct A1GAME_API FA1TutorialAction
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Fade", EditConditionHides ))
 	FLinearColor FadeColor = FLinearColor::Black;
 
-	//Hide HUD
+	// Hide HUD
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "HUD Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::HideHUD", EditConditionHides ))
 	bool bHideHUD;
 
-	//Dialogue
+	// Dialogue
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dialogue Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Dialogue || ActionType == ETutorialActionType::SystemMessage", EditConditionHides ))
 	FA1TutorialDialogue DialogueData;
 
-	//Mission
+	// Mission
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mission Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Mission", EditConditionHides ))
 	FA1TutorialMission MissionData;
 
-	//Wait Event
+	// Wait Event
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Event Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::WaitForEvent || ActionType == ETutorialActionType::WaitForInteraction", EditConditionHides ))
 	FGameplayTag WaitEventTag;
 
-	//Event Trigger
+	// Event Trigger
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Event Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::TriggerEvent", EditConditionHides ))
 	FGameplayTag TriggerEventTag;
 
-	//CutScene
+	// CutScene
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Cutscene Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Cutscene", EditConditionHides ))
 	TSoftObjectPtr<class ULevelSequence> CutsceneSequence;
 
-	//Delay
+	// Delay
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Delay Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Delay", EditConditionHides ))
 	float DelayDuration = 1.0f;
 
-	//SpawnItem
+	// SpawnItem
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Spawn Item Template Setting",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::SpawnItem", EditConditionHides ))
 	TSubclassOf<UA1ItemTemplate> SpawnItemTemplate;
@@ -155,7 +155,7 @@ struct A1GAME_API FA1TutorialAction
 		meta = ( EditCondition = "ActionType == ETutorialActionType::SpawnItem", EditConditionHides ))
 	FTransform SpawnTransform;
 
-	//Navigate In Minimap
+	// Navigate In Minimap
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Navigate Tag Setting",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Navigate", EditConditionHides ))
 	FGameplayTag NavigateTag;
@@ -164,12 +164,12 @@ struct A1GAME_API FA1TutorialAction
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Navigate", EditConditionHides ))
 	TSubclassOf<AActor> NavigateActorClass;
 
-	//Highlight;
+	// Highlight;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Highlight Actor Class Setting",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::Highlight", EditConditionHides ))
 	TSubclassOf<AActor> HighlightActorClass;
 
-	//Checker
+	// Checker
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Checker Actor Class Setting",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::SpawnChecker", EditConditionHides ))
 	TSubclassOf<AActor> CheckerClass;
@@ -177,9 +177,8 @@ struct A1GAME_API FA1TutorialAction
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Checker Spawn Transform Setting",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::SpawnChecker", EditConditionHides ))
 	FTransform CheckerSpawnTransform;
-	
 
-	//Common
+	// Common
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Flow Control",
 		meta = ( EditCondition = "ActionType != ETutorialActionType::None && ActionType != ETutorialActionType::DisableMovement && ActionType != ETutorialActionType::EnableMovement", EditConditionHides ))
 	bool bAutoProgress = true;
@@ -219,19 +218,19 @@ struct FA1TutorialStepInfo
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Step Info", meta = ( DisplayPriority = "3" ))
 	FText StepDescription;
 
-	//Action Array
+	// Action Array
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = ( TitleProperty = "ActionName" ))
 	TArray<FA1TutorialAction> Actions;
 
-	//Control Flow
+	// Control Flow
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Flow")
 	FString NextStepID;
 
-	//Start Condition
+	// Start Condition
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Conditions")
 	FGameplayTag StartConditionTag;
 
-	//Complete Condition
+	// Complete Condition
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Conditions")
 	FGameplayTag CompletionTag;
 
@@ -257,7 +256,7 @@ public:
 
 #if WITH_EDITOR
 	virtual void PreSave(FObjectPreSaveContext ObjectSaveContext) override;
-#endif //WITH_EDITOR
+#endif // WITH_EDITOR
 
 	UFUNCTION(BlueprintPure, Category = "Tutorial")
 	FA1TutorialStepInfo GetTutorialStepInfoByStepName(FString InStepID);

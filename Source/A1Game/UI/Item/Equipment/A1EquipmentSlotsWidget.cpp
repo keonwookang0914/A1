@@ -11,7 +11,6 @@
 UA1EquipmentSlotsWidget::UA1EquipmentSlotsWidget(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-
 }
 
 void UA1EquipmentSlotsWidget::NativeOnInitialized()
@@ -63,7 +62,7 @@ void UA1EquipmentSlotsWidget::ConstructUI(FGameplayTag Channel, const FEquipment
 	}
 	EntryChangedDelegateHandle = EquipmentManager->OnEquipmentEntryChanged.AddUObject(this, &ThisClass::OnEquipmentEntryChanged);
 
-	//EquipStateChangedDelegateHandle = EquipManager->OnEquipStateChanged.AddUObject(this, &ThisClass::OnEquipStateChanged);
+	// EquipStateChangedDelegateHandle = EquipManager->OnEquipStateChanged.AddUObject(this, &ThisClass::OnEquipStateChanged);
 }
 
 void UA1EquipmentSlotsWidget::DestructUI()
@@ -75,7 +74,7 @@ void UA1EquipmentSlotsWidget::DestructUI()
 	}
 
 	// Jerry
-	//if (EquipManager)
+	// if (EquipManager)
 	//{
 	//	EquipManager->OnEquipStateChanged.Remove(EquipStateChangedDelegateHandle);
 	//	EquipStateChangedDelegateHandle.Reset();
@@ -108,5 +107,5 @@ void UA1EquipmentSlotsWidget::OnEquipmentEntryChanged(EEquipmentSlotType Equipme
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("Index Valid: %d"), SlotIndex);
-	// TODO Twohand 처리 구문 
+	// TODO Twohand 처리 구문
 }

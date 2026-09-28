@@ -7,7 +7,7 @@
 #include "A1GameplayAbility_ChangeMainHand.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_ChangeMainHand : public ULyraGameplayAbility

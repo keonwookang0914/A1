@@ -10,7 +10,7 @@ UCLASS(meta=(DisplayName="Send Weapon Event"))
 class UA1AnimNotify_SendWeaponEvent : public UAnimNotify
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotify_SendWeaponEvent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -20,7 +20,7 @@ protected:
 protected:
 	UPROPERTY(EditAnywhere)
 	EEquipmentSlotType WeaponHandType = EEquipmentSlotType::RightHand;
-	
+
 	UPROPERTY(EditAnywhere)
 	FGameplayEventData EventData;
 };

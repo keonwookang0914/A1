@@ -147,10 +147,14 @@ bool UA1EquipmentSlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDr
 	const UA1ItemFragment* FromItemFragment = nullptr;
 	switch (ItemSlotType)
 	{
-	case EEquipmentSlotType::LeftHand:	FromItemFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Utility>();	break;
-	case EEquipmentSlotType::RightHand:	FromItemFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Weapon>();	break;
-	default:			break;		// TwoHand는 인벤토리에 안들어감, 들어가 있다면 종료
-		
+	case EEquipmentSlotType::LeftHand:
+		FromItemFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Utility>();
+		break;
+	case EEquipmentSlotType::RightHand:
+		FromItemFragment = FromItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Weapon>();
+		break;
+	default:
+		break; // TwoHand는 인벤토리에 안들어감, 들어가 있다면 종료
 	}
 	if (FromItemFragment == nullptr)
 		return false;

@@ -5,5 +5,4 @@
 UA1ItemFragment_Equipable_Attachment::UA1ItemFragment_Equipable_Attachment(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    
 }

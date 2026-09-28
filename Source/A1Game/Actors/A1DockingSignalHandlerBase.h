@@ -24,6 +24,7 @@ class AA1DockingSignalHandlerBase : public AA1WorldInteractable, public IA1Space
 	GENERATED_BODY()
 public:
 	AA1DockingSignalHandlerBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
 public:
 	virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
@@ -32,7 +33,7 @@ public:
 	virtual FA1InteractionInfo GetPreInteractionInfo(const FA1InteractionQuery& InteractionQuery) const override;
 	virtual void GetMeshComponents(TArray<UMeshComponent*>& OutMeshComponents) const override;
 
-	//IA1SpaceshipComponent
+	// IA1SpaceshipComponent
 	virtual void RegisterWithSpaceship(class AA1SpaceshipBase* Spaceship) override;
 	virtual ESpaceshipComponentType GetComponentType() const override { return ESpaceshipComponentType::DockingSignalHandler; }
 
@@ -41,7 +42,6 @@ public:
 	void SetSignalState(ESignalState NewSignalState);
 
 protected:
-
 	void SetupTags();
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnSignalStateChanged(ESignalState NewSignalState);
@@ -77,5 +77,4 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Transient)
 	TWeakObjectPtr<AA1SpaceshipBase> OwningSpaceship;
-
 };

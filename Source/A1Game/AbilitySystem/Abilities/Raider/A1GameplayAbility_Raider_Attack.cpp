@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "A1GameplayAbility_Raider_Attack.h"
 
 #include "A1GameplayTags.h"
@@ -23,7 +22,7 @@ UA1GameplayAbility_Raider_Attack::UA1GameplayAbility_Raider_Attack(const FObject
 
 void UA1GameplayAbility_Raider_Attack::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-    Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	CachedHitActors.Reset();
 
@@ -31,23 +30,23 @@ void UA1GameplayAbility_Raider_Attack::ActivateAbility(const FGameplayAbilitySpe
 	if (SourceASC == nullptr)
 		return;
 
-    if (UAbilityTask_WaitGameplayEvent* GameplayEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Trace, nullptr, false, true))
-    {
-        GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnTargetDataReady);
-        GameplayEventTask->ReadyForActivation();
-    }
+	if (UAbilityTask_WaitGameplayEvent* GameplayEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Trace, nullptr, false, true))
+	{
+		GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnTargetDataReady);
+		GameplayEventTask->ReadyForActivation();
+	}
 
-    if (UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("MeleeAttack"), AttackMontage, 1.0f, NAME_None, false, 1.f, 0.f, false))
-    {
-        PlayMontageTask->OnCompleted.AddDynamic(this, &ThisClass::OnMontageFinished);
-        PlayMontageTask->ReadyForActivation();
-    }
+	if (UAbilityTask_PlayMontageAndWait* PlayMontageTask = UAbilityTask_PlayMontageAndWait::CreatePlayMontageAndWaitProxy(this, TEXT("MeleeAttack"), AttackMontage, 1.0f, NAME_None, false, 1.f, 0.f, false))
+	{
+		PlayMontageTask->OnCompleted.AddDynamic(this, &ThisClass::OnMontageFinished);
+		PlayMontageTask->ReadyForActivation();
+	}
 
-    if (UAbilityTask_WaitGameplayEvent* GameplayEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Montage_End, nullptr, true, true))
-    {
-        GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnMontageEventTriggered);
-        GameplayEventTask->ReadyForActivation();
-    }
+	if (UAbilityTask_WaitGameplayEvent* GameplayEventTask = UAbilityTask_WaitGameplayEvent::WaitGameplayEvent(this, A1GameplayTags::GameplayEvent_Montage_End, nullptr, true, true))
+	{
+		GameplayEventTask->EventReceived.AddDynamic(this, &ThisClass::OnMontageEventTriggered);
+		GameplayEventTask->ReadyForActivation();
+	}
 }
 
 void UA1GameplayAbility_Raider_Attack::OnTargetDataReady(FGameplayEventData Payload)
@@ -97,7 +96,7 @@ void UA1GameplayAbility_Raider_Attack::ParseTargetData(const FGameplayAbilityTar
 
 void UA1GameplayAbility_Raider_Attack::ProcessHitResult(FHitResult HitResult, float Damage, bool bBlockingHit)
 {
-	FScopedPredictionWindow	ScopedPrediction(SourceASC, GetCurrentActivationInfo().GetActivationPredictionKey());
+	FScopedPredictionWindow ScopedPrediction(SourceASC, GetCurrentActivationInfo().GetActivationPredictionKey());
 
 	FGameplayCueParameters SourceCueParams;
 	SourceCueParams.Location = HitResult.ImpactPoint;
@@ -113,11 +112,11 @@ void UA1GameplayAbility_Raider_Attack::ProcessHitResult(FHitResult HitResult, fl
 		{
 			FGameplayEffectSpecHandle EffectSpecHandle = MakeOutgoingGameplayEffectSpec(DamageGE);
 
-			//FGameplayEffectContextHandle EffectContextHandle = SourceASC->MakeEffectContext();
-			//HitResult.bBlockingHit = bBlockingHit;
-			//EffectContextHandle.AddHitResult(HitResult);
-			//EffectContextHandle.AddInstigator(SourceASC->AbilityActorInfo->OwnerActor.Get(), nullptr);
-			//EffectSpecHandle.Data->SetContext(EffectContextHandle);
+			// FGameplayEffectContextHandle EffectContextHandle = SourceASC->MakeEffectContext();
+			// HitResult.bBlockingHit = bBlockingHit;
+			// EffectContextHandle.AddHitResult(HitResult);
+			// EffectContextHandle.AddInstigator(SourceASC->AbilityActorInfo->OwnerActor.Get(), nullptr);
+			// EffectSpecHandle.Data->SetContext(EffectContextHandle);
 
 			EffectSpecHandle.Data->SetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, Damage);
 			ApplyGameplayEffectSpecToTarget(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, EffectSpecHandle, TargetDataHandle);
@@ -127,13 +126,13 @@ void UA1GameplayAbility_Raider_Attack::ProcessHitResult(FHitResult HitResult, fl
 
 void UA1GameplayAbility_Raider_Attack::OnMontageEventTriggered(FGameplayEventData Payload)
 {
-    OnMontageFinished();
+	OnMontageFinished();
 }
 
 void UA1GameplayAbility_Raider_Attack::OnMontageFinished()
 {
-    if (HasAuthority(&CurrentActivationInfo))
-    {
-        EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-    }
+	if (HasAuthority(&CurrentActivationInfo))
+	{
+		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+	}
 }

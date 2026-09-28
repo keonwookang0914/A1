@@ -6,7 +6,7 @@ UCLASS()
 class UA1AnimNotify_SpawnActor : public UAnimNotify
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotify_SpawnActor(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

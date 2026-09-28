@@ -15,7 +15,7 @@ public:
 
 	UPROPERTY()
 	TObjectPtr<UMaterialInstanceDynamic> OverlayMaterialInstance;
-	
+
 	UPROPERTY()
 	TArray<TWeakObjectPtr<UMeshComponent>> MeshComponents;
 };
@@ -24,7 +24,7 @@ UCLASS(editinlinenew, Const, hideCategories = Object, collapseCategories, Minima
 class UA1AnimNotifyState_OverlayEffect : public UAnimNotifyState
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotifyState_OverlayEffect(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -36,7 +36,7 @@ protected:
 private:
 	void ApplyWeaponMeshComponent(FOverlayEffectProgressInfo& ProgressInfo, USkeletalMeshComponent* MeshComponent);
 	void ApplyCharacterMeshComponents(FOverlayEffectProgressInfo& ProgressInfo, USkeletalMeshComponent* MeshComponent);
-	
+
 protected:
 	UPROPERTY(EditAnywhere)
 	EOverlayTargetType OverlayTargetType = EOverlayTargetType::None;
@@ -55,7 +55,7 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	bool bApplyRateScaleToProgress = true;
-	
+
 protected:
 	UPROPERTY()
 	TMap<TWeakObjectPtr<UMeshComponent>, FOverlayEffectProgressInfo> ProgressInfoMap;

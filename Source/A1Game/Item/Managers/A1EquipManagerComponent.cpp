@@ -52,7 +52,7 @@ void FA1EquipEntry::Equip()
 		{
 			// Remove Previous Ability
 			BaseAbilitySetHandles.TakeFromAbilitySystem(ASC);
-	
+
 			// Add Current Ability
 			if (const ULyraAbilitySet* BaseAbilitySet = EquippableFragment->BaseAbilitySet)
 			{
@@ -62,27 +62,27 @@ void FA1EquipEntry::Equip()
 			// Remove Previous Stat
 			ASC->RemoveActiveGameplayEffect(BaseStatHandle);
 			BaseStatHandle.Invalidate();
-	
+
 			// Add Current Stat
 			/* TEMP Jerry
 			*  ULyraGameData(GE)
 			const TSubclassOf<UGameplayEffect> AttributeModifierGE = ULyraAssetManager::GetSubclassByPath(ULyraGameData::Get().AttributeModifierGameplayEffect);
 			check(AttributeModifierGE);
-			
+
 			const FGameplayEffectContextHandle ContextHandle = ASC->MakeEffectContext();
 			const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(AttributeModifierGE, 1.f, ContextHandle);
 			const TSharedPtr<FGameplayEffectSpec>& SpecData = SpecHandle.Data;
-			
+
 			for (const FGameplayModifierInfo& ModifierInfo : SpecData->Def->Modifiers)
 			{
 				SpecData->SetSetByCallerMagnitude(ModifierInfo.ModifierMagnitude.GetSetByCallerFloat().DataTag, 0);
 			}
-			
+
 			for (const FA1GameplayTagStack& Stack : ItemInstance->GetStatContainer().GetStacks())
 			{
 				SpecData->SetSetByCallerMagnitude(Stack.GetStackTag(), Stack.GetStackCount());
 			}
-			
+
 			BaseStatHandle = ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
 			*/
 		}
@@ -124,7 +124,7 @@ void FA1EquipEntry::Equip()
 				}
 
 				/* TEMP
-				// Spawn Current Pocket Weapon				
+				// Spawn Current Pocket Weapon
 				const UA1ItemFragment_Equipable_Attachment* AttachmentFragment = ItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Attachment>();
 				if (UA1PocketWorldSubsystem* PocketWorldSubsystem = EquipManager->GetWorld()->GetSubsystem<UA1PocketWorldSubsystem>())
 				{
@@ -137,7 +137,7 @@ void FA1EquipEntry::Equip()
 								{
 									ACharacter* Character = PocketStage->GetCharacter();
 									const FA1WeaponAttachInfo& AttachInfo = AttachmentFragment->WeaponAttachInfo;
-									
+
 									UWorld* World = EquipManager->GetWorld();
 									SpawnedPocketWorldActor = World->SpawnActorDeferred<AA1EquipmentBase>(AttachInfo.SpawnWeaponClass, FTransform::Identity, Character);
 									SpawnedPocketWorldActor->SetActorRelativeTransform(AttachInfo.AttachTransform);
@@ -146,7 +146,7 @@ void FA1EquipEntry::Equip()
 									SpawnedPocketWorldActor->FinishSpawning(FTransform::Identity, true);
 
 									PocketStage->RefreshLightingChannelToActors();
-									
+
 									UAnimMontage* PocketWorldIdleMontage = ULyraAssetManager::GetAssetByPath<UAnimMontage>(AttachmentFragment->PocketWorldIdleMontage);
 									Character->PlayAnimMontage(PocketWorldIdleMontage);
 								}
@@ -156,7 +156,7 @@ void FA1EquipEntry::Equip()
 				}*/
 			}
 		}
-		//else if (EquippableFragment->EquipmentType == EEquipmentType::Armor)
+		// else if (EquippableFragment->EquipmentType == EEquipmentType::Armor)
 		//{
 		//	// Refresh Real Armor Mesh
 		//	const UA1ItemFragment_Equipable_Armor* ArmorFragment = ItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Armor>();
@@ -168,7 +168,7 @@ void FA1EquipEntry::Equip()
 		//	// Refresh Pocket Armor Mesh
 		//	if (Character->IsLocallyControlled())
 		//	{
-		//		/* TEMP				
+		//		/* TEMP
 		//		if (UA1PocketWorldSubsystem* PocketWorldSubsystem = EquipManager->GetWorld()->GetSubsystem<UA1PocketWorldSubsystem>())
 		//		{
 		//			if (APlayerController* PC = Character->GetLyraPlayerController())
@@ -188,7 +188,7 @@ void FA1EquipEntry::Equip()
 		//			}
 		//		}*/
 		//	}
-		//}
+		// }
 	}
 
 	if (EquippableFragment->EquipmentType == EEquipmentType::Weapon || EquippableFragment->EquipmentType == EEquipmentType::Utility)
@@ -243,15 +243,15 @@ void FA1EquipEntry::Unequip()
 			ASC->RemoveActiveGameplayEffect(BaseStatHandle);
 			BaseStatHandle.Invalidate();
 		}
-		
+
 		if (IsValid(SpawnedEquipmentActor))
 		{
 			SpawnedEquipmentActor->Destroy();
-		}	
+		}
 	}
 	else
 	{
-		//if (ALyraCharacter* Character = EquipManager->GetCharacter())
+		// if (ALyraCharacter* Character = EquipManager->GetCharacter())
 		//{
 		//	if (UA1EquipmentManagerComponent::IsWeaponSlot(EquipmentSlotType) || UA1EquipmentManagerComponent::IsUtilitySlot(EquipmentSlotType))
 		//	{
@@ -259,7 +259,7 @@ void FA1EquipEntry::Unequip()
 		//		if (Character->IsLocallyControlled())
 		//		{
 		//			/* TEMP Rookiss
-		//			
+		//
 		//			if (UA1PocketWorldSubsystem* PocketWorldSubsystem = EquipManager->GetWorld()->GetSubsystem<UA1PocketWorldSubsystem>())
 		//			{
 		//				if (APlayerController* PC = Character->GetLyraPlayerController())
@@ -284,17 +284,17 @@ void FA1EquipEntry::Unequip()
 		//	{
 		//		// Refresh Real Armor Mesh
 		//		EArmorType ArmorType = EquipManager->ConvertToArmorType(EquipmentSlotType);
-		//	
+		//
 		//		if (UA1CosmeticManagerComponent* CharacterCosmetics = Character->FindComponentByClass<UA1CosmeticManagerComponent>())
 		//		{
 		//			CharacterCosmetics->RefreshArmorMesh(ArmorType, nullptr);
 		//		}
-		//		
+		//
 		//		// Refresh Pocket Armor Mesh
 		//		if (Character->IsLocallyControlled())
 		//		{
 		//			/* TEMP
-		//			
+		//
 		//			if (UA1PocketWorldSubsystem* PocketWorldSubsystem = EquipManager->GetWorld()->GetSubsystem<UA1PocketWorldSubsystem>())
 		//			{
 		//				if (APlayerController* PC = Character->GetLyraPlayerController())
@@ -315,13 +315,13 @@ void FA1EquipEntry::Unequip()
 		//			}*/
 		//		}
 		//	}
-		//}
+		// }
 	}
 }
 
 bool FA1EquipList::NetDeltaSerialize(FNetDeltaSerializeInfo& DeltaParams)
 {
-	return FFastArraySerializer::FastArrayDeltaSerialize<FA1EquipEntry, FA1EquipList>(Entries, DeltaParams,*this);
+	return FFastArraySerializer::FastArrayDeltaSerialize<FA1EquipEntry, FA1EquipList>(Entries, DeltaParams, *this);
 }
 
 void FA1EquipList::PostReplicatedAdd(const TArrayView<int32> AddedIndices, int32 FinalSize)
@@ -331,7 +331,7 @@ void FA1EquipList::PostReplicatedAdd(const TArrayView<int32> AddedIndices, int32
 		FA1EquipEntry& Entry = Entries[AddedIndex];
 		Entry.EquipManager = EquipManager;
 		Entry.EquipmentSlotType = (EEquipmentSlotType)AddedIndex;
-		
+
 		if (Entry.GetItemInstance())
 		{
 			Entry.Equip();
@@ -366,7 +366,7 @@ UA1EquipManagerComponent::UA1EquipManagerComponent(const FObjectInitializer& Obj
 	: Super(ObjectInitializer)
 	, EquipList(this)
 {
-    SetIsReplicatedByDefault(true);
+	SetIsReplicatedByDefault(true);
 	bWantsInitializeComponent = true;
 }
 
@@ -398,7 +398,7 @@ void UA1EquipManagerComponent::UninitializeComponent()
 			Unequip((EEquipmentSlotType)i);
 		}
 	}
-	
+
 	Super::UninitializeComponent();
 }
 
@@ -415,7 +415,7 @@ void UA1EquipManagerComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 bool UA1EquipManagerComponent::ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags)
 {
 	bool bWroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
-	
+
 	for (FA1EquipEntry& Entry : EquipList.Entries)
 	{
 		UA1ItemInstance* ItemInstance = Entry.GetItemInstance();
@@ -424,7 +424,7 @@ bool UA1EquipManagerComponent::ReplicateSubobjects(UActorChannel* Channel, FOutB
 			bWroteSomething |= Channel->ReplicateSubobject(ItemInstance, *Bunch, *RepFlags);
 		}
 	}
-	
+
 	return bWroteSomething;
 }
 
@@ -465,11 +465,11 @@ void UA1EquipManagerComponent::Unequip(EEquipmentSlotType EquipmentSlotType)
 
 	if (EquipmentSlotType == EEquipmentSlotType::Count)
 		return;
-	
+
 	TArray<FA1EquipEntry>& Entries = EquipList.Entries;
 	FA1EquipEntry& Entry = Entries[(int32)EquipmentSlotType];
 	UA1ItemInstance* RemovedItemInstance = Entry.GetItemInstance();
-	
+
 	EquipList.Unequip(EquipmentSlotType);
 	if (IsUsingRegisteredSubObjectList() && RemovedItemInstance)
 	{
@@ -483,15 +483,15 @@ void UA1EquipManagerComponent::ChangeEquipState(EEquipmentSlotType EquipSlotType
 
 	EEquipState NewEquipState = ConvertToEquipState(EquipSlotType);
 	if (CanChangeEquipState(NewEquipState, bWear))
-	{	
-		if (bWear)													// 장비를 착용하려는 경우
+	{
+		if (bWear) // 장비를 착용하려는 경우
 		{
-			if (CurrentEquipState != EEquipState::Unarmed)			// 한 손인 상태에서 추가 장착 시
+			if (CurrentEquipState != EEquipState::Unarmed) // 한 손인 상태에서 추가 장착 시
 				NewEquipState = EEquipState::Both;
 		}
-		else														// 장비를 해제하려는 경우
+		else // 장비를 해제하려는 경우
 		{
-			if (CurrentEquipState == EEquipState::Both)				// 두 손이라면	해당 장비의 반대 손으로 상태 변경
+			if (CurrentEquipState == EEquipState::Both) // 두 손이라면	해당 장비의 반대 손으로 상태 변경
 				NewEquipState = ConvertToAnotherHand(EquipSlotType);
 			else
 				NewEquipState = EEquipState::Unarmed;
@@ -502,7 +502,7 @@ void UA1EquipManagerComponent::ChangeEquipState(EEquipmentSlotType EquipSlotType
 
 void UA1EquipManagerComponent::ChangeMainHand()
 {
-	//check(GetOwner()->HasAuthority());
+	// check(GetOwner()->HasAuthority());
 
 	switch (CurrentMainHand)
 	{
@@ -514,7 +514,7 @@ void UA1EquipManagerComponent::ChangeMainHand()
 		break;
 	}
 
-	// TODO Jerry 
+	// TODO Jerry
 	// 서버에서 호출되도록 구조 변경 예정
 	BroadcastChangedMessage(CurrentMainHand);
 }
@@ -529,13 +529,12 @@ void UA1EquipManagerComponent::CanInteract()
 	FGameplayTagContainer TagContainer;
 	TagContainer.AddTag(TagToCheck);
 
-
 	// Tag를 보유했으며 (TwoHand가 찼다면 || MainHand가 비어있지 않다면) 불가능 -> Tag 제거
 	if (HasTag && (HasItem || HasTwoHandItem))
 		UAbilitySystemBlueprintLibrary::RemoveLooseGameplayTags(GetOwner(), TagContainer, true);
-	
+
 	// Tag가 없으며 MainHand & TwoHand 모두 Item이 비었다면 -> Interact 가능 태그 부여
-	if(!HasTag && !(HasItem || HasTwoHandItem))
+	if (!HasTag && !(HasItem || HasTwoHandItem))
 		UAbilitySystemBlueprintLibrary::AddLooseGameplayTags(GetOwner(), TagContainer, true);
 }
 
@@ -543,12 +542,12 @@ bool UA1EquipManagerComponent::CanChangeEquipState(EEquipState NewEquipState, bo
 {
 	if (NewEquipState == EEquipState::Count)
 		return false;
-																// 착용 시도 시
-	if (bWear && CurrentEquipState == NewEquipState)			// 이미 착용 중인 상태로 변경 불가
+	// 착용 시도 시
+	if (bWear && CurrentEquipState == NewEquipState) // 이미 착용 중인 상태로 변경 불가
 		return false;
-									
+
 	if (!bWear && NewEquipState == ConvertToAnotherHand(ConvertToEquipmentSlotType(CurrentEquipState)))
-		return false;											// 해제 시도 시 반대 상태를 해체하려 하면 변경 불가
+		return false; // 해제 시도 시 반대 상태를 해체하려 하면 변경 불가
 
 	if (NewEquipState == EEquipState::Both && CurrentEquipState != EEquipState::Unarmed)
 		return false;
@@ -560,7 +559,7 @@ AA1EquipmentBase* UA1EquipManagerComponent::GetEquippedActor(EEquipmentSlotType 
 {
 	if (ItemSlotType == EEquipmentSlotType::Count)
 		return nullptr;
-	
+
 	const TArray<FA1EquipEntry>& Entries = EquipList.Entries;
 	const int32 EntryIndex = (int32)ItemSlotType;
 	return Entries.IsValidIndex(EntryIndex) ? Entries[EntryIndex].GetEquipmentActor() : nullptr;
@@ -641,9 +640,15 @@ EEquipmentSlotType UA1EquipManagerComponent::ConvertToEquipmentSlotType(EEquipSt
 
 	switch (EquipState)
 	{
-	case EEquipState::Left:  EquipmentSlotType = EEquipmentSlotType::LeftHand;  break;
-	case EEquipState::Right: EquipmentSlotType = EEquipmentSlotType::RightHand; break;
-	case EEquipState::Both:   EquipmentSlotType = EEquipmentSlotType::TwoHand;   break;
+	case EEquipState::Left:
+		EquipmentSlotType = EEquipmentSlotType::LeftHand;
+		break;
+	case EEquipState::Right:
+		EquipmentSlotType = EEquipmentSlotType::RightHand;
+		break;
+	case EEquipState::Both:
+		EquipmentSlotType = EEquipmentSlotType::TwoHand;
+		break;
 	}
 
 	return EquipmentSlotType;
@@ -655,8 +660,12 @@ EEquipmentSlotType UA1EquipManagerComponent::ConvertToEquipmentSlotType(EMainHan
 
 	switch (EquipState)
 	{
-	case EMainHandState::Left:  EquipmentSlotType = EEquipmentSlotType::LeftHand;  break;
-	case EMainHandState::Right: EquipmentSlotType = EEquipmentSlotType::RightHand; break;
+	case EMainHandState::Left:
+		EquipmentSlotType = EEquipmentSlotType::LeftHand;
+		break;
+	case EMainHandState::Right:
+		EquipmentSlotType = EEquipmentSlotType::RightHand;
+		break;
 	}
 
 	return EquipmentSlotType;
@@ -668,9 +677,15 @@ EEquipState UA1EquipManagerComponent::ConvertToEquipState(EEquipmentSlotType Ite
 
 	switch (ItemSlotType)
 	{
-	case EEquipmentSlotType::LeftHand:  EquipmentSlotType = EEquipState::Left;  break;
-	case EEquipmentSlotType::RightHand: EquipmentSlotType = EEquipState::Right; break;
-	case EEquipmentSlotType::TwoHand:   EquipmentSlotType = EEquipState::Both;   break;
+	case EEquipmentSlotType::LeftHand:
+		EquipmentSlotType = EEquipState::Left;
+		break;
+	case EEquipmentSlotType::RightHand:
+		EquipmentSlotType = EEquipState::Right;
+		break;
+	case EEquipmentSlotType::TwoHand:
+		EquipmentSlotType = EEquipState::Both;
+		break;
 	}
 
 	return EquipmentSlotType;
@@ -682,9 +697,15 @@ EEquipState UA1EquipManagerComponent::ConvertToAnotherHand(EEquipmentSlotType Eq
 
 	switch (EquipmentSlotType)
 	{
-	case EEquipmentSlotType::LeftHand:  EquipState = EEquipState::Right;  break;
-	case EEquipmentSlotType::RightHand: EquipState = EEquipState::Left; break;
-	case EEquipmentSlotType::TwoHand:   EquipState = EEquipState::Unarmed;   break;
+	case EEquipmentSlotType::LeftHand:
+		EquipState = EEquipState::Right;
+		break;
+	case EEquipmentSlotType::RightHand:
+		EquipState = EEquipState::Left;
+		break;
+	case EEquipmentSlotType::TwoHand:
+		EquipState = EEquipState::Unarmed;
+		break;
 	}
 
 	return EquipState;
@@ -695,7 +716,7 @@ void UA1EquipManagerComponent::ChangeShouldHiddenEquipments(bool bNewShouldHidde
 	bShouldHiddenEquipments = bNewShouldHiddenEquipments;
 
 	TArray<AA1EquipmentBase*> OutEquippedActors;
-	//GetAllEquippedActors(OutEquippedActors);
+	// GetAllEquippedActors(OutEquippedActors);
 
 	const TArray<FA1EquipEntry>& Entries = EquipList.Entries;
 	if (CurrentEquipState != EEquipState::Unarmed)

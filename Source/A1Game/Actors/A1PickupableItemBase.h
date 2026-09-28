@@ -36,5 +36,4 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly)
 	FVector2D MinPickupCollisionExtent = FVector2D(32.f, 32.f);
-
 };

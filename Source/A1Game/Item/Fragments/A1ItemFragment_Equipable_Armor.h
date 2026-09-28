@@ -8,7 +8,7 @@ UCLASS()
 class UA1ItemFragment_Equipable_Armor : public UA1ItemFragment_Equipable
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1ItemFragment_Equipable_Armor(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -19,14 +19,14 @@ protected:
 
 public:
 	virtual void OnInstanceCreated(UA1ItemInstance* ItemInstance) const override;
-	
+
 public:
-	//UPROPERTY(EditDefaultsOnly)
-	//EArmorType ArmorType = EArmorType::Count;
+	// UPROPERTY(EditDefaultsOnly)
+	// EArmorType ArmorType = EArmorType::Count;
 
 	UPROPERTY(EditDefaultsOnly, meta=(EditCondition="ArmorType == EArmorType::Chest", EditConditionHides))
 	bool bIsFullBody = false;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	TSoftObjectPtr<USkeletalMesh> ArmorMesh;
 

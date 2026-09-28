@@ -55,7 +55,7 @@ void UA1TutorialStep::Initialize(UA1TutorialManager* InManager, const FA1Tutoria
 
 void UA1TutorialStep::StartStep()
 {
-	if ( bIsActive )
+	if (bIsActive)
 		return;
 
 	bIsActive = true;
@@ -70,7 +70,7 @@ void UA1TutorialStep::StartStep()
 	BP_OnStepStarted();
 
 	// 첫 번째 액션 시작
-	if ( StepInfo.Actions.Num() > 0 )
+	if (StepInfo.Actions.Num() > 0)
 	{
 		StartCurrentAction();
 	}
@@ -83,17 +83,17 @@ void UA1TutorialStep::StartStep()
 
 void UA1TutorialStep::StartCurrentAction()
 {
-	if ( CurrentActionIndex >= StepInfo.Actions.Num() )
+	if (CurrentActionIndex >= StepInfo.Actions.Num())
 	{
 		// 모든 액션 완료
 		CompleteStep();
 		return;
 	}
 
-	const FA1TutorialAction& CurrentAction = StepInfo.Actions[ CurrentActionIndex ];
+	const FA1TutorialAction& CurrentAction = StepInfo.Actions[CurrentActionIndex];
 
 	// 조건 확인
-	if ( !CheckActionCondition(CurrentAction) )
+	if (!CheckActionCondition(CurrentAction))
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("[Tutorial] Action condition failed, skipping action: %s"),
 			*CurrentAction.ActionName.ToString());
@@ -111,7 +111,7 @@ void UA1TutorialStep::StartCurrentAction()
 	BP_OnActionStarted(CurrentAction, CurrentActionIndex);
 
 	// 액션 타입에 따라 실행
-	switch ( CurrentAction.ActionType )
+	switch (CurrentAction.ActionType)
 	{
 	case ETutorialActionType::Fade:
 		ExecuteFadeAction(CurrentAction);
@@ -169,12 +169,12 @@ void UA1TutorialStep::StartCurrentAction()
 
 void UA1TutorialStep::CompleteCurrentAction()
 {
-	if ( bCurrentActionCompleted )
+	if (bCurrentActionCompleted)
 		return;
 
 	bCurrentActionCompleted = true;
 
-	const FA1TutorialAction& CompletedAction = StepInfo.Actions[ CurrentActionIndex ];
+	const FA1TutorialAction& CompletedAction = StepInfo.Actions[CurrentActionIndex];
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Completed Action %d/%d: %s"),
 		CurrentActionIndex + 1, StepInfo.Actions.Num(), *CompletedAction.ActionName.ToString());
@@ -182,10 +182,9 @@ void UA1TutorialStep::CompleteCurrentAction()
 	BP_OnActionCompleted(CompletedAction, CurrentActionIndex);
 
 	// Auto Progress 딜레이가 있으면 적용
-	if ( CompletedAction.bAutoProgress && CompletedAction.AutoProgressDelay > 0.0f )
+	if (CompletedAction.bAutoProgress && CompletedAction.AutoProgressDelay > 0.0f)
 	{
-		GetWorld()->GetTimerManager().SetTimer(AutoProgressTimer,
-			[ this ] ()
+		GetWorld()->GetTimerManager().SetTimer(AutoProgressTimer, [this]()
 			{
 				AdvanceToNextAction();
 			},
@@ -207,7 +206,7 @@ void UA1TutorialStep::ExecuteFadeAction(const FA1TutorialAction& Action)
 {
 	TriggerFadeEffect(Action.FadeStart, Action.FadeEnd, Action.FadeDuration, Action.FadeColor);
 
-	//Fade 업무를 하는 동안 다른걸 할 수 있게 조정
+	// Fade 업무를 하는 동안 다른걸 할 수 있게 조정
 	CompleteCurrentAction();
 }
 
@@ -228,7 +227,7 @@ void UA1TutorialStep::ExecuteDialogueAction(const FA1TutorialAction& Action)
 	Message.bIsGlitched = Action.DialogueData.bIsGlitched;
 	Message.GlitchSound = Action.DialogueData.GlitchSound;
 
-	if ( TutorialManager )
+	if (TutorialManager)
 	{
 		TutorialManager->BroadcastTutorialMessage(Message);
 	}
@@ -236,7 +235,7 @@ void UA1TutorialStep::ExecuteDialogueAction(const FA1TutorialAction& Action)
 	BP_OnDialogueChanged(Action.DialogueData);
 
 	// 사용자 입력이 필요한지 확인
-	if ( Action.DialogueData.bRequireInput )
+	if (Action.DialogueData.bRequireInput)
 	{
 		bWaitingForDialogueInput = true;
 		// 사용자 입력 대기, AdvanceDialogue() 호출 시 완료
@@ -244,8 +243,7 @@ void UA1TutorialStep::ExecuteDialogueAction(const FA1TutorialAction& Action)
 	else
 	{
 		// 자동 진행
-		GetWorld()->GetTimerManager().SetTimer(DialogueTimer,
-			[ this ] ()
+		GetWorld()->GetTimerManager().SetTimer(DialogueTimer, [this]()
 			{
 				CompleteCurrentAction();
 			},
@@ -257,11 +255,10 @@ void UA1TutorialStep::ExecuteMissionAction(const FA1TutorialAction& Action)
 {
 	FA1TutorialMission Message;
 	Message.MissionTitle = Action.MissionData.MissionTitle;
-	Message.MissionDescription= Action.MissionData.MissionDescription;
+	Message.MissionDescription = Action.MissionData.MissionDescription;
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 	MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_Tutorial_Mission, Message);
-	
 
 	// 미션은 즉시 완료 (실제 완료는 이벤트로 처리)
 	CompleteCurrentAction();
@@ -272,7 +269,7 @@ void UA1TutorialStep::ExecuteWaitAction(const FA1TutorialAction& Action)
 	bWaitingForEvent = true;
 
 	// Event Listener
-	if ( Action.WaitEventTag.IsValid() )
+	if (Action.WaitEventTag.IsValid())
 	{
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 		ActionEventListenerHandle = MessageSubsystem.RegisterListener<FGameplayEventData>(
@@ -284,7 +281,7 @@ void UA1TutorialStep::ExecuteWaitAction(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::ExecuteMovementAction(const FA1TutorialAction& Action)
 {
-	bool bEnable = ( Action.ActionType == ETutorialActionType::EnableMovement );
+	bool bEnable = (Action.ActionType == ETutorialActionType::EnableMovement);
 	SetPlayerMovementEnabled(bEnable);
 
 	// 즉시 완료
@@ -293,7 +290,7 @@ void UA1TutorialStep::ExecuteMovementAction(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::ExecuteTriggerEventAction(const FA1TutorialAction& Action)
 {
-	if ( Action.TriggerEventTag.IsValid() )
+	if (Action.TriggerEventTag.IsValid())
 	{
 		FGameplayEventData EventData;
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
@@ -311,10 +308,10 @@ void UA1TutorialStep::ExecuteCutsceneAction(const FA1TutorialAction& Action)
 	UE_LOG(LogA1Tutorial, Warning, TEXT("[Tutorial] ExecuteCutsceneAction called for: %s"),
 		*Action.ActionName.ToString());
 
-	if ( Action.CutsceneSequence.IsValid() )
+	if (Action.CutsceneSequence.IsValid())
 	{
 		ULevelSequence* Sequence = Action.CutsceneSequence.LoadSynchronous();
-		if ( Sequence )
+		if (Sequence)
 		{
 			PlayCutscene(Sequence);
 			// 컷신 완료는 Blueprint에서 처리하도록 함
@@ -328,8 +325,7 @@ void UA1TutorialStep::ExecuteCutsceneAction(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::ExecuteDelayAction(const FA1TutorialAction& Action)
 {
-	GetWorld()->GetTimerManager().SetTimer(DelayTimer,
-		[ this ] ()
+	GetWorld()->GetTimerManager().SetTimer(DelayTimer, [this]()
 		{
 			CompleteCurrentAction();
 		},
@@ -338,28 +334,28 @@ void UA1TutorialStep::ExecuteDelayAction(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::ExecuteLyingBedAction()
 {
-	//Actor가 LyraCharacter인지 체크
+	// Actor가 LyraCharacter인지 체크
 	ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(GetPlayerCharacter());
-	if ( !LyraCharacter )
+	if (!LyraCharacter)
 		return;
 
 	ALyraPlayerController* LyraPlayerController = LyraCharacter->GetLyraPlayerController();
-	if ( !LyraPlayerController )
+	if (!LyraPlayerController)
 		return;
 
 	// AbilitySystemComponent 가져오기
 	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(LyraCharacter);
-	if ( !ASC )
+	if (!ASC)
 		return;
 
 	AActor* Actor = UGameplayStatics::GetActorOfClass(GetWorld(), AA1BedBase::StaticClass());
-	if (AA1BedBase* Bed = Cast<AA1BedBase>(Actor) )
+	if (AA1BedBase* Bed = Cast<AA1BedBase>(Actor))
 	{
 		FA1InteractionQuery InteractionQuery;
 		InteractionQuery.RequestingAvatar = LyraCharacter;
 		InteractionQuery.RequestingController = LyraPlayerController;
 
-		if ( Bed->CanInteraction(InteractionQuery) )
+		if (Bed->CanInteraction(InteractionQuery))
 		{
 			FGameplayEventData Payload;
 			Payload.EventTag = A1GameplayTags::Ability_Interact_Active;
@@ -393,11 +389,11 @@ void UA1TutorialStep::ExecuteSpawnItem(const FA1TutorialAction& Action)
 	ItemInstance->Init(ItemTemplateId, EItemRarity::Poor);
 
 	const UA1ItemFragment_Equipable_Attachment* AttachmentFragment = ItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable_Attachment>();
-	if ( !AttachmentFragment )
+	if (!AttachmentFragment)
 		return;
 
 	const FA1ItemAttachInfo& AttachInfo = AttachmentFragment->ItemAttachInfo;
-	if ( AttachInfo.SpawnItemClass )
+	if (AttachInfo.SpawnItemClass)
 	{
 		AA1EquipmentBase* NewItem = GetWorld()->SpawnActorDeferred<AA1EquipmentBase>(AttachInfo.SpawnItemClass, FTransform::Identity);
 		NewItem->Init(ItemInstance->GetItemTemplateID(), EEquipmentSlotType::Count, ItemInstance->GetItemRarity());
@@ -429,7 +425,7 @@ void UA1TutorialStep::ExecuteHighlightActor(const FA1TutorialAction& Action)
 	TArray<UPrimitiveComponent*> PrimitiveComponents;
 	FindActor->GetComponents<UPrimitiveComponent>(PrimitiveComponents);
 
-	for ( UPrimitiveComponent* Component : PrimitiveComponents )
+	for (UPrimitiveComponent* Component : PrimitiveComponents)
 	{
 		Component->SetRenderCustomDepth(true);
 		Component->SetCustomDepthStencilValue(250);
@@ -441,7 +437,7 @@ void UA1TutorialStep::ExecuteHighlightActor(const FA1TutorialAction& Action)
 void UA1TutorialStep::ExecuteActivatePipeRepair()
 {
 	AActor* FindActor = UGameplayStatics::GetActorOfClass(GetWorld(), AA1SpaceshipBase::StaticClass());
-	if (AA1SpaceshipBase* Spaceship = Cast<AA1SpaceshipBase>(FindActor) )
+	if (AA1SpaceshipBase* Spaceship = Cast<AA1SpaceshipBase>(FindActor))
 	{
 		Spaceship->BreakPipeRepairBase();
 	}
@@ -457,7 +453,7 @@ void UA1TutorialStep::ExecuteSpawnChecker(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::AdvanceDialogue()
 {
-	if ( bWaitingForDialogueInput )
+	if (bWaitingForDialogueInput)
 	{
 		bWaitingForDialogueInput = false;
 		CompleteCurrentAction();
@@ -467,16 +463,16 @@ void UA1TutorialStep::AdvanceDialogue()
 const FA1TutorialAction& UA1TutorialStep::GetCurrentAction() const
 {
 	static FA1TutorialAction DefaultAction;
-	if ( CurrentActionIndex >= 0 && CurrentActionIndex < StepInfo.Actions.Num() )
+	if (CurrentActionIndex >= 0 && CurrentActionIndex < StepInfo.Actions.Num())
 	{
-		return StepInfo.Actions[ CurrentActionIndex ];
+		return StepInfo.Actions[CurrentActionIndex];
 	}
 	return DefaultAction;
 }
 
 bool UA1TutorialStep::CheckActionCondition(const FA1TutorialAction& Action)
 {
-	if ( !Action.ConditionTag.IsValid() )
+	if (!Action.ConditionTag.IsValid())
 		return true;
 
 	// TODO: 조건 태그에 따른 실제 조건 확인 로직 구현
@@ -486,7 +482,7 @@ bool UA1TutorialStep::CheckActionCondition(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::CompleteStep()
 {
-	if ( !bIsActive || bIsCompleted )
+	if (!bIsActive || bIsCompleted)
 		return;
 
 	bIsCompleted = true;
@@ -497,7 +493,7 @@ void UA1TutorialStep::CompleteStep()
 	UnbindFromGameplayEvent();
 
 	// 모든 타이머 정리
-	if ( UWorld* World = GetWorld() )
+	if (UWorld* World = GetWorld())
 	{
 		World->GetTimerManager().ClearTimer(AutoProgressTimer);
 		World->GetTimerManager().ClearTimer(DelayTimer);
@@ -505,13 +501,13 @@ void UA1TutorialStep::CompleteStep()
 	}
 
 	// 플레이어 이동 복원
-	if ( bPlayerMovementWasDisabled )
+	if (bPlayerMovementWasDisabled)
 	{
 		SetPlayerMovementEnabled(true);
 	}
 
 	// Navigation 정리
-	if ( TutorialManager )
+	if (TutorialManager)
 	{
 		TutorialManager->ClearNavigationTarget();
 	}
@@ -519,11 +515,11 @@ void UA1TutorialStep::CompleteStep()
 	BP_OnStepCompleted();
 
 	// 다음 단계로 진행
-	if ( TutorialManager && !StepInfo.NextStepID.IsEmpty() )
+	if (TutorialManager && !StepInfo.NextStepID.IsEmpty())
 	{
 		TutorialManager->StartStep(StepInfo.NextStepID);
 	}
-	else if ( TutorialManager )
+	else if (TutorialManager)
 	{
 		// 마지막 단계 완료
 		TutorialManager->OnTutorialCompleted.Broadcast();
@@ -534,14 +530,14 @@ void UA1TutorialStep::CleanupStep()
 {
 	UnbindFromGameplayEvent();
 
-	if ( UWorld* World = GetWorld() )
+	if (UWorld* World = GetWorld())
 	{
 		World->GetTimerManager().ClearTimer(AutoProgressTimer);
 		World->GetTimerManager().ClearTimer(DelayTimer);
 		World->GetTimerManager().ClearTimer(DialogueTimer);
 	}
 
-	if ( bPlayerMovementWasDisabled )
+	if (bPlayerMovementWasDisabled)
 	{
 		SetPlayerMovementEnabled(true);
 	}
@@ -551,22 +547,22 @@ void UA1TutorialStep::CleanupStep()
 
 void UA1TutorialStep::OnGameplayEvent(FGameplayTag EventTag, const FGameplayEventData& Payload)
 {
-	if ( !bIsActive || bIsCompleted )
+	if (!bIsActive || bIsCompleted)
 		return;
 
 	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Received Event: %s for Step: %s"),
 		*EventTag.ToString(), *StepInfo.StepName.ToString());
 
 	// 현재 대기 중인 액션의 이벤트인지 확인
-	if ( bWaitingForEvent && CurrentActionIndex < StepInfo.Actions.Num() )
+	if (bWaitingForEvent && CurrentActionIndex < StepInfo.Actions.Num())
 	{
-		const FA1TutorialAction& CurrentAction = StepInfo.Actions[ CurrentActionIndex ];
-		if ( CurrentAction.WaitEventTag.IsValid() && EventTag.MatchesTag(CurrentAction.WaitEventTag) )
+		const FA1TutorialAction& CurrentAction = StepInfo.Actions[CurrentActionIndex];
+		if (CurrentAction.WaitEventTag.IsValid() && EventTag.MatchesTag(CurrentAction.WaitEventTag))
 		{
 			bWaitingForEvent = false;
 
 			// 액션 이벤트 리스너 해제
-			if ( ActionEventListenerHandle.IsValid() )
+			if (ActionEventListenerHandle.IsValid())
 			{
 				UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 				MessageSubsystem.UnregisterListener(ActionEventListenerHandle);
@@ -578,7 +574,7 @@ void UA1TutorialStep::OnGameplayEvent(FGameplayTag EventTag, const FGameplayEven
 	}
 
 	// 단계 완료 조건 확인
-	if ( StepInfo.CompletionTag.IsValid() && EventTag.MatchesTag(StepInfo.CompletionTag) )
+	if (StepInfo.CompletionTag.IsValid() && EventTag.MatchesTag(StepInfo.CompletionTag))
 	{
 		CompleteStep();
 	}
@@ -586,7 +582,7 @@ void UA1TutorialStep::OnGameplayEvent(FGameplayTag EventTag, const FGameplayEven
 
 void UA1TutorialStep::BindToGameplayEvent()
 {
-	if ( !StepInfo.CompletionTag.IsValid() )
+	if (!StepInfo.CompletionTag.IsValid())
 		return;
 
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
@@ -596,14 +592,14 @@ void UA1TutorialStep::BindToGameplayEvent()
 
 void UA1TutorialStep::UnbindFromGameplayEvent()
 {
-	if ( MessageListenerHandle.IsValid() )
+	if (MessageListenerHandle.IsValid())
 	{
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 		MessageSubsystem.UnregisterListener(MessageListenerHandle);
 		MessageListenerHandle.Unregister();
 	}
 
-	if ( ActionEventListenerHandle.IsValid() )
+	if (ActionEventListenerHandle.IsValid())
 	{
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 		MessageSubsystem.UnregisterListener(ActionEventListenerHandle);
@@ -617,14 +613,14 @@ void UA1TutorialStep::OnCutsceneFinished()
 
 	// 중복 호출 방지
 	static bool bIsProcessing = false;
-	if ( bIsProcessing )
+	if (bIsProcessing)
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("OnCutsceneFinished already processing, ignoring!"));
 		return;
 	}
 	bIsProcessing = true;
 
-	if ( CurrentSequencePlayer )
+	if (CurrentSequencePlayer)
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("Cleaning up sequence player"));
 		CurrentSequencePlayer->OnFinished.RemoveAll(this);
@@ -643,24 +639,22 @@ void UA1TutorialStep::OnCutsceneFinished()
 
 void UA1TutorialStep::RestoreCameraState()
 {
-	if ( APlayerController* PC = GetWorld()->GetFirstPlayerController() )
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
 		// 원래 뷰 타겟으로 복원
-		if ( OriginalViewTarget.IsValid() )
+		if (OriginalViewTarget.IsValid())
 		{
 			PC->SetViewTarget(OriginalViewTarget.Get());
 		}
-		else if ( ALyraCharacter* Player = GetPlayerCharacter() )
+		else if (ALyraCharacter* Player = GetPlayerCharacter())
 		{
 			// 원래 뷰 타겟이 없으면 플레이어로 설정
 			PC->SetViewTarget(Player);
 			Player->bUseControllerRotationPitch = false;
 		}
 
-		
-
 		// 카메라 매니저 설정 복원
-		if ( PC->PlayerCameraManager )
+		if (PC->PlayerCameraManager)
 		{
 			PC->PlayerCameraManager->CameraStyle = OriginalCameraMode;
 
@@ -680,13 +674,13 @@ void UA1TutorialStep::RotateCharacter()
 {
 	if (ALyraCharacter* LyraCharacter = GetPlayerCharacter())
 	{
-		if ( ULyraCameraComponent* CameraComp = LyraCharacter->FindComponentByClass<ULyraCameraComponent>())
+		if (ULyraCameraComponent* CameraComp = LyraCharacter->FindComponentByClass<ULyraCameraComponent>())
 		{
 			if (ULyraCameraModeStack* CameraModeStack = CameraComp->GetLyraCameraModeStack())
 			{
-				for ( ULyraCameraMode* Mode : CameraModeStack->GetCameraModeStack() )
+				for (ULyraCameraMode* Mode : CameraModeStack->GetCameraModeStack())
 				{
-					if (ULyraCameraMode_FirstPerson* FirstPersonMode = Cast<ULyraCameraMode_FirstPerson>(Mode) )
+					if (ULyraCameraMode_FirstPerson* FirstPersonMode = Cast<ULyraCameraMode_FirstPerson>(Mode))
 					{
 						FirstPersonMode->SetCanRotate(false);
 						break;
@@ -699,11 +693,11 @@ void UA1TutorialStep::RotateCharacter()
 
 void UA1TutorialStep::TriggerFadeEffect(float FromAlpha, float ToAlpha, float Duration, FLinearColor Color)
 {
-	if ( UWorld* World = GetWorld() )
+	if (UWorld* World = GetWorld())
 	{
-		if ( AGameModeBase* GameMode = World->GetAuthGameMode() )
+		if (AGameModeBase* GameMode = World->GetAuthGameMode())
 		{
-			if ( ALyraGameMode* LyraGameMode = Cast<ALyraGameMode>(GameMode) )
+			if (ALyraGameMode* LyraGameMode = Cast<ALyraGameMode>(GameMode))
 			{
 				LyraGameMode->TriggerFadeOnAllPlayer(FromAlpha, ToAlpha, Duration, Color);
 			}
@@ -715,7 +709,7 @@ void UA1TutorialStep::SetPlayerMovementEnabled(bool bEnabled)
 {
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
 	{
-		if ( bEnabled )
+		if (bEnabled)
 		{
 			PC->SetIgnoreMoveInput(false);
 			PC->SetIgnoreLookInput(false);
@@ -732,9 +726,9 @@ void UA1TutorialStep::SetPlayerMovementEnabled(bool bEnabled)
 
 ALyraCharacter* UA1TutorialStep::GetPlayerCharacter()
 {
-	//TODO eric1306 멀티에서 로컬 플레이어로 찾든가 해서 전환.
+	// TODO eric1306 멀티에서 로컬 플레이어로 찾든가 해서 전환.
 	AActor* FindActor = UGameplayStatics::GetActorOfClass(GetWorld(), ALyraCharacter::StaticClass());
-	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(FindActor) )
+	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(FindActor))
 	{
 		return LyraCharacter;
 	}
@@ -744,14 +738,14 @@ ALyraCharacter* UA1TutorialStep::GetPlayerCharacter()
 
 void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 {
-	if ( !Sequence )
+	if (!Sequence)
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("Sequence is null, completing action"));
 		CompleteCurrentAction();
 		return;
 	}
 
-	if ( CurrentSequencePlayer )
+	if (CurrentSequencePlayer)
 	{
 		// Force stop last sequence player
 		CurrentSequencePlayer->Stop();
@@ -760,17 +754,17 @@ void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 	}
 
 	ALevelSequenceActor* FoundSequenceActor = nullptr;
-	for ( TActorIterator<ALevelSequenceActor> ActorItr(GetWorld()); ActorItr; ++ActorItr )
+	for (TActorIterator<ALevelSequenceActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		ALevelSequenceActor* SequenceActor = *ActorItr;
-		if ( SequenceActor && SequenceActor->GetSequence() == Sequence )
+		if (SequenceActor && SequenceActor->GetSequence() == Sequence)
 		{
 			FoundSequenceActor = SequenceActor;
 			break;
 		}
 	}
 
-	if ( !FoundSequenceActor )
+	if (!FoundSequenceActor)
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("No sequence actor found in level!"));
 		CompleteCurrentAction();
@@ -780,7 +774,7 @@ void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 	// 시퀀스 플레이어 가져오기
 	CurrentSequencePlayer = FoundSequenceActor->GetSequencePlayer();
 
-	if ( !CurrentSequencePlayer )
+	if (!CurrentSequencePlayer)
 	{
 		UE_LOG(LogA1Tutorial, Warning, TEXT("Failed to get sequence player from actor"));
 		CompleteCurrentAction();
@@ -788,7 +782,7 @@ void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 	}
 
 	CurrentSequencePlayer->OnFinished.RemoveAll(this);
-	CurrentSequencePlayer->OnFinished.Clear(); //clear all bindings
+	CurrentSequencePlayer->OnFinished.Clear(); // clear all bindings
 
 	CurrentSequencePlayer->OnFinished.AddDynamic(this, &UA1TutorialStep::OnCutsceneFinished);
 

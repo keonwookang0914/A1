@@ -21,10 +21,9 @@ void UA1CmdData::PreSave(FObjectPreSaveContext ObjectSaveContext)
 	Super::PreSave(ObjectSaveContext);
 
 	TextGroupNameToSet.KeySort([](const FName& A, const FName& B)
-	{
-		return (A.Compare(B) < 0);
-	});
-	
+		{
+			return (A.Compare(B) < 0);
+		});
 }
 
 EDataValidationResult UA1CmdData::IsDataValid(FDataValidationContext& Context) const

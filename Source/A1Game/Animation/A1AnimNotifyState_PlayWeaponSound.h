@@ -16,14 +16,14 @@ UCLASS(meta=(DisplayName="Play Weapon Sound"))
 class UA1AnimNotifyState_PlayWeaponSound : public UAnimNotifyState
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotifyState_PlayWeaponSound(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
 protected:
 	virtual void NotifyBegin(USkeletalMeshComponent* MeshComponent, UAnimSequenceBase* Animation, float TotalDuration, const FAnimNotifyEventReference& EventReference) override;
 	virtual void NotifyEnd(USkeletalMeshComponent* MeshComponent, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
-	
+
 protected:
 	UPROPERTY(EditAnywhere)
 	EEquipmentSlotType WeaponHandType = EEquipmentSlotType::RightHand;
@@ -33,7 +33,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, meta=(EditCondition="WeaponSoundType == EWeaponSoundType::Custom"))
 	TObjectPtr<USoundBase> CustomSound;
-	
+
 private:
 	UPROPERTY()
 	TObjectPtr<UAudioComponent> AudioComponent;

@@ -8,13 +8,13 @@ UCLASS(meta=(DisplayName="Weapon Niagara Effect"))
 class UA1AnimNotify_WeaponNiagaraEffect : public UAnimNotify_PlayNiagaraEffect
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotify_WeaponNiagaraEffect();
 
 public:
 	virtual void Notify(USkeletalMeshComponent* MeshComponent, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference) override;
-	
+
 private:
 	USkeletalMeshComponent* GetWeaponMeshComponent(USkeletalMeshComponent* MeshComponent) const;
 

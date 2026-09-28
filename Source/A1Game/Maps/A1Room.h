@@ -7,7 +7,7 @@
 #include "A1Room.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API AA1Room : public AA1MasterRoom
@@ -15,6 +15,7 @@ class A1GAME_API AA1Room : public AA1MasterRoom
 	GENERATED_BODY()
 public:
 	AA1Room();
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UStaticMeshComponent> Floor;

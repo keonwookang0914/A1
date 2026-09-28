@@ -25,7 +25,7 @@ UA1GameplayAbility_Weapon_MeleeCombo::UA1GameplayAbility_Weapon_MeleeCombo(const
 void UA1GameplayAbility_Weapon_MeleeCombo::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	bInputPressed = false;
 	bInputReleased = false;
 
@@ -34,7 +34,7 @@ void UA1GameplayAbility_Weapon_MeleeCombo::ActivateAbility(const FGameplayAbilit
 		InputReleaseTask->OnRelease.AddDynamic(this, &ThisClass::OnInputReleased);
 		InputReleaseTask->ReadyForActivation();
 	}
-	
+
 	WaitInputContinue();
 	WaitInputStop();
 }
@@ -43,7 +43,7 @@ void UA1GameplayAbility_Weapon_MeleeCombo::HandleMontageEvent(FGameplayEventData
 {
 	if (HasAuthority(&CurrentActivationInfo) == false)
 		return;
-	
+
 	bool bCanContinue = NextAbilityClass && (bInputPressed || bInputReleased == false) && (bBlocked == false);
 	if (bCanContinue)
 	{

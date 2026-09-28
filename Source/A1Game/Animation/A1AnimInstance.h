@@ -7,7 +7,7 @@
 #include "A1AnimInstance.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1AnimInstance : public UAnimInstance

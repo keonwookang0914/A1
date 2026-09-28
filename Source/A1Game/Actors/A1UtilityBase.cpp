@@ -16,14 +16,14 @@
 AA1UtilityBase::AA1UtilityBase(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    bReplicates = true;
+	bReplicates = true;
 }
 
 void AA1UtilityBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	//DOREPLIFETIME(ThisClass, OnOff);
+	// DOREPLIFETIME(ThisClass, OnOff);
 }
 
 void AA1UtilityBase::ChangeState()
@@ -33,8 +33,8 @@ void AA1UtilityBase::ChangeState()
 	StateIsChanged();
 }
 
-//void AA1UtilityBase::OnRep_OnOff()
+// void AA1UtilityBase::OnRep_OnOff()
 //{
 //	if (bOnlyUseForLocal)
 //		return;
-//}
+// }

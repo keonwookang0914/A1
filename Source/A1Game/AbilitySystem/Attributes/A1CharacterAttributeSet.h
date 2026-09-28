@@ -17,7 +17,7 @@ protected:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
 
-	//virtual bool PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) override;
+	// virtual bool PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) override;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 
 public:
@@ -59,12 +59,11 @@ private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	FGameplayAttributeData Damage;
 
-
 public:
 	mutable FA1AttributeEvent OnHealthChanged;
 	mutable FA1AttributeEvent OnOutOfHealth;
 	mutable FAttributeEvent OnNoticeWarning;
-	
+
 private:
 	bool bOutOfHealth;
 

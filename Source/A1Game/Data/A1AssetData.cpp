@@ -24,10 +24,10 @@ void UA1AssetData::PreSave(FObjectPreSaveContext ObjectSaveContext)
 	AssetLabelToSet.Empty();
 
 	AssetGroupNameToSet.KeySort([](const FName& A, const FName& B)
-	{
-		return (A.Compare(B) < 0);
-	});
-	
+		{
+			return (A.Compare(B) < 0);
+		});
+
 	for (const auto& Pair : AssetGroupNameToSet)
 	{
 		const FAssetSet& AssetSet = Pair.Value;

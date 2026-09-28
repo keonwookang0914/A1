@@ -8,7 +8,7 @@
 UA1ItemFragment_Equipable_Armor::UA1ItemFragment_Equipable_Armor(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    EquipmentType = EEquipmentType::Armor;
+	EquipmentType = EEquipmentType::Armor;
 }
 
 #if WITH_EDITORONLY_DATA
@@ -16,11 +16,11 @@ void UA1ItemFragment_Equipable_Armor::PreSave(FObjectPreSaveContext SaveContext)
 {
 	Super::PreSave(SaveContext);
 
-	//if (ArmorType != EArmorType::Chest)
+	// if (ArmorType != EArmorType::Chest)
 	//{
 	//	bIsFullBody = false;
-	//}
-	
+	// }
+
 	for (int i = 0; i < RarityStatRangeSets.Num(); i++)
 	{
 		TArray<FRarityStatRange>& RarityStatRanges = RarityStatRangeSets[i].RarityStatRanges;
@@ -36,6 +36,6 @@ void UA1ItemFragment_Equipable_Armor::PreSave(FObjectPreSaveContext SaveContext)
 void UA1ItemFragment_Equipable_Armor::OnInstanceCreated(UA1ItemInstance* ItemInstance) const
 {
 	Super::OnInstanceCreated(ItemInstance);
-	
+
 	AddStatTagStack(ItemInstance, RarityStatRangeSets);
 }

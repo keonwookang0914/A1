@@ -7,18 +7,17 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1DoorBase)
 
-
-AA1DoorBase::AA1DoorBase(const FObjectInitializer& objectInitializer) : Super(objectInitializer)
+AA1DoorBase::AA1DoorBase(const FObjectInitializer& objectInitializer)
+	: Super(objectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	SetRootComponent(ArrowComponent);
 
-	//Mesh
+	// Mesh
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMeshComponent"));
 	MeshComponent->SetupAttachment(GetRootComponent());
 	MeshComponent->SetCollisionProfileName(TEXT("Interactable"));
 	MeshComponent->SetCanEverAffectNavigation(true);
-
 }
 
 void AA1DoorBase::BeginPlay()

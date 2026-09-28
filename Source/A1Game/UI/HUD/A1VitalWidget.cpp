@@ -57,7 +57,7 @@ void UA1VitalWidget::SetAbilitySystemComponent(APawn* InOwner)
 			MaxHealth = CurrentAttributeSet->GetMaxHealth();
 			CurrentOxygen = CurrentAttributeSet->GetOxygen();
 			MaxOxygen = CurrentAttributeSet->GetMaxOxygen();
-	
+
 			UpdateText();
 		}
 	}
@@ -98,11 +98,11 @@ void UA1VitalWidget::UpdateText()
 	if (TxtHpStat)
 	{
 		TxtHpStat->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), CurrentHealth)));
-		//TxtHpStat->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), CurrentHealth/MaxHealth)));
+		// TxtHpStat->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), CurrentHealth/MaxHealth)));
 	}
 	if (TxtOxygenStat)
 	{
 		TxtOxygenStat->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), CurrentOxygen)));
-		//TxtOxygenStat->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), CurrentOxygen/MaxOxygen)));
+		// TxtOxygenStat->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), CurrentOxygen/MaxOxygen)));
 	}
 }

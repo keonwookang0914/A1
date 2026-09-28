@@ -8,7 +8,7 @@
 UA1ItemFragment_Equipable_Weapon::UA1ItemFragment_Equipable_Weapon(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    EquipmentType = EEquipmentType::Weapon;
+	EquipmentType = EEquipmentType::Weapon;
 }
 
 #if WITH_EDITORONLY_DATA
@@ -31,6 +31,6 @@ void UA1ItemFragment_Equipable_Weapon::PreSave(FObjectPreSaveContext SaveContext
 void UA1ItemFragment_Equipable_Weapon::OnInstanceCreated(UA1ItemInstance* ItemInstance) const
 {
 	Super::OnInstanceCreated(ItemInstance);
-	
+
 	AddStatTagStack(ItemInstance, RarityStatRangeSets);
 }

@@ -14,7 +14,6 @@
 UA1ItemTemplate::UA1ItemTemplate(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    
 }
 
 #if WITH_EDITOR
@@ -27,13 +26,13 @@ EDataValidationResult UA1ItemTemplate::IsDataValid(FDataValidationContext& Conte
 		Context.AddError(FText::FromString(FString::Printf(TEXT("SlotCount is less than 1"))));
 		Result = EDataValidationResult::Invalid;
 	}
-	
+
 	if (MaxStackCount < 1)
 	{
 		Context.AddError(FText::FromString(FString::Printf(TEXT("MaxStackCount is less than 1"))));
 		Result = EDataValidationResult::Invalid;
 	}
-	
+
 	const UA1ItemFragment_Equipable* FoundEquipable = nullptr;
 	for (UA1ItemFragment* Fragment : Fragments)
 	{
@@ -48,7 +47,7 @@ EDataValidationResult UA1ItemTemplate::IsDataValid(FDataValidationContext& Conte
 			FoundEquipable = CurrentEquippable;
 		}
 	}
-	
+
 	if (FoundEquipable)
 	{
 		if (FoundEquipable->EquipmentType == EEquipmentType::Count)
@@ -56,17 +55,17 @@ EDataValidationResult UA1ItemTemplate::IsDataValid(FDataValidationContext& Conte
 			Context.AddError(FText::FromString(FString::Printf(TEXT("Equipment Type is Invalid : [EEquipmentType::Count]"))));
 			return EDataValidationResult::Invalid;
 		}
-		
+
 		if (FoundEquipable->EquipmentType == EEquipmentType::Weapon)
 		{
 			const UA1ItemFragment_Equipable_Weapon* WeaponFragment = Cast<UA1ItemFragment_Equipable_Weapon>(FoundEquipable);
-			
+
 			if (WeaponFragment->WeaponType == EWeaponType::Count)
 			{
 				Context.AddError(FText::FromString(FString::Printf(TEXT("Item Type is Invalid : [EItemType::Count]"))));
 				Result = EDataValidationResult::Invalid;
 			}
-				
+
 			if (WeaponFragment->ItemHandType == EEquipmentSlotType::Count)
 			{
 				Context.AddError(FText::FromString(FString::Printf(TEXT("Item Hand Type is Invalid : [EItemHandType::Count]"))));
@@ -93,7 +92,7 @@ EDataValidationResult UA1ItemTemplate::IsDataValid(FDataValidationContext& Conte
 			}
 		}
 	}
-	
+
 	return Result;
 }
 #endif // WITH_EDITOR

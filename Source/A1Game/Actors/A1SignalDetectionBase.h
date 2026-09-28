@@ -17,7 +17,7 @@ enum class ESignalDetectionState : uint8
 	Find
 };
 /**
- * 
+ *
  */
 UCLASS()
 class AA1SignalDetectionBase : public AA1WorldInteractable, public IA1SpaceshipComponent
@@ -40,7 +40,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetSignalDetectionState(ESignalDetectionState InSignalDetectionState);
 
-	//IA1SpaceshipInterface
+	// IA1SpaceshipInterface
 	virtual void RegisterWithSpaceship(class AA1SpaceshipBase* Spaceship) override;
 	virtual ESpaceshipComponentType GetComponentType() const override { return ESpaceshipComponentType::SignalDetection; }
 
@@ -53,7 +53,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	AA1SpaceshipBase* FindSpaceshipOwner() const;
 
-	FORCEINLINE	AA1SpaceshipBase* GetOwningSpaceship() const { return OwningSpaceship.IsValid() ? OwningSpaceship.Get() : nullptr; }
+	FORCEINLINE AA1SpaceshipBase* GetOwningSpaceship() const { return OwningSpaceship.IsValid() ? OwningSpaceship.Get() : nullptr; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SignalDetection")

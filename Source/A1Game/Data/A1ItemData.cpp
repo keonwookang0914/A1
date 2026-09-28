@@ -23,14 +23,14 @@ void UA1ItemData::PreSave(FObjectPreSaveContext SaveContext)
 	Super::PreSave(SaveContext);
 
 	ItemTemplateIDToClass.KeySort([](const int32 A, const int32 B)
-	{
-		return A < B;
-	});
+		{
+			return A < B;
+		});
 
 	ItemTemplateClassToID.Empty();
 	WeaponItemTemplateClasses.Empty();
 	ArmorItemTemplateClasses.Empty();
-	
+
 	for (const auto& Pair : ItemTemplateIDToClass)
 	{
 		ItemTemplateClassToID.Emplace(Pair.Value, Pair.Key);
@@ -55,7 +55,7 @@ void UA1ItemData::PreSave(FObjectPreSaveContext SaveContext)
 EDataValidationResult UA1ItemData::IsDataValid(FDataValidationContext& Context) const
 {
 	EDataValidationResult Result = Super::IsDataValid(Context);
-	
+
 	TSet<int32> ItemTemplateIDSet;
 	TSet<TSubclassOf<UA1ItemTemplate>> ItemTemplateClassSet;
 
@@ -63,24 +63,24 @@ EDataValidationResult UA1ItemData::IsDataValid(FDataValidationContext& Context) 
 	{
 		// ID Check
 		const int32 ItemTemplateID = Pair.Key;
-		
+
 		if (ItemTemplateID <= 0)
 		{
 			Context.AddError(FText::FromString(FString::Printf(TEXT("Invalid ID : [ID : %d]\n"), ItemTemplateID)));
 			Result = EDataValidationResult::Invalid;
 		}
-		
+
 		if (ItemTemplateIDSet.Contains(ItemTemplateID))
 		{
 			Context.AddError(FText::FromString(FString::Printf(TEXT("Duplicated ID : [ID : %d]\n"), ItemTemplateID)));
 			Result = EDataValidationResult::Invalid;
 		}
-		
+
 		ItemTemplateIDSet.Add(ItemTemplateID);
 
 		// Class Check
 		const TSubclassOf<UA1ItemTemplate> ItemTemplateClass = Pair.Value;
-		
+
 		if (ItemTemplateClass == nullptr)
 		{
 			Context.AddError(FText::FromString(FString::Printf(TEXT("Invalid Class : [ID : %d]\n"), ItemTemplateID)));
@@ -92,7 +92,7 @@ EDataValidationResult UA1ItemData::IsDataValid(FDataValidationContext& Context) 
 			Context.AddError(FText::FromString(FString::Printf(TEXT("Duplicated Class : [ID : %d]\n"), ItemTemplateID)));
 			Result = EDataValidationResult::Invalid;
 		}
-		
+
 		ItemTemplateClassSet.Add(ItemTemplateClass);
 	}
 	return Result;
@@ -117,7 +117,7 @@ void UA1ItemData::GetAllItemTemplateClasses(TArray<TSubclassOf<UA1ItemTemplate>>
 {
 	OutItemTemplateClasses.Reset();
 	OutItemTemplateClasses.Reserve(ItemTemplateIDToClass.Num());
-	
+
 	for (auto& Pair : ItemTemplateIDToClass)
 	{
 		OutItemTemplateClasses.Add(Pair.Value);

@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Interaction/Abilities/A1GameplayAbility_Interact_ShipOutput.h"
 
 #include "Actors/A1ShipOutputBase.h"
@@ -18,26 +17,26 @@ void UA1GameplayAbility_Interact_ShipOutput::ActivateAbility(const FGameplayAbil
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-    if (TriggerEventData == nullptr || bInitialized == false)
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return;
-    }
+	if (TriggerEventData == nullptr || bInitialized == false)
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return;
+	}
 
-    if (HasAuthority(&CurrentActivationInfo) == false)
-    {
-        EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
-        return;
-    }
+	if (HasAuthority(&CurrentActivationInfo) == false)
+	{
+		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+		return;
+	}
 
-    AA1ShipOutputBase* ShipOutputActor = Cast<AA1ShipOutputBase>(InteractableActor);
-    if (ShipOutputActor == nullptr)
-    {
-        CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
-        return;
-    }
-    
-    ShipOutputActor->DeactivateExternalMap();
+	AA1ShipOutputBase* ShipOutputActor = Cast<AA1ShipOutputBase>(InteractableActor);
+	if (ShipOutputActor == nullptr)
+	{
+		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
+		return;
+	}
 
-    EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
+	ShipOutputActor->DeactivateExternalMap();
+
+	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 }

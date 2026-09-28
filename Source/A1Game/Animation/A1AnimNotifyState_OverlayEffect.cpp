@@ -19,23 +19,23 @@ UA1AnimNotifyState_OverlayEffect::UA1AnimNotifyState_OverlayEffect(const FObject
 void UA1AnimNotifyState_OverlayEffect::NotifyBegin(USkeletalMeshComponent* MeshComponent, UAnimSequenceBase* Animation, float TotalDuration, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyBegin(MeshComponent, Animation, TotalDuration, EventReference);
-	
+
 	if (OverlayTargetType == EOverlayTargetType::None)
 		return;
 
 	FOverlayEffectProgressInfo& NewProgressInfo = ProgressInfoMap.Add(MeshComponent);
 	NewProgressInfo.OverlayMaterialInstance = UKismetMaterialLibrary::CreateDynamicMaterialInstance(MeshComponent, OverlayMaterial);
-	
+
 	switch (OverlayTargetType)
 	{
 	case EOverlayTargetType::Weapon:
 		ApplyWeaponMeshComponent(NewProgressInfo, MeshComponent);
 		break;
-                                      		
+
 	case EOverlayTargetType::Character:
 		ApplyCharacterMeshComponents(NewProgressInfo, MeshComponent);
 		break;
-                                      		
+
 	case EOverlayTargetType::All:
 		ApplyCharacterMeshComponents(NewProgressInfo, MeshComponent);
 		break;
@@ -71,9 +71,9 @@ void UA1AnimNotifyState_OverlayEffect::NotifyEnd(USkeletalMeshComponent* MeshCom
 			}
 		}
 	}
-	
+
 	ProgressInfoMap.Remove(MeshComponent);
-	
+
 	Super::NotifyEnd(MeshComponent, Animation, EventReference);
 }
 
@@ -81,7 +81,7 @@ void UA1AnimNotifyState_OverlayEffect::ApplyWeaponMeshComponent(FOverlayEffectPr
 {
 	if (WeaponHandType == EEquipmentSlotType::Count)
 		return;
-	
+
 	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(MeshComponent->GetOwner()))
 	{
 		if (UA1EquipManagerComponent* EquipManager = LyraCharacter->FindComponentByClass<UA1EquipManagerComponent>())
@@ -101,7 +101,7 @@ void UA1AnimNotifyState_OverlayEffect::ApplyCharacterMeshComponents(FOverlayEffe
 	if (ALyraCharacter* LyraCharacter = Cast<ALyraCharacter>(MeshComponent->GetOwner()))
 	{
 		TArray<UMeshComponent*> CharacterMeshComponents;
-		//LyraCharacter->GetMeshComponents(CharacterMeshComponents);
+		// LyraCharacter->GetMeshComponents(CharacterMeshComponents);
 
 		for (UMeshComponent* CharacterMeshComponent : CharacterMeshComponents)
 		{

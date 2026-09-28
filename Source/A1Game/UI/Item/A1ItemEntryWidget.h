@@ -44,9 +44,9 @@ protected:
 	UPROPERTY()
 	int32 ItemCount = 0;
 
-	//UPROPERTY()
-	//TObjectPtr<UA1ItemHoverWidget> HoverWidget;
-	
+	// UPROPERTY()
+	// TObjectPtr<UA1ItemHoverWidget> HoverWidget;
+
 protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> Image_RarityCover;

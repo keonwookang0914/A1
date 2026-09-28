@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1FuelBase.h"
 
 #include "A1EquipmentBase.h"
@@ -21,7 +20,7 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1FuelBase)
 
 AA1FuelBase::AA1FuelBase(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -55,10 +54,10 @@ void AA1FuelBase::BeginPlay()
 
 	if (OwningSpaceship.IsValid())
 	{
-		//Init Fuel Setting
+		// Init Fuel Setting
 		SpawnedFuelUI->InitSetting(OwningSpaceship->GetMaxFuelAmount(), OwningSpaceship->GetCurrentFuelAmount());
 
-		//Subscribe Delegate
+		// Subscribe Delegate
 		OwningSpaceship->OnFuelChanged.AddDynamic(SpawnedFuelUI, &AA1FuelDisplayUI::UpdateFuelLevel);
 	}
 
@@ -73,7 +72,6 @@ void AA1FuelBase::BeginPlay()
 			RegisterWithSpaceship(OwningSpaceship.Get());
 		}
 	}
-
 }
 
 void AA1FuelBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -108,10 +106,9 @@ bool AA1FuelBase::IsFuelItem(AActor* Item) const
 	if (!IsValid(Item))
 		return false;
 
-
 	if (AA1EquipmentBase* Equipment = Cast<AA1EquipmentBase>(Item))
 	{
-		if (!Equipment->GetPickup()) //Pickup안된 연료만 넣기 가능.
+		if (!Equipment->GetPickup()) // Pickup안된 연료만 넣기 가능.
 		{
 			const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(Equipment->GetTemplateID());
 			const UA1ItemFragment_Equipable_Utility* ItemFragment = Cast<UA1ItemFragment_Equipable_Utility>(ItemTemplate.FindFragmentByClass(UA1ItemFragment_Equipable_Utility::StaticClass()));
@@ -132,7 +129,7 @@ void AA1FuelBase::DetectAndAbsorbFuelItems()
 	// Initialize Detected Item List
 	DetectedFuelItems.Empty();
 
-	//Detect Item Actor -> Overlap Event
+	// Detect Item Actor -> Overlap Event
 	TArray<FOverlapResult> OverlapResults;
 
 	FCollisionShape CollisionShape = FCollisionShape::MakeSphere(DetectionRadius);
@@ -164,7 +161,7 @@ void AA1FuelBase::DetectAndAbsorbFuelItems()
 
 				DetectedFuelItems.Add(Result.GetActor());
 
-				//Fuel Amount is 5000 (fix)
+				// Fuel Amount is 5000 (fix)
 				{
 					float FuelAmount = 5000.0f;
 
@@ -173,7 +170,7 @@ void AA1FuelBase::DetectAndAbsorbFuelItems()
 					Result.GetActor()->Destroy();
 					UA1ScoreBlueprintFunctionLibrary::AddConsumedItems();
 
-					if (UA1ScoreManager::Get()->GetDoTutorial() )
+					if (UA1ScoreManager::Get()->GetDoTutorial())
 					{
 						FGameplayEventData EventData;
 						EventData.Instigator = GetInstigator();

@@ -7,7 +7,7 @@
 UA1ItemFragment_Equipable_Utility::UA1ItemFragment_Equipable_Utility(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    EquipmentType = EEquipmentType::Utility;
+	EquipmentType = EEquipmentType::Utility;
 }
 
 #if WITH_EDITORONLY_DATA
@@ -30,6 +30,6 @@ void UA1ItemFragment_Equipable_Utility::PreSave(FObjectPreSaveContext SaveContex
 void UA1ItemFragment_Equipable_Utility::OnInstanceCreated(UA1ItemInstance* ItemInstance) const
 {
 	Super::OnInstanceCreated(ItemInstance);
-	
+
 	AddStatTagStack(ItemInstance, RarityStatSets);
 }

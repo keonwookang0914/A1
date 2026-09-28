@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Interaction/Abilities/A1GameplayAbility_Interact_DockingSignalHandler.h"
 
 #include "Actors/A1DockingSignalHandlerBase.h"
@@ -14,7 +13,6 @@
 UA1GameplayAbility_Interact_DockingSignalHandler::UA1GameplayAbility_Interact_DockingSignalHandler(
 	const FObjectInitializer& ObjectInitializer)
 {
-	
 }
 
 void UA1GameplayAbility_Interact_DockingSignalHandler::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
@@ -48,7 +46,7 @@ void UA1GameplayAbility_Interact_DockingSignalHandler::ActivateAbility(const FGa
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 		return;
 	}
-	//이미 맵이 활성화 되어있는 경우
+	// 이미 맵이 활성화 되어있는 경우
 	if (Spaceship->GetIsExternalMapActive())
 	{
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
@@ -76,12 +74,11 @@ void UA1GameplayAbility_Interact_DockingSignalHandler::ActivateAbility(const FGa
 				break;
 			}
 		}
-		
-		//Stop PlaySound
+
+		// Stop PlaySound
 		Spaceship->GetSignalDetection()->SetSignalDetectionState(ESignalDetectionState::None);
 		Spaceship->GetSignalDetection()->StopDetectSignal();
 	}
-
 
 	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 }

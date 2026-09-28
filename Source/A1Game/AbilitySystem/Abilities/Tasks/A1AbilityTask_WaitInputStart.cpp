@@ -7,7 +7,6 @@
 UA1AbilityTask_WaitInputStart::UA1AbilityTask_WaitInputStart(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	
 }
 
 UA1AbilityTask_WaitInputStart* UA1AbilityTask_WaitInputStart::WaitInputStart(UGameplayAbility* OwningAbility)
@@ -53,7 +52,7 @@ void UA1AbilityTask_WaitInputStart::OnStartCallback()
 
 	if (ShouldBroadcastAbilityTaskDelegates())
 	{
-		OnStart.Broadcast();	
+		OnStart.Broadcast();
 	}
 	EndTask();
 }

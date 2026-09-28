@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Raider_HitReact.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_Raider_HitReact : public UGameplayAbility

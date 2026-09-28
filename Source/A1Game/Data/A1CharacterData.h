@@ -39,7 +39,6 @@ public:
 	TSoftObjectPtr<USkeletalMesh> DefaultMesh;
 	UPROPERTY(EditDefaultsOnly)
 	TSoftObjectPtr<USkeletalMesh> DefaultArmMesh;
-
 };
 
 UCLASS(BlueprintType, Const, meta = (DisplayName = "A1 Character Data"))

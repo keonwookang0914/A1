@@ -16,7 +16,6 @@
 UA1WeaponSlotWidget::UA1WeaponSlotWidget(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    
 }
 
 void UA1WeaponSlotWidget::NativePreConstruct()
@@ -72,7 +71,7 @@ void UA1WeaponSlotWidget::DisplayBullet(int count)
 {
 	for (int i = 0; i < 6; i++)
 	{
-		if(i<count)
+		if (i < count)
 			Bullets[i]->SetVisibility(ESlateVisibility::Visible);
 		else
 			Bullets[i]->SetVisibility(ESlateVisibility::Hidden);
@@ -92,7 +91,7 @@ void UA1WeaponSlotWidget::NativeDestruct()
 		EquipManager->OnMainHandChanged.Remove(MainHandChangedDelegateHandle);
 		MainHandChangedDelegateHandle.Reset();
 	}
-	
+
 	Super::NativeDestruct();
 }
 
@@ -108,7 +107,7 @@ void UA1WeaponSlotWidget::OnEquipmentEntryChanged(EEquipmentSlotType EquipmentSl
 
 			if (Switcher_Slots->GetActiveWidgetIndex() != 1)
 			{
-				//PlayAnimationForward(Animation_ShowCrossLine);
+				// PlayAnimationForward(Animation_ShowCrossLine);
 				Switcher_Slots->SetActiveWidgetIndex(1);
 			}
 		}
@@ -127,7 +126,7 @@ void UA1WeaponSlotWidget::OnEquipmentEntryChanged(EEquipmentSlotType EquipmentSl
 
 			if (Switcher_Slots->GetActiveWidgetIndex() != 1)
 			{
-				//PlayAnimationForward(Animation_ShowCrossLine);
+				// PlayAnimationForward(Animation_ShowCrossLine);
 				Switcher_Slots->SetActiveWidgetIndex(1);
 			}
 		}
@@ -146,7 +145,7 @@ void UA1WeaponSlotWidget::OnEquipmentEntryChanged(EEquipmentSlotType EquipmentSl
 
 			if (Switcher_Slots->GetActiveWidgetIndex() != 0)
 			{
-				//PlayAnimationReverse(Animation_ShowCrossLine);
+				// PlayAnimationReverse(Animation_ShowCrossLine);
 				Switcher_Slots->SetActiveWidgetIndex(0);
 			}
 		}

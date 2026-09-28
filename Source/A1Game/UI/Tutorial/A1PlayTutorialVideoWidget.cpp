@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "UI/Tutorial/A1PlayTutorialVideoWidget.h"
 
 #include "MediaPlayer.h"

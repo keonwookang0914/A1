@@ -7,7 +7,7 @@ UCLASS()
 class AA1UtilityBase : public AA1EquipmentBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	AA1UtilityBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

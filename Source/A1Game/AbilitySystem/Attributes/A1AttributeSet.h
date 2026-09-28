@@ -7,11 +7,11 @@
 class ULyraAbilitySystemComponent;
 struct FGameplayEffectSpec;
 
-#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName)				\
-		GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName)	\
-		GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName)				\
-		GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName)				\
-		GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+#define ATTRIBUTE_ACCESSORS(ClassName, PropertyName)           \
+	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName)               \
+	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName)               \
+	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 DECLARE_MULTICAST_DELEGATE_SixParams(FLyraAttributeEvent, AActor* /*EffectInstigator*/, AActor* /*EffectCauser*/, const FGameplayEffectSpec* /*EffectSpec*/, float /*EffectMagnitude*/, float /*OldValue*/, float /*NewValue*/);
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FA1AttributeEvent, AActor* /*EffectInstigator*/, float /*OldValue*/, float /*NewValue*/);

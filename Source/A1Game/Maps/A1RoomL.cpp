@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Maps/A1RoomL.h"
 
 AA1RoomL::AA1RoomL()

@@ -21,9 +21,9 @@
 UA1GameplayAbility_Weapon_Gun_NormalShoot::UA1GameplayAbility_Weapon_Gun_NormalShoot(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-    AbilityTags.AddTag(A1GameplayTags::Ability_Attack_Gun);
+	AbilityTags.AddTag(A1GameplayTags::Ability_Attack_Gun);
 	ActivationOwnedTags.AddTag(A1GameplayTags::Status_Attack);
-	//ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Left);
+	// ActivationBlockedTags.AddTag(A1GameplayTags::Status_MainHand_Left);
 	ActivationRequiredTags.AddTag(A1GameplayTags::Status_ADS_Ready);
 }
 
@@ -58,21 +58,21 @@ void UA1GameplayAbility_Weapon_Gun_NormalShoot::ActivateAbility(const FGameplayA
 		}
 	}
 
-	//FGameplayTagContainer TagContainer;
-	//TagContainer.AddTag(A1GameplayTags::Status_ADS_Ready);
-	//UAbilitySystemBlueprintLibrary::RemoveLooseGameplayTags(GetAvatarActorFromActorInfo(), TagContainer, true);
+	// FGameplayTagContainer TagContainer;
+	// TagContainer.AddTag(A1GameplayTags::Status_ADS_Ready);
+	// UAbilitySystemBlueprintLibrary::RemoveLooseGameplayTags(GetAvatarActorFromActorInfo(), TagContainer, true);
 
-	//UAnimMontage* SelectedMontage = K2_CheckAbilityCost() ? ReleaseReloadMontage : ShootMontage;
+	// UAnimMontage* SelectedMontage = K2_CheckAbilityCost() ? ReleaseReloadMontage : ShootMontage;
 }
 
 void UA1GameplayAbility_Weapon_Gun_NormalShoot::OnMontageFinished()
 {
-	//if (UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo())
+	// if (UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo())
 	//{
 	//	FGameplayEventData Payload;
 	//	ASC->HandleGameplayEvent(A1GameplayTags::GameplayEvent_Gun_ADS, &Payload);
-	//}
-	
+	// }
+
 	EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 }
 
@@ -100,7 +100,7 @@ bool UA1GameplayAbility_Weapon_Gun_NormalShoot::Shoot()
 		}
 		LyraCharacter->OnGunEquipped.Broadcast(--LyraCharacter->bullets);
 
-		if(GunSound)
+		if (GunSound)
 			UGameplayStatics::SpawnSoundAttached(GunSound, EquippedActor->GetRootComponent());
 
 		FTransform SocketTransform = LyraCharacter->GetMesh()->GetSocketTransform(SpawnSocketName, RTS_World);
@@ -119,7 +119,7 @@ bool UA1GameplayAbility_Weapon_Gun_NormalShoot::Shoot()
 		TArray<AActor*> ActorsToIgnore = { LyraCharacter, EquippedActor };
 
 		bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), StartLocation, EndLocation, UEngineTypes::ConvertToTraceType(A1_TraceChannel_AimAssist), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true);
-		
+
 		// 가해자 정보
 		FGameplayEffectContextHandle EffectContextHandle = SourceASC->MakeEffectContext();
 		HitResult.bBlockingHit = true;
@@ -146,8 +146,8 @@ bool UA1GameplayAbility_Weapon_Gun_NormalShoot::Shoot()
 						{
 							DamageEffectSpecHandle.Data->SetContext(EffectContextHandle);
 							// 무기에 희귀도에 따른 대미지 차별화
-								DamageEffectSpecHandle.Data->SetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, Damage);
-								float DamageSet = DamageEffectSpecHandle.Data->GetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, false);
+							DamageEffectSpecHandle.Data->SetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, Damage);
+							float DamageSet = DamageEffectSpecHandle.Data->GetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, false);
 							UE_LOG(LogA1, Warning, TEXT("Set Damage: %f"), DamageSet);
 							ApplyGameplayEffectSpecToTarget(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, DamageEffectSpecHandle, TargetDataHandle);
 						}
@@ -155,7 +155,7 @@ bool UA1GameplayAbility_Weapon_Gun_NormalShoot::Shoot()
 				}
 			}
 		}
-		
+
 		if (LyraCharacter->IsOutSide())
 		{
 			// 산소 소모
@@ -175,7 +175,6 @@ bool UA1GameplayAbility_Weapon_Gun_NormalShoot::Shoot()
 				}
 			}
 		}
-		
 	}
 
 	return true;

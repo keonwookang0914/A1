@@ -1,24 +1,22 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Maps/A1Room.h"
 
 AA1Room::AA1Room()
 {
-	//Floor
+	// Floor
 	Floor = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Floor"));
 	Floor->SetRelativeLocation(FVector(1000.f, 0.f, 0.f));
 	Floor->SetRelativeScale3D(FVector(20.f, 20.f, 1.f));
 	Floor->SetupAttachment(GeometryFolder);
 	Floor->SetStaticMesh(BaseStaticMesh);
 
-	//Walls
+	// Walls
 	RightDownRowWall = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RightDownRowWall"));
 	RightDownRowWall->SetRelativeLocation(FVector(50.f, 625.f, 150.f));
 	RightDownRowWall->SetRelativeScale3D(FVector(1.f, 7.5f, 2.f));
 	RightDownRowWall->SetStaticMesh(BaseStaticMesh);
 	RightDownRowWall->SetupAttachment(GeometryFolder);
-
 
 	RightDownColWall = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RightDownColWall"));
 	RightDownColWall->SetRelativeLocation(FVector(425.f, 950.f, 150.f));
@@ -26,7 +24,6 @@ AA1Room::AA1Room()
 	RightDownColWall->SetRelativeScale3D(FVector(1.f, 6.5f, 2.f));
 	RightDownColWall->SetStaticMesh(BaseStaticMesh);
 	RightDownColWall->SetupAttachment(GeometryFolder);
-
 
 	LeftDownRowWall = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftDownRowWall"));
 	LeftDownRowWall->SetRelativeLocation(FVector(50.f, -625.f, 150.f));

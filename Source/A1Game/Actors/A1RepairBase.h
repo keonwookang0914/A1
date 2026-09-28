@@ -64,6 +64,7 @@ protected:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnRepairStateChanged OnRepairStateChanged;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Info")
 	FA1InteractionInfo InteractionInfo;

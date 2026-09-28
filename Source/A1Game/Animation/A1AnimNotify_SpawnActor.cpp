@@ -17,10 +17,10 @@ void UA1AnimNotify_SpawnActor::Notify(USkeletalMeshComponent* MeshComp, UAnimSeq
 	if (ActorClass && MeshComp->DoesSocketExist(SocketName))
 	{
 		FTransform SocketTransform = MeshComp->GetSocketTransform(SocketName);
-		
+
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		
+
 		MeshComp->GetWorld()->SpawnActor(ActorClass, &SocketTransform, SpawnParameters);
 	}
 }

@@ -42,14 +42,14 @@ enum class ECharacterSkinType : uint8
 UENUM(BlueprintType)
 enum class EBodyType : uint8
 {
-	Head		UMETA(DisplayName = "Head"),
-	Torso		UMETA(DisplayName = "Torso"),
-	Limbs		UMETA(DisplayName = "Limbs"),
+	Head UMETA(DisplayName = "Head"),
+	Torso UMETA(DisplayName = "Torso"),
+	Limbs UMETA(DisplayName = "Limbs"),
 
 	Count UMETA(Hidden)
 };
 
-// 장비 장착 slot 타입 
+// 장비 장착 slot 타입
 UENUM(BlueprintType)
 enum class EEquipmentSlotType : uint8
 {
@@ -57,7 +57,7 @@ enum class EEquipmentSlotType : uint8
 	RightHand,
 	TwoHand,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 // 손 사용 여부
@@ -69,7 +69,7 @@ enum class EEquipState : uint8
 	Right,
 	Both,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -78,7 +78,7 @@ enum class EMainHandState : uint8
 	Left,
 	Right,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 /*---------------------------------------
@@ -92,7 +92,7 @@ enum class EEquipmentType : uint8
 	Weapon,
 	Utility,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 // 무기 종류
@@ -104,7 +104,7 @@ enum class EWeaponType : uint8
 	THS,
 	Gun,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 // Utillity 종류
@@ -118,8 +118,8 @@ enum class EUtilityType : uint8
 	FoamGun UMETA(DisplayName = "FoamGun"),
 	Documents,
 	Repairkit,
-	
-	Count	UMETA(Hidden)
+
+	Count UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -131,7 +131,7 @@ enum class EItemRarity : uint8
 	Rare,
 	Legendary,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -141,7 +141,7 @@ enum class ESpellType : uint8
 	Projectile,
 	AOE,
 
-	Count	UMETA(Hidden)
+	Count UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -152,7 +152,6 @@ enum class EOverlayTargetType : uint8
 	Character,
 	All,
 };
-
 
 UENUM(BlueprintType)
 enum class EA1TeamID : uint8

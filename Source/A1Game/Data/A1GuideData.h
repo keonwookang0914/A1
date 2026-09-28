@@ -2,7 +2,6 @@
 
 #include "A1GuideData.generated.h"
 
-
 USTRUCT()
 struct FGuideTextSet
 {
@@ -20,16 +19,16 @@ class UA1GuideData : public UPrimaryDataAsset
 
 public:
 	static const UA1GuideData& Get();
-	
+
 protected:
 #if WITH_EDITOR
 	virtual void PreSave(FObjectPreSaveContext ObjectSaveContext) override;
 	virtual EDataValidationResult IsDataValid(FDataValidationContext& Context) const override;
 #endif
-	
+
 public:
 	const FGuideTextSet& GetTextSetByLabel(const FName& Label) const;
-	
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TMap<FName, FGuideTextSet> TextGroupNameToSet;

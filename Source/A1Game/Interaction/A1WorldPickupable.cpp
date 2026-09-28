@@ -5,8 +5,8 @@
 #include "Item/A1ItemTemplate.h"
 #include "Net/UnrealNetwork.h"
 
-
-AA1WorldPickupable::AA1WorldPickupable(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+AA1WorldPickupable::AA1WorldPickupable(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	bReplicates = true;
 }
@@ -48,5 +48,3 @@ void AA1WorldPickupable::OnRep_PickupInfo()
 		}
 	}
 }
-
-

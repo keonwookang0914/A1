@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Plunderer_Attack.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1GameplayAbility_Plunderer_Attack : public UGameplayAbility

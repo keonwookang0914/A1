@@ -33,11 +33,11 @@ void UA1ItemEntryWidget::NativeConstruct()
 
 void UA1ItemEntryWidget::NativeDestruct()
 {
-	//if (HoverWidget)
+	// if (HoverWidget)
 	//{
 	//	HoverWidget->RemoveFromParent();
 	//	HoverWidget = nullptr;
-	//}
+	// }
 
 	Super::NativeDestruct();
 }
@@ -48,28 +48,28 @@ void UA1ItemEntryWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const F
 
 	Image_Hover->SetVisibility(ESlateVisibility::Visible);
 
-	//if (HoverWidget == nullptr)
+	// if (HoverWidget == nullptr)
 	//{
 	//	TSubclassOf<UA1ItemHoverWidget> HoverWidgetClass = UA1UIData::Get().ItemHoverWidgetClass;
 	//	HoverWidget = CreateWidget<UA1ItemHoverWidget>(GetOwningPlayer(), HoverWidgetClass);
-	//}
+	// }
 
-	//if (HoverWidget)
+	// if (HoverWidget)
 	//{
 	//	HoverWidget->RefreshUI(ItemInstance);
 	//	HoverWidget->AddToViewport();
-	//}
+	// }
 }
 
 FReply UA1ItemEntryWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	FReply Reply = Super::NativeOnMouseMove(InGeometry, InMouseEvent);
 
-	//if (HoverWidget)
+	// if (HoverWidget)
 	//{
 	//	HoverWidget->SetPosition(InMouseEvent.GetScreenSpacePosition());
 	//	return FReply::Handled();
-	//}
+	// }
 
 	return Reply;
 }
@@ -80,11 +80,11 @@ void UA1ItemEntryWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 
 	Image_Hover->SetVisibility(ESlateVisibility::Hidden);
 
-	//if (HoverWidget)
+	// if (HoverWidget)
 	//{
 	//	HoverWidget->RemoveFromParent();
 	//	HoverWidget = nullptr;
-	//}
+	// }
 }
 
 FReply UA1ItemEntryWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

@@ -8,7 +8,7 @@ UCLASS(meta=(DisplayName="Play Camera Shake"))
 class UA1AnimNotify_PlayCameraShake : public UAnimNotify
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1AnimNotify_PlayCameraShake(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 

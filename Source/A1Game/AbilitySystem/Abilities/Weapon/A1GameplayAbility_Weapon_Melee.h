@@ -9,7 +9,7 @@ UCLASS()
 class UA1GameplayAbility_Weapon_Melee : public UA1GameplayAbility_Equipment
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1GameplayAbility_Weapon_Melee(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
@@ -25,20 +25,20 @@ protected:
 
 	UFUNCTION()
 	void ResetHitActors();
-	
+
 	UFUNCTION()
 	void DrawDebugHitPoint(const FHitResult& HitResult);
 
 public:
 	bool IsCharacterBlockingHit(ALyraCharacter* TargetCharacter);
-	
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="A1|Melee")
 	float BlockingAngle = 60.f;
 
 	UPROPERTY(EditDefaultsOnly, Category="A1|Melee")
 	float BlockHitDamageMultiplier = 0.3f;
-	
+
 	UPROPERTY(EditDefaultsOnly, Category="A1|Melee")
 	bool bShowDebug = false;
 

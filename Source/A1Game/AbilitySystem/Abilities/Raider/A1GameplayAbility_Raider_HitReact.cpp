@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "A1GameplayAbility_Raider_HitReact.h"
 
 #include "A1GameplayTags.h"
@@ -29,7 +28,7 @@ UA1GameplayAbility_Raider_HitReact::UA1GameplayAbility_Raider_HitReact(const FOb
 
 void UA1GameplayAbility_Raider_HitReact::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
-    Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	if (TriggerEventData == nullptr)
 	{
@@ -37,7 +36,7 @@ void UA1GameplayAbility_Raider_HitReact::ActivateAbility(const FGameplayAbilityS
 		return;
 	}
 
-	if(Cast<AA1CreatureBase>(ActorInfo->OwnerActor.Get())->IsDead())
+	if (Cast<AA1CreatureBase>(ActorInfo->OwnerActor.Get())->IsDead())
 	{
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 		return;

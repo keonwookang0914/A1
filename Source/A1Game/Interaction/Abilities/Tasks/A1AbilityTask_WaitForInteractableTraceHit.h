@@ -6,7 +6,7 @@
 
 struct FA1InteractionInfo;
 class IA1Interactable;
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInteractableChanged, const TArray<FA1InteractionInfo>&,InteractableInfos);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInteractableChanged, const TArray<FA1InteractionInfo>&, InteractableInfos);
 
 UCLASS()
 class A1GAME_API UA1AbilityTask_WaitForInteractableTraceHit : public UAbilityTask

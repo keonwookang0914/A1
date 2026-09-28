@@ -28,11 +28,11 @@ struct FRarityStatSet
 
 public:
 	FRarityStatSet();
-	
+
 public:
 	UPROPERTY(EditDefaultsOnly, meta=(Categories="SetByCaller"))
 	FGameplayTag StatTag;
-	
+
 	UPROPERTY(EditDefaultsOnly, EditFixedSize)
 	TArray<FRarityStat> RarityStats;
 };
@@ -45,7 +45,7 @@ struct FRarityStatRange
 public:
 	UPROPERTY(VisibleDefaultsOnly)
 	EItemRarity Rarity = EItemRarity::Poor;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	int32 MinValue = 0;
 
@@ -60,11 +60,11 @@ struct FRarityStatRangeSet
 
 public:
 	FRarityStatRangeSet();
-	
+
 public:
 	UPROPERTY(EditDefaultsOnly, meta=(Categories="SetByCaller"))
 	FGameplayTag StatTag;
-	
+
 	UPROPERTY(EditDefaultsOnly, EditFixedSize)
 	TArray<FRarityStatRange> RarityStatRanges;
 };
@@ -73,17 +73,17 @@ UCLASS(Abstract, Const)
 class UA1ItemFragment_Equipable : public UA1ItemFragment
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1ItemFragment_Equipable(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-	
+
 protected:
 	void AddStatTagStack(UA1ItemInstance* ItemInstance, const TArray<FRarityStatSet>& RarityStatSets) const;
 	void AddStatTagStack(UA1ItemInstance* ItemInstance, const TArray<FRarityStatRangeSet>& RarityStatRangeSets) const;
-	
+
 public:
 	EEquipmentType EquipmentType = EEquipmentType::Count;
-	
+
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<const ULyraAbilitySet> BaseAbilitySet;
 };

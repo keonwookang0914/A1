@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1DayNightManager.h"
 
 #include "A1BedBase.h"
@@ -19,18 +18,18 @@ AA1DayNightManager::AA1DayNightManager()
 	 * - 20 minutes = 1 day
 	 * - 10 minue day/night
 	 */
-	DayDurationMinutes = 1.f; //eric1306->OriginalValue : 20.f
-	DayPhaseDurationMinutes = 0.5f; //eric1306->OriginalValue : 10.f
+	DayDurationMinutes = 1.f;       // eric1306->OriginalValue : 20.f
+	DayPhaseDurationMinutes = 0.5f; // eric1306->OriginalValue : 10.f
 
 	CurrentPhase = EDayPhase::Day;
 	CurrentDay = 1;
 	DayProgress = 0.f;
 	ElapsedTime = 0.f;
 
-	//minute -> second
+	// minute -> second
 	PhaseChangeDuration = DayPhaseDurationMinutes * 60.f;
 
-	//Init
+	// Init
 	LastUpdatedHour = -1;
 	LastUpdatedMinute = -1;
 }
@@ -42,7 +41,7 @@ void AA1DayNightManager::BeginPlay()
 	// Init Singleton only server
 	if (HasAuthority())
 	{
-		//enroll all bed in server
+		// enroll all bed in server
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AA1BedBase::StaticClass(), OUT FoundActors);
 		for (auto Actor : FoundActors)
@@ -78,24 +77,27 @@ void AA1DayNightManager::Tick(float DeltaTime)
 
 	UpdateTime(DeltaTime);
 
-	if (!SkipNightflag && AreAllPlayersSleeping()) 
+	if (!SkipNightflag && AreAllPlayersSleeping())
 	{
 		FTimerHandle TimerHandle;
 		GetWorldTimerManager().SetTimer(TimerHandle, [this]()
 			{
 				TrySkipNight();
-			}, 10.f, false); //TODO eric1306 Original Value : 10.f(10 second)
+			},
+			10.f, false); // TODO eric1306 Original Value : 10.f(10 second)
 		SkipNightflag = true;
 	}
 }
 
 void AA1DayNightManager::TrySkipNight()
 {
-	if (!HasAuthority()) {
+	if (!HasAuthority())
+	{
 		return;
 	}
 
-	if (AreAllPlayersSleeping()) {
+	if (AreAllPlayersSleeping())
+	{
 		if (CurrentPhase == EDayPhase::Day)
 		{
 			ElapsedTime = DayDurationMinutes * 30.f;
@@ -120,7 +122,8 @@ void AA1DayNightManager::TrySkipNight()
 
 void AA1DayNightManager::SetPlayerSleeping(AActor* Player, bool bIsSleeping)
 {
-	if (!HasAuthority() || Player == nullptr) {
+	if (!HasAuthority() || Player == nullptr)
+	{
 		return;
 	}
 	if (SleepingPlayers.Find(Player))
@@ -148,16 +151,17 @@ FString AA1DayNightManager::GetTimeString() const
 	GetGameTime(Hours, Minutes);
 
 	return FString::Printf(TEXT("%02d:%02d"), Hours, Minutes);
-
 }
 
 void AA1DayNightManager::WakeAllPlayers()
 {
-	if (!HasAuthority()) {
+	if (!HasAuthority())
+	{
 		return;
 	}
 
-	for (auto& Pair : SleepingPlayers) {
+	for (auto& Pair : SleepingPlayers)
+	{
 		Pair.Value = false;
 	}
 
@@ -165,8 +169,8 @@ void AA1DayNightManager::WakeAllPlayers()
 	{
 		if (Bed && Bed->GetBedState() == EBedState::Occupied)
 		{
-			//Bed->Multicast_Wakeup();
-			//Temp Code eric1306 for standalone
+			// Bed->Multicast_Wakeup();
+			// Temp Code eric1306 for standalone
 			Bed->WakeUpOccupyingCharacter();
 		}
 	}
@@ -183,7 +187,7 @@ void AA1DayNightManager::OnStopUpdateTime(const FA1ScoreData& FinalScore)
 
 void AA1DayNightManager::UpdateTime(float DeltaTime)
 {
-	//Add Time
+	// Add Time
 	ElapsedTime += DeltaTime;
 	DayProgress = ElapsedTime / (DayDurationMinutes * 60.f);
 
@@ -200,7 +204,8 @@ void AA1DayNightManager::UpdateTime(float DeltaTime)
 	{
 		ChangePhase(EDayPhase::Night);
 	}
-	else if (CurrentPhase == EDayPhase::Night && ElapsedTime == 0.f) {
+	else if (CurrentPhase == EDayPhase::Night && ElapsedTime == 0.f)
+	{
 		ChangePhase(EDayPhase::Day);
 	}
 
@@ -217,7 +222,8 @@ void AA1DayNightManager::UpdateTime(float DeltaTime)
 
 void AA1DayNightManager::ChangePhase(EDayPhase NewPhase)
 {
-	if (CurrentPhase != NewPhase) {
+	if (CurrentPhase != NewPhase)
+	{
 		CurrentPhase = NewPhase;
 		OnDayPhaseChanged.Broadcast(CurrentPhase, CurrentDay);
 	}
@@ -225,12 +231,15 @@ void AA1DayNightManager::ChangePhase(EDayPhase NewPhase)
 
 bool AA1DayNightManager::AreAllPlayersSleeping() const
 {
-	if (SleepingPlayers.Num() == 0 || SleepingPlayers.Num() < GetActivePlayerCount(GetWorld())) {
+	if (SleepingPlayers.Num() == 0 || SleepingPlayers.Num() < GetActivePlayerCount(GetWorld()))
+	{
 		return false;
 	}
-	//UE_LOG(LogTemp, Log, TEXT("Connected Clients: %d"), GetActivePlayerCount(GetWorld()));
-	for (const auto& Pair : SleepingPlayers) {
-		if (!Pair.Value) {
+	// UE_LOG(LogTemp, Log, TEXT("Connected Clients: %d"), GetActivePlayerCount(GetWorld()));
+	for (const auto& Pair : SleepingPlayers)
+	{
+		if (!Pair.Value)
+		{
 			return false;
 		}
 	}
@@ -267,5 +276,3 @@ int32 AA1DayNightManager::GetActivePlayerCount(const UObject* WorldContextObject
 
 	return GameState->PlayerArray.Num();
 }
-
-

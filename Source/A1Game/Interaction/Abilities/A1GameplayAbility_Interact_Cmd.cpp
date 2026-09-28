@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Interaction/Abilities/A1GameplayAbility_Interact_Cmd.h"
 
 #include "A1GameplayTags.h"
@@ -36,7 +35,7 @@ void UA1GameplayAbility_Interact_Cmd::ActivateAbility(const FGameplayAbilitySpec
 		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, false);
 		return;
 	}
-	
+
 	UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo();
 	if (!ASC)
 	{
@@ -93,7 +92,7 @@ void UA1GameplayAbility_Interact_Cmd::CloseCmd(FGameplayEventData Payload)
 	LyraPlayerController->SetViewTargetWithBlend(LyraCharacter, 0.5f, EViewTargetBlendFunction::VTBlend_Linear);
 
 	DeactiveWidget();
-	
+
 	// CMD 오픈에 따른 UI 활성화
 	FA1WidgetActiveMessage Message;
 	Message.bActive = true;

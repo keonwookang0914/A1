@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1DockingSignalHandlerBase.h"
 
 #include "Components/ArrowComponent.h"
@@ -9,14 +8,12 @@
 #include "Maps/A1RandomMapGenerator.h"
 #include "Math/TransformCalculus3D.h"
 
-
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1DockingSignalHandlerBase)
 
 AA1DockingSignalHandlerBase::AA1DockingSignalHandlerBase(const FObjectInitializer& ObjectInitializer)
-	:Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = false;
-
 
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	SetRootComponent(ArrowComponent);
@@ -55,9 +52,12 @@ FA1InteractionInfo AA1DockingSignalHandlerBase::GetPreInteractionInfo(const FA1I
 {
 	switch (SignalState)
 	{
-	case ESignalState::Pressed:		return PressedInteractionInfo;
-	case ESignalState::Released:	return ReleasedInteractionInfo;
-	default:						return FA1InteractionInfo();
+	case ESignalState::Pressed:
+		return PressedInteractionInfo;
+	case ESignalState::Released:
+		return ReleasedInteractionInfo;
+	default:
+		return FA1InteractionInfo();
 	}
 }
 

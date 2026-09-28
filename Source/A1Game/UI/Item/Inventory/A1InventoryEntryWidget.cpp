@@ -119,7 +119,7 @@ void UA1InventoryEntryWidget::NativeOnDragDetected(const FGeometry& InGeometry, 
 
 void UA1InventoryEntryWidget::ChangeStateClickedWidget(bool bVisible)
 {
-	if(bVisible)
+	if (bVisible)
 		Image_Clicked->SetVisibility(ESlateVisibility::Visible);
 	else
 		Image_Clicked->SetVisibility(ESlateVisibility::Hidden);

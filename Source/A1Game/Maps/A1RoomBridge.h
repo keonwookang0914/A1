@@ -7,7 +7,7 @@
 #include "A1RoomBridge.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API AA1RoomBridge : public AA1MasterRoom
@@ -17,16 +17,17 @@ public:
 	AA1RoomBridge();
 
 	virtual void BeginPlay() override;
+
 protected:
-	//Arrow
+	// Arrow
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UArrowComponent> FrontArrow;
 
-	//Floor
+	// Floor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UStaticMeshComponent> Floor;
 
-	//Wall
+	// Wall
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UStaticMeshComponent> LeftWall;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

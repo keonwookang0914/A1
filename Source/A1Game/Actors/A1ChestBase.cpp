@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1ChestBase.h"
 
 #include "A1EquipmentBase.h"
@@ -13,7 +12,8 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1ChestBase)
 
-AA1ChestBase::AA1ChestBase(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+AA1ChestBase::AA1ChestBase(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	SetRootComponent(ArrowComponent);
@@ -35,7 +35,8 @@ void AA1ChestBase::BeginPlay()
 	GetWorldTimerManager().SetTimer(TimerHandle, [this]()
 		{
 			SpawnItems();
-		}, 2.f, false);
+		},
+		2.f, false);
 }
 
 void AA1ChestBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const

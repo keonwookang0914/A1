@@ -55,8 +55,8 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UA1EquipmentManagerComponent> EquipmentManager;
-				
-	UPROPERTY()	
+
+	UPROPERTY()
 	TObjectPtr<UA1EquipManagerComponent> EquipManager;
 
 protected:
@@ -68,6 +68,6 @@ protected:
 
 private:
 	FDelegateHandle EntryChangedDelegateHandle;
-	//FDelegateHandle EquipStateChangedDelegateHandle;
+	// FDelegateHandle EquipStateChangedDelegateHandle;
 	FGameplayMessageListenerHandle MessageListenerHandle;
 };

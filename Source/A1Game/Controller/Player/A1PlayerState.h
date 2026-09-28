@@ -8,7 +8,7 @@
 #include "A1PlayerState.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API AA1PlayerState : public APlayerState, public IAbilitySystemInterface
@@ -21,5 +21,5 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, Category = "GAS")
 	TObjectPtr<class UAbilitySystemComponent> ASC;
-	//TODO: Add Attribute Set Class
+	// TODO: Add Attribute Set Class
 };

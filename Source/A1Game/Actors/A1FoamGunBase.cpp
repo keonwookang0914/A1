@@ -14,5 +14,4 @@ void AA1FoamGunBase::BeginPlay()
 
 	if (bOnlyUseForLocal)
 		return;
-	
 }

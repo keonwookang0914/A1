@@ -1,6 +1,5 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "AbilitySystem/Abilities/Utility/A1GameplayAbility_Utility_RemoveFoam.h"
 
 #include "A1GameplayTags.h"
@@ -51,7 +50,7 @@ void UA1GameplayAbility_Utility_RemoveFoam::ActivateAbility(const FGameplayAbili
 			NAME_None,
 			FVector::ZeroVector,
 			EAttachLocation::KeepRelativeOffset,
-			true  // Looping
+			true // Looping
 		);
 
 		if (LoopingAudioComponent)
@@ -97,7 +96,6 @@ void UA1GameplayAbility_Utility_RemoveFoam::TryRemoveFoam()
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
-
 	FHitResult HitResult;
 	FVector2D RandPoint = FMath::RandPointInCircle(MaxDistance);
 
@@ -108,12 +106,11 @@ void UA1GameplayAbility_Utility_RemoveFoam::TryRemoveFoam()
 	FVector StartLocation = CameraLocation;
 	FVector EndLocation = StartLocation + (CameraRotation.Vector() * MaxDistance);
 
-
 	bool bHit = UKismetSystemLibrary::LineTraceSingle(GetWorld(), StartLocation, EndLocation, UEngineTypes::ConvertToTraceType(A1_TraceChannel_AimAssist), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true);
 
 	TSubclassOf<AActor> FoamClass = ULyraAssetManager::Get().GetSubclassByName<AActor>("FoamBase");
 
-	if(bHit)
+	if (bHit)
 	{
 		FVector SpawnLocation = HitResult.Location;
 		FRotator SpawnRotation = FRotationMatrix::MakeFromZ(HitResult.Normal).Rotator();
@@ -123,5 +120,4 @@ void UA1GameplayAbility_Utility_RemoveFoam::TryRemoveFoam()
 			HitResult.GetActor()->Destroy();
 		}
 	}
-
 }

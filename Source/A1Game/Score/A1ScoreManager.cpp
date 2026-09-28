@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Score/A1ScoreManager.h"
 
 #include "A1LogChannels.h"
@@ -34,7 +33,7 @@ void UA1ScoreManager::StartNewGame()
 void UA1ScoreManager::EndGame(EGameEndReason EndReason)
 {
 	CurrentGameScore.GameEndReason = EndReason;
-	
+
 	CurrentGameScore.CalculateScore(); // 최종 점수 계산
 
 	// 저장된 점수에 추가
@@ -234,6 +233,6 @@ FString UA1ScoreManager::GetCurrentScoreBreakdown() const
 
 void UA1ScoreManager::SetDoTutorial(bool InDoTutorial)
 {
-	 bDoTutorial = InDoTutorial;
-	 UE_LOG(LogA1ScoreSystem, Log, TEXT("Set Do Tutoiral: %s"), bDoTutorial ? TEXT("True") : TEXT("False"));
+	bDoTutorial = InDoTutorial;
+	UE_LOG(LogA1ScoreSystem, Log, TEXT("Set Do Tutoiral: %s"), bDoTutorial ? TEXT("True") : TEXT("False"));
 }

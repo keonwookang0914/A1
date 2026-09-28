@@ -11,7 +11,6 @@
 #include "InputMappingContext.h"
 #include "LyraCharacterMovementComponent.h"
 
-
 AA1PlayerCharacter::AA1PlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<ULyraCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
@@ -28,7 +27,7 @@ AA1PlayerCharacter::AA1PlayerCharacter(const FObjectInitializer& ObjectInitializ
 	// Mesh
 	USkeletalMeshComponent* MeshComp = GetMesh();
 	check(MeshComp);
-	MeshComp->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));  // Rotate mesh to be X forward since it is exported as Y forward.
+	MeshComp->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f)); // Rotate mesh to be X forward since it is exported as Y forward.
 	MeshComp->SetCollisionProfileName(TEXT("NoCollision"));
 
 	// Pawn
@@ -52,16 +51,15 @@ AA1PlayerCharacter::AA1PlayerCharacter(const FObjectInitializer& ObjectInitializ
 	LyraMoveComp->bCanWalkOffLedgesWhenCrouching = true;
 	LyraMoveComp->SetCrouchedHalfHeight(65.0f);
 
-
 	// Camera
 	CameraComponent = CreateDefaultSubobject<ULyraCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetRelativeLocation(FVector(-300.0f, 0.0f, 75.0f));
 
 	// Input
 	/*
-	*  LyraHeroComponent
-	*	생명주기 이슈로 블루프린트에서 처리
-	*/
+	 *  LyraHeroComponent
+	 *	생명주기 이슈로 블루프린트에서 처리
+	 */
 
 	ASC = nullptr;
 }
@@ -69,12 +67,9 @@ AA1PlayerCharacter::AA1PlayerCharacter(const FObjectInitializer& ObjectInitializ
 void AA1PlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
 }
 
 void AA1PlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
-

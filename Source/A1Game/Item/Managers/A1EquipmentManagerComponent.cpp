@@ -26,18 +26,18 @@ void FA1EquipmentEntry::Init(UA1ItemInstance* InItemInstance, int32 InItemCount)
 	const UA1ItemFragment_Equipable* EquippableFragment = InItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable>();
 	if (EquippableFragment == nullptr)
 		return;
-	
+
 	if (ItemInstance)
 	{
 		EquipManager->Unequip(EquipmentSlotType);
 	}
-	
+
 	ItemInstance = InItemInstance;
-	
+
 	const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(ItemInstance->GetItemTemplateID());
 	ItemCount = FMath::Clamp(InItemCount, 1, ItemTemplate.MaxStackCount);
 
-	//TEMP Jerry
+	// TEMP Jerry
 	EquipmentManager->OnEquipmentEntryChanged.Broadcast(EquipmentSlotType, ItemInstance, ItemCount);
 
 	EquipManager->Equip(EquipmentSlotType, ItemInstance);
@@ -54,7 +54,7 @@ UA1ItemInstance* FA1EquipmentEntry::Reset()
 	{
 		EquipManager->Unequip(EquipmentSlotType);
 	}
-	
+
 	UA1ItemInstance* RemovedItemInstance = ItemInstance;
 	ItemInstance = nullptr;
 	ItemCount = 0;
@@ -63,7 +63,7 @@ UA1ItemInstance* FA1EquipmentEntry::Reset()
 	EquipManager->ChangeEquipState(EquipmentSlotType, false);
 	EquipManager->CanInteract();
 
-	//TEMP Jerry
+	// TEMP Jerry
 	EquipmentManager->OnEquipmentEntryChanged.Broadcast(EquipmentSlotType, ItemInstance, ItemCount);
 
 	return RemovedItemInstance;
@@ -71,7 +71,7 @@ UA1ItemInstance* FA1EquipmentEntry::Reset()
 
 bool FA1EquipmentList::NetDeltaSerialize(FNetDeltaSerializeInfo& DeltaParams)
 {
-	return FFastArraySerializer::FastArrayDeltaSerialize<FA1EquipmentEntry, FA1EquipmentList>(Entries, DeltaParams,*this);
+	return FFastArraySerializer::FastArrayDeltaSerialize<FA1EquipmentEntry, FA1EquipmentList>(Entries, DeltaParams, *this);
 }
 
 void FA1EquipmentList::PostReplicatedAdd(const TArrayView<int32> AddedIndices, int32 FinalSize)
@@ -81,7 +81,7 @@ void FA1EquipmentList::PostReplicatedAdd(const TArrayView<int32> AddedIndices, i
 		FA1EquipmentEntry& Entry = Entries[AddedIndex];
 		Entry.EquipmentManager = EquipmentManager;
 		Entry.EquipmentSlotType = (EEquipmentSlotType)AddedIndex;
-		
+
 		if (Entry.GetItemInstance())
 		{
 			BroadcastChangedMessage((EEquipmentSlotType)AddedIndex, Entry.GetItemInstance(), Entry.GetItemCount());
@@ -111,13 +111,13 @@ UA1EquipmentManagerComponent::UA1EquipmentManagerComponent(const FObjectInitiali
 	, EquipmentList(this)
 {
 	bWantsInitializeComponent = true;
-    SetIsReplicatedByDefault(true);
+	SetIsReplicatedByDefault(true);
 }
 
 void UA1EquipmentManagerComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
-	
+
 	if (GetOwner() && GetOwner()->HasAuthority())
 	{
 		TArray<FA1EquipmentEntry>& Entries = EquipmentList.Entries;
@@ -143,7 +143,7 @@ void UA1EquipmentManagerComponent::GetLifetimeReplicatedProps(TArray<FLifetimePr
 bool UA1EquipmentManagerComponent::ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags)
 {
 	bool bWroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
-	
+
 	for (FA1EquipmentEntry& Entry : EquipmentList.Entries)
 	{
 		UA1ItemInstance* ItemInstance = Entry.ItemInstance;
@@ -152,7 +152,7 @@ bool UA1EquipmentManagerComponent::ReplicateSubobjects(UActorChannel* Channel, F
 			bWroteSomething |= Channel->ReplicateSubobject(ItemInstance, *Bunch, *RepFlags);
 		}
 	}
-	
+
 	return bWroteSomething;
 }
 
@@ -211,10 +211,10 @@ int32 UA1EquipmentManagerComponent::CanMoveOrMergeEquipment(UA1InventoryManagerC
 	return CanAddEquipment(FromItemInstance->GetItemTemplateID(), FromItemInstance->GetItemRarity(), FromItemCount, ToEquipmentSlotType);
 }
 /*
-*   CanMoveOrMergeEquipment_Quick
-*   빈 자리 있으면 바로 해당 자리에 가능한 지
-*	없으면 아이템 개수 증가 가능한 지
-*/
+ *   CanMoveOrMergeEquipment_Quick
+ *   빈 자리 있으면 바로 해당 자리에 가능한 지
+ *	없으면 아이템 개수 증가 가능한 지
+ */
 int32 UA1EquipmentManagerComponent::CanMoveOrMergeEquipment_Quick(UA1EquipmentManagerComponent* OtherComponent, EEquipmentSlotType FromEquipmentSlotType, EEquipmentSlotType& OutToEquipmentSlotType) const
 {
 	OutToEquipmentSlotType = EEquipmentSlotType::Count;
@@ -274,7 +274,7 @@ int32 UA1EquipmentManagerComponent::CanMoveOrMergeEquipment_Quick(int32 FromItem
 
 	UA1ItemInstance* ToItemInstance = GetItemInstance(ToEquipmentSlotType);
 
-	if((ToItemInstance != nullptr))
+	if ((ToItemInstance != nullptr))
 	{
 		const int32 ToItemCount = GetItemCount(ToEquipmentSlotType);
 		const UA1ItemTemplate& ToItemTemplate = UA1ItemData::Get().FindItemTemplateByID(ToItemInstance->GetItemTemplateID());
@@ -282,14 +282,14 @@ int32 UA1EquipmentManagerComponent::CanMoveOrMergeEquipment_Quick(int32 FromItem
 		if (!(ToItemTemplate.MaxStackCount > 1 && ToItemCount < ToItemTemplate.MaxStackCount && ToItemInstance->GetItemRarity() == FromItemRarity && ToItemInstance->GetItemTemplateID() == FromItemTemplateID))
 			return 0;
 	}
-	
+
 	int32 MovableCount = CanAddEquipment(FromItemTemplateID, FromItemRarity, FromItemCount, ToEquipmentSlotType);
 	if (MovableCount > 0)
 	{
 		OutToEquipmentSlotType = ToEquipmentSlotType;
 		return MovableCount;
 	}
-	
+
 	return 0;
 }
 
@@ -316,7 +316,7 @@ bool UA1EquipmentManagerComponent::CanSwapEquipment(UA1EquipmentManagerComponent
 	if (ToItemInstance == nullptr)
 		return false;
 
-	//if (FromEquippableFragment->EquipmentType == EEquipmentType::Weapon)
+	// if (FromEquippableFragment->EquipmentType == EEquipmentType::Weapon)
 	//{
 	//	const UA1ItemFragment_Equipable_Weapon* FromWeaponFragment = Cast<UA1ItemFragment_Equipable_Weapon>(FromEquippableFragment);
 	//	if (FromWeaponFragment == nullptr)
@@ -327,21 +327,21 @@ bool UA1EquipmentManagerComponent::CanSwapEquipment(UA1EquipmentManagerComponent
 	//		return false;
 	//
 	//	return true;
-	//}
-	//else if (FromEquippableFragment->EquipmentType == EEquipmentType::Armor)
+	// }
+	// else if (FromEquippableFragment->EquipmentType == EEquipmentType::Armor)
 	//{
 	//	if (FromEquipmentSlotType != ToEquipmentSlotType)
 	//		return false;
 	//
 	//	return true;
-	//}
-	//else if (FromEquippableFragment->EquipmentType == EEquipmentType::Utility)
+	// }
+	// else if (FromEquippableFragment->EquipmentType == EEquipmentType::Utility)
 	//{
 	//	if (IsUtilitySlot(ToEquipmentSlotType) == false)
 	//		return false;
 	//
 	//	return true;
-	//}
+	// }
 
 	return false;
 }
@@ -370,7 +370,7 @@ bool UA1EquipmentManagerComponent::CanSwapEquipment(UA1InventoryManagerComponent
 	if (FromEquippableFragment == nullptr)
 		return false;
 
-	//if (FromEquippableFragment->EquipmentType == EEquipmentType::Weapon)
+	// if (FromEquippableFragment->EquipmentType == EEquipmentType::Weapon)
 	//{
 	//	const UA1ItemFragment_Equipable_Weapon* FromWeaponFragment = Cast<UA1ItemFragment_Equipable_Weapon>(FromEquippableFragment);
 	//	if (FromWeaponFragment == nullptr)
@@ -379,12 +379,12 @@ bool UA1EquipmentManagerComponent::CanSwapEquipment(UA1InventoryManagerComponent
 	//	EWeaponHandType FromWeaponHandType = FromWeaponFragment->WeaponHandType;
 	//	if (IsSameWeaponHandType(ToEquipmentSlotType, FromWeaponHandType) == false)
 	//		return false;
-	//}
-	//else if (FromEquippableFragment->EquipmentType == EEquipmentType::Utility)
+	// }
+	// else if (FromEquippableFragment->EquipmentType == EEquipmentType::Utility)
 	//{
 	//	if (IsUtilitySlot(ToEquipmentSlotType) == false)
 	//		return false;
-	//}
+	// }
 
 	const UA1ItemTemplate& FromItemTemplate = UA1ItemData::Get().FindItemTemplateByID(FromItemInstance->GetItemTemplateID());
 	const FIntPoint& FromSlotCount = FromItemTemplate.SlotCount;
@@ -542,15 +542,15 @@ int32 UA1EquipmentManagerComponent::CanAddEquipment(int32 ItemTemplateID, EItemR
 {
 	if (ItemTemplateID <= 0 || ItemRarity == EItemRarity::Count || ItemCount <= 0)
 		return 0;
-	
+
 	if (ToEquipmentSlotType == EEquipmentSlotType::Count)
 		return 0;
-	
+
 	const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(ItemTemplateID);
 	const UA1ItemFragment_Equipable* FromEquippableFragment = ItemTemplate.FindFragmentByClass<UA1ItemFragment_Equipable>();
 	if (FromEquippableFragment == nullptr)
 		return 0;
-	
+
 	const UA1ItemInstance* ToItemInstance = GetItemInstance(ToEquipmentSlotType);
 	const int32 ToItemCount = GetItemCount(ToEquipmentSlotType);
 
@@ -562,7 +562,7 @@ int32 UA1EquipmentManagerComponent::CanAddEquipment(int32 ItemTemplateID, EItemR
 
 		if (ItemRarity != ToItemInstance->GetItemRarity())
 			return 0;
-		
+
 		if (ItemTemplate.MaxStackCount < 2)
 			return 0;
 
@@ -573,7 +573,7 @@ int32 UA1EquipmentManagerComponent::CanAddEquipment(int32 ItemTemplateID, EItemR
 		const UA1ItemFragment_Equipable_Attachment* FromItemFragment = Cast<UA1ItemFragment_Equipable_Attachment>(FromEquippableFragment);
 		EEquipmentSlotType FromEquipSlotType = FromItemFragment->ItemHandType;
 
-		if(FromEquipSlotType == EEquipmentSlotType::LeftHand || FromEquipSlotType == EEquipmentSlotType::RightHand)
+		if (FromEquipSlotType == EEquipmentSlotType::LeftHand || FromEquipSlotType == EEquipmentSlotType::RightHand)
 		{
 			return ((GetItemInstance(EEquipmentSlotType::TwoHand) == nullptr) && (FromEquipSlotType == ToEquipmentSlotType)) ? ItemCount : 0;
 		}
@@ -600,9 +600,9 @@ void UA1EquipmentManagerComponent::AddEquipment_Unsafe(EEquipmentSlotType Equipm
 
 	if (EquipmentSlotType == EEquipmentSlotType::Count || ItemCount <= 0)
 		return;
-	
+
 	FA1EquipmentEntry& Entry = EquipmentList.Entries[(int32)EquipmentSlotType];
-	
+
 	if (Entry.GetItemInstance())
 	{
 		Entry.ItemCount += ItemCount;
@@ -612,14 +612,14 @@ void UA1EquipmentManagerComponent::AddEquipment_Unsafe(EEquipmentSlotType Equipm
 	{
 		if (ItemInstance == nullptr)
 			return;
-		
+
 		Entry.Init(ItemInstance, ItemCount);
-		
+
 		if (IsUsingRegisteredSubObjectList() && IsReadyForReplication() && ItemInstance)
 		{
 			AddReplicatedSubObject(ItemInstance);
 		}
-		
+
 		EquipmentList.MarkItemDirty(Entry);
 	}
 }
@@ -638,7 +638,7 @@ UA1ItemInstance* UA1EquipmentManagerComponent::RemoveEquipment_Unsafe(EEquipment
 		if (IsUsingRegisteredSubObjectList() && RemovedItemInstance)
 		{
 			RemoveReplicatedSubObject(RemovedItemInstance);
-		}	
+		}
 	}
 
 	EquipmentList.MarkItemDirty(Entry);
@@ -705,13 +705,13 @@ const UA1ItemInstance* UA1EquipmentManagerComponent::FindPairItemInstance(const 
 	const UA1ItemFragment_Equipable* BaseEquippableFragment = InBaseItemInstance->FindFragmentByClass<UA1ItemFragment_Equipable>();
 	if (BaseEquippableFragment == nullptr)
 		return nullptr;
-	
+
 	UA1ItemInstance* SelectedItemInstance = nullptr;
 
 	if (BaseEquippableFragment->EquipmentType == EEquipmentType::Weapon)
 	{
 		const UA1ItemFragment_Equipable_Weapon* BaseWeaponFragment = Cast<UA1ItemFragment_Equipable_Weapon>(BaseEquippableFragment);
-		
+
 		const TArray<FA1EquipmentEntry>& Entries = EquipmentList.GetAllEntries();
 		for (int32 i = 0; i < (int32)EEquipmentSlotType::Count; i++)
 		{
@@ -781,10 +781,10 @@ UA1ItemInstance* UA1EquipmentManagerComponent::GetItemInstance(EEquipmentSlotTyp
 {
 	if (EquipmentSlotType == EEquipmentSlotType::Count)
 		return nullptr;
-	
+
 	const TArray<FA1EquipmentEntry>& Entries = EquipmentList.GetAllEntries();
 	const FA1EquipmentEntry& Entry = Entries[(int32)EquipmentSlotType];
-	
+
 	return Entry.GetItemInstance();
 }
 
@@ -795,7 +795,7 @@ int32 UA1EquipmentManagerComponent::GetItemCount(EEquipmentSlotType EquipmentSlo
 
 	const TArray<FA1EquipmentEntry>& Entries = EquipmentList.GetAllEntries();
 	const FA1EquipmentEntry& Entry = Entries[(int32)EquipmentSlotType];
-	
+
 	return Entry.GetItemCount();
 }
 
@@ -807,7 +807,7 @@ const TArray<FA1EquipmentEntry>& UA1EquipmentManagerComponent::GetAllEntries() c
 void UA1EquipmentManagerComponent::GetAllWeaponItemInstances(TArray<UA1ItemInstance*>& OutItemInstances) const
 {
 	OutItemInstances.Reset();
-	
+
 	const TArray<FA1EquipmentEntry>& Entries = EquipmentList.GetAllEntries();
 
 	for (int32 i = 0; i < (int32)EEquipmentSlotType::Count; i++)

@@ -48,5 +48,4 @@ protected:
 	float MaxHealth = 0.1f;
 	float CurrentOxygen = 0.1f;
 	float MaxOxygen = 0.1f;
-	
 };

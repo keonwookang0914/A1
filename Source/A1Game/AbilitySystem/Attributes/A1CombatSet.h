@@ -18,7 +18,7 @@ protected:
 
 private:
 	void ClampAttribute(const FGameplayAttribute& Attribute, float& NewValue) const;
-	
+
 public:
 	ATTRIBUTE_ACCESSORS(ThisClass, BaseDamage);
 	ATTRIBUTE_ACCESSORS(ThisClass, BaseHealth);
@@ -27,10 +27,10 @@ public:
 protected:
 	UFUNCTION()
 	void OnRep_BaseDamage(const FGameplayAttributeData& OldValue);
-	
+
 	UFUNCTION()
 	void OnRep_BaseHealth(const FGameplayAttributeData& OldValue);
-	
+
 	UFUNCTION()
 	void OnRep_BaseOxygen(const FGameplayAttributeData& OldValue);
 
@@ -68,10 +68,10 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnRep_AttackSpeedPercent, meta=(AllowPrivateAccess="true"))
 	FGameplayAttributeData AttackSpeedPercent;
-	
+
 public:
 	ATTRIBUTE_ACCESSORS(ThisClass, Resourcefulness);
-	
+
 protected:
 	// 상호작용 속도
 	UFUNCTION()

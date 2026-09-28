@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FJumpAndWaitForLandingDelegate);
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1AT_JumpAndWaitForLanding : public UAbilityTask
@@ -26,6 +26,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FJumpAndWaitForLandingDelegate OnComplete;
+
 protected:
 	UFUNCTION()
 	void OnLandedCallback(const FHitResult& Hit);

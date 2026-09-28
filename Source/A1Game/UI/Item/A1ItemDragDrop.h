@@ -18,7 +18,7 @@ class A1GAME_API UA1ItemDragDrop : public UDragDropOperation
 
 public:
 	UA1ItemDragDrop(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-	
+
 public:
 	UPROPERTY()
 	TObjectPtr<UA1InventoryManagerComponent> FromInventoryManager;

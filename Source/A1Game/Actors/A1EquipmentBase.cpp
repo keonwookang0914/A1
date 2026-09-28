@@ -21,13 +21,13 @@ AA1EquipmentBase::AA1EquipmentBase(const FObjectInitializer& ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = false;
 	PrimaryActorTick.bStartWithTickEnabled = false;
-	
-    bReplicates = true;
+
+	bReplicates = true;
 
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>("ArrowComponent");
 	ArrowComponent->PrimaryComponentTick.bStartWithTickEnabled = false;
 	SetRootComponent(ArrowComponent);
-	
+
 	MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>("ItemMesh");
 	MeshComponent->SetCollisionProfileName("Weapon");
 	MeshComponent->SetGenerateOverlapEvents(false);
@@ -38,12 +38,12 @@ AA1EquipmentBase::AA1EquipmentBase(const FObjectInitializer& ObjectInitializer)
 
 	// TODO 일단 최적화 없이 만들어서 성능 측정 부터
 	//// Rendering 최적화
-	//MeshComponent->bCastHiddenShadow = false;
-	//MeshComponent->SetCullDistance(3000.f);
+	// MeshComponent->bCastHiddenShadow = false;
+	// MeshComponent->SetCullDistance(3000.f);
 	//
-	//// CullDistanceVolume을 맵에 깔아야 한다고 함 
-	//MeshComponent->bAllowCullDistanceVolume = true;
-	
+	//// CullDistanceVolume을 맵에 깔아야 한다고 함
+	// MeshComponent->bAllowCullDistanceVolume = true;
+
 	TraceDebugCollision = CreateDefaultSubobject<UBoxComponent>("TraceDebugCollision");
 	TraceDebugCollision->SetCollisionProfileName("NoCollision");
 	TraceDebugCollision->SetGenerateOverlapEvents(false);
@@ -57,7 +57,7 @@ void AA1EquipmentBase::BeginPlay()
 
 	if (bOnlyUseForLocal)
 		return;
-	
+
 	if (HasAuthority())
 	{
 		OnRep_EquipmentSlotType();
@@ -70,7 +70,7 @@ void AA1EquipmentBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 
 	if (bOnlyUseForLocal)
 		return;
-	
+
 	DOREPLIFETIME(ThisClass, TemplateID);
 	DOREPLIFETIME(ThisClass, EquipmentSlotType);
 	DOREPLIFETIME(ThisClass, bCanBlock);
@@ -80,7 +80,7 @@ void AA1EquipmentBase::Destroyed()
 {
 	if (bOnlyUseForLocal)
 		return;
-	
+
 	if (ALyraCharacter* Character = Cast<ALyraCharacter>(GetOwner()))
 	{
 		if (ULyraAbilitySystemComponent* ASC = Cast<ULyraAbilitySystemComponent>(Character->GetAbilitySystemComponent()))
@@ -97,7 +97,7 @@ void AA1EquipmentBase::Destroyed()
 			}
 		}
 	}
-	
+
 	Super::Destroyed();
 }
 
@@ -105,7 +105,7 @@ void AA1EquipmentBase::Init(int32 InTemplateID, EEquipmentSlotType InEquipmentSl
 {
 	if (bOnlyUseForLocal)
 		return;
-	
+
 	TemplateID = InTemplateID;
 	EquipmentSlotType = InEquipmentSlotType;
 	ItemRarity = InItemRarity;
@@ -115,7 +115,7 @@ void AA1EquipmentBase::ChangeBlockState(bool bShouldBlock)
 {
 	if (bOnlyUseForLocal)
 		return;
-	
+
 	if (HasAuthority())
 	{
 		bCanBlock = bShouldBlock;
@@ -136,7 +136,7 @@ void AA1EquipmentBase::OnRep_EquipmentSlotType()
 {
 	if (bOnlyUseForLocal)
 		return;
-	
+
 	if (GetOwner() && GetOwner()->FindComponentByClass<UA1EquipManagerComponent>())
 	{
 		if (ALyraCharacter* Character = Cast<ALyraCharacter>(GetOwner()))
@@ -167,7 +167,7 @@ UAbilitySystemComponent* AA1EquipmentBase::GetAbilitySystemComponent() const
 UAnimMontage* AA1EquipmentBase::GetEquipMontage()
 {
 	UAnimMontage* EquipMontage = nullptr;
-	
+
 	if (TemplateID > 0)
 	{
 		const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(TemplateID);
@@ -176,7 +176,7 @@ UAnimMontage* AA1EquipmentBase::GetEquipMontage()
 			EquipMontage = ULyraAssetManager::GetAssetByPath<UAnimMontage>(AttachmentFragment->EquipMontage);
 		}
 	}
-	
+
 	return EquipMontage;
 }
 
@@ -219,7 +219,7 @@ UAnimMontage* AA1EquipmentBase::GetHitMontage(AActor* InstigatorActor, const FVe
 	}
 	return SelectedMontage;
 }
-	
+
 void AA1EquipmentBase::Highlight()
 {
 	// 이미 주워진 아이템임

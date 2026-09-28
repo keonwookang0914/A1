@@ -41,7 +41,7 @@ void FA1GameplayTagStackContainer::RemoveStack(FGameplayTag Tag)
 		FFrame::KismetExecutionMessage(TEXT("An invalid tag was passed to RemoveStack"), ELogVerbosity::Warning);
 		return;
 	}
-	
+
 	for (auto It = Stacks.CreateIterator(); It; ++It)
 	{
 		FA1GameplayTagStack& Stack = *It;
@@ -81,4 +81,3 @@ void FA1GameplayTagStackContainer::PostReplicatedChange(const TArrayView<int32> 
 		TagToCountMap[Stack.Tag] = Stack.StackCount;
 	}
 }
-

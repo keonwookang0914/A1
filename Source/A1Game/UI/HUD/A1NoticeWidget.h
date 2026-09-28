@@ -6,7 +6,7 @@
 #include "A1NoticeWidget.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class A1GAME_API UA1NoticeWidget : public UUserWidget
@@ -24,5 +24,5 @@ protected:
 
 protected:
 	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<class UTextBlock> TxtNotice;	
+	TObjectPtr<class UTextBlock> TxtNotice;
 };

@@ -6,7 +6,7 @@
 #include "A1GameplayAbility_Interact_DockingSignalHandler.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UA1GameplayAbility_Interact_DockingSignalHandler : public UA1GameplayAbility_Interact_Object

@@ -7,7 +7,7 @@ UCLASS()
 class UA1EnhancedPlayerInput : public UEnhancedPlayerInput
 {
 	GENERATED_BODY()
-	
+
 public:
 	UA1EnhancedPlayerInput();
 

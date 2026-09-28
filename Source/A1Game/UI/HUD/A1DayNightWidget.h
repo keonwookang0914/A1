@@ -18,7 +18,7 @@ class A1GAME_API UA1DayNightWidget : public UUserWidget
 {
 	GENERATED_BODY()
 protected:
-	//Function Section
+	// Function Section
 	virtual void NativeConstruct() override;
 	virtual void NativeDestruct() override;
 
@@ -35,14 +35,14 @@ protected:
 
 	void UpdateTimeDisplay(int32 Hour, int32 Minute);
 
-	//Variable Section
+	// Variable Section
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> DayNightIcon;
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> DayCount;
 
-	//ICon Image
+	// ICon Image
 	UPROPERTY(EditDefaultsOnly, Category = "DayNight|Icon UI")
 	TObjectPtr<UTexture2D> DayIcon;
 

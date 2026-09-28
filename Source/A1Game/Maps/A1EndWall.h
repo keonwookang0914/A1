@@ -10,8 +10,8 @@ UCLASS()
 class A1GAME_API AA1EndWall : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AA1EndWall();
 

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "UI/HUD/A1DayNightWidget.h"
 
 #include "Actors/A1DayNightManager.h"
@@ -12,7 +11,7 @@ void UA1DayNightWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	//Get DayNightManager Reference
+	// Get DayNightManager Reference
 	AActor* Actor = UGameplayStatics::GetActorOfClass(GetWorld(), AA1DayNightManager::StaticClass());
 	if (AA1DayNightManager* DayNight = Cast<AA1DayNightManager>(Actor))
 	{
@@ -22,16 +21,14 @@ void UA1DayNightWidget::NativeConstruct()
 	if (DayNightManager)
 	{
 		DayNightManager->OnDayPhaseChanged.AddDynamic(this, &UA1DayNightWidget::OnDayPhaseChanged);
-        DayNightManager->OnDayChanged.AddDynamic(this, &UA1DayNightWidget::OnDayChanged);
+		DayNightManager->OnDayChanged.AddDynamic(this, &UA1DayNightWidget::OnDayChanged);
 		DayNightManager->OnTimeChanged.AddDynamic(this, &UA1DayNightWidget::OnTimeChanged);
 
-		//초기 UI 설정
+		// 초기 UI 설정
 		UpdateUI();
 		UpdateTimeDisplay(12, 0);
 		Text_Time->SetColorAndOpacity(FSlateColor(FLinearColor::White));
 	}
-
-	
 }
 
 void UA1DayNightWidget::NativeDestruct()
@@ -43,7 +40,6 @@ void UA1DayNightWidget::NativeDestruct()
 		DayNightManager->OnDayChanged.Clear();
 		DayNightManager->OnTimeChanged.Clear();
 	}
-
 
 	Super::NativeDestruct();
 }
@@ -66,7 +62,7 @@ void UA1DayNightWidget::OnTimeChanged(int32 Hour, int32 Minute)
 void UA1DayNightWidget::UpdateUI()
 {
 
-	//Update Text
+	// Update Text
 	if (DayCount)
 	{
 		DayCount->SetText(FText::Format(NSLOCTEXT("DayNight", "DayCount", "DAY {0}"), DayNightManager->GetCurrentDay()));

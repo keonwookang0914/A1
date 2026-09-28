@@ -1,6 +1,5 @@
 ﻿// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
-
 #include "Actors/A1RepairBase.h"
 
 #include "A1EquipmentBase.h"
@@ -12,12 +11,13 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1RepairBase)
 
-AA1RepairBase::AA1RepairBase(const FObjectInitializer& objectInitializer) : Super(objectInitializer)
+AA1RepairBase::AA1RepairBase(const FObjectInitializer& objectInitializer)
+	: Super(objectInitializer)
 {
 	ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	SetRootComponent(ArrowComponent);
 
-	//Mesh
+	// Mesh
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMeshComponent"));
 	MeshComponent->SetupAttachment(GetRootComponent());
 	MeshComponent->SetCollisionProfileName(TEXT("Interactable"));
@@ -40,7 +40,7 @@ FA1InteractionInfo AA1RepairBase::GetPreInteractionInfo(const FA1InteractionQuer
 {
 	if (CurrentState == RepairState::NotBroken || CurrentState == RepairState::Complete)
 	{
-		return AlreadyRepairedInteractionInfo; //return null interaction info
+		return AlreadyRepairedInteractionInfo; // return null interaction info
 	}
 
 	if (CurrentState == RepairState::Break)
@@ -53,7 +53,7 @@ FA1InteractionInfo AA1RepairBase::GetPreInteractionInfo(const FA1InteractionQuer
 			}
 			else
 			{
-				return NoRepairKitInteractionInfo; //return null interaction info
+				return NoRepairKitInteractionInfo; // return null interaction info
 			}
 		}
 	}
@@ -91,7 +91,7 @@ void AA1RepairBase::SetCurrentState(RepairState InState)
 			CachedSpaceship->SetFuelConsumeAmount(CachedSpaceship->GetFuelConsumeAmount() - 1);
 		}
 	}
-	else //RepairState::Complete
+	else // RepairState::Complete
 	{
 		SetSpriteComplete();
 		bIsFoamed = false;
@@ -100,10 +100,10 @@ void AA1RepairBase::SetCurrentState(RepairState InState)
 
 void AA1RepairBase::OnRepairChanged()
 {
-	//TODO eric1306
+	// TODO eric1306
 	/*
 	 * Tutorial -> Complete 여야함 -> 이후 InnerMap 에서 해당 Foam 객체들을 RepairBase -> Foam으로 변경
-	 * not Tutorial -> Foamed 여야함 -> 이후 
+	 * not Tutorial -> Foamed 여야함 -> 이후
 	 */
 	if (CachedSpaceship)
 	{

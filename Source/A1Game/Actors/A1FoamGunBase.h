@@ -7,7 +7,7 @@ UCLASS(BlueprintType, Abstract)
 class AA1FoamGunBase : public AA1EquipmentBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	AA1FoamGunBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 
