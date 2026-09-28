@@ -1,0 +1,70 @@
+---
+# Based on Epic's Engine/Source/Runtime/CoreVerseVM/.clang-format (UE 5.4).
+# Project changes: SortIncludes Never (keep *.generated.h last), Standard Latest (UE 5.4 builds C++20),
+# reflection macros moved from StatementMacros to WhitespaceSensitiveMacros (Verse-only 'v' dropped),
+# NamespaceIndentation All (project, Lyra and most engine headers indent namespace contents),
+# BeforeLambdaBody true (engine puts the lambda brace on its own line),
+# AlignArrayOfStructures None (Right mixed tabs and spaces and was not idempotent),
+# AllowShortLambdasOnASingleLine Empty (Inline was not idempotent for a lambda passed mid-argument list).
+# Matched to existing A1/Lyra/engine code: BreakBeforeBinaryOperators None and AlignOperands DontAlign
+# (&&/|| stay at line end, one-tab continuation), PackConstructorInitializers Never (": Super(...)" on its own line),
+# IndentCaseLabels false (case at switch-brace level), Cpp11BracedListStyle false ("{ A, B }" with inner spaces),
+# BreakInheritanceList BeforeColon (multiple base classes stay on one line).
+AccessModifierOffset: -4
+AlignAfterOpenBracket: DontAlign
+AlignArrayOfStructures: None
+AlignConsecutiveAssignments: None
+AlignConsecutiveBitFields: None
+AlignConsecutiveDeclarations: None
+AlignEscapedNewlines: Left
+AlignOperands: DontAlign
+AlignTrailingComments: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortLambdasOnASingleLine: Empty
+BasedOnStyle: LLVM
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: true
+  IndentBraces: false
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Custom
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeColon
+BreakStringLiterals: true
+ColumnLimit: 0
+Cpp11BracedListStyle: false
+EmptyLineBeforeAccessModifier: LogicalBlock
+FixNamespaceComments: true
+IncludeBlocks: Preserve
+IndentCaseBlocks: false
+IndentCaseLabels: false
+IndentPPDirectives: None
+IndentWidth: 4
+Language: Cpp
+NamespaceIndentation: All
+PackConstructorInitializers: Never
+PointerAlignment: Left
+SortIncludes: Never
+SpaceBeforeCaseColon: false
+Standard: Latest
+StatementMacros: ['GENERATED_BODY']
+# Keep reflection specifiers as written, e.g. meta=(...) instead of meta = (...).
+# These must not also be in StatementMacros, which would take precedence and reformat the arguments.
+WhitespaceSensitiveMacros: ['UPROPERTY', 'UFUNCTION', 'UCLASS', 'USTRUCT', 'UENUM', 'UINTERFACE', 'UMETA', 'UPARAM']
+TabWidth: 4
+UseTab: ForContinuationAndIndentation
