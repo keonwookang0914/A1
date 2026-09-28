@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 UENUM(BlueprintType)
 enum class ESlotState : uint8
@@ -21,10 +21,10 @@ enum class ERaiderType : uint8
 };
 
 /*---------------------------------------
-*   Character°¡ °¡Áö°í ÀÖ¾î¾ß ÇÒ Á¤º¸
+*   Characterê°€ ê°€ì§€ê³  ìˆì–´ì•¼ í•  ì •ë³´
 ---------------------------------------*/
 
-// CharacterÀÇ skin »ö»ó
+// Characterì˜ skin ìƒ‰ìƒ
 UENUM(BlueprintType)
 enum class ECharacterSkinType : uint8
 {
@@ -49,7 +49,7 @@ enum class EBodyType : uint8
 	Count UMETA(Hidden)
 };
 
-// Àåºñ ÀåÂø slot Å¸ÀÔ 
+// ì¥ë¹„ ì¥ì°© slot íƒ€ì… 
 UENUM(BlueprintType)
 enum class EEquipmentSlotType : uint8
 {
@@ -60,7 +60,7 @@ enum class EEquipmentSlotType : uint8
 	Count	UMETA(Hidden)
 };
 
-// ¼Õ »ç¿ë ¿©ºÎ
+// ì† ì‚¬ìš© ì—¬ë¶€
 UENUM(BlueprintType)
 enum class EEquipState : uint8
 {
@@ -82,9 +82,9 @@ enum class EMainHandState : uint8
 };
 
 /*---------------------------------------
-*    ItemÀÌ °¡Áö°í ÀÖ¾î¾ß ÇÒ Á¤º¸
+*    Itemì´ ê°€ì§€ê³  ìˆì–´ì•¼ í•  ì •ë³´
 ---------------------------------------*/
-// Item ºĞ·ù
+// Item ë¶„ë¥˜
 UENUM(BlueprintType)
 enum class EEquipmentType : uint8
 {
@@ -95,7 +95,7 @@ enum class EEquipmentType : uint8
 	Count	UMETA(Hidden)
 };
 
-// ¹«±â Á¾·ù
+// ë¬´ê¸° ì¢…ë¥˜
 UENUM(BlueprintType)
 enum class EWeaponType : uint8
 {
@@ -107,7 +107,7 @@ enum class EWeaponType : uint8
 	Count	UMETA(Hidden)
 };
 
-// Utillity Á¾·ù
+// Utillity ì¢…ë¥˜
 UENUM(BlueprintType)
 enum class EUtilityType : uint8
 {
