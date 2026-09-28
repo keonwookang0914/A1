@@ -84,7 +84,7 @@ public class A1GameTarget : TargetRules
 				if (!bHasWarnedAboutShared)
 				{
 					bHasWarnedAboutShared = true;
-					Logger.LogWarning("A1GameEOS and dynamic target options are disabled when packaging from an installed version of the engine");
+					Logger.LogWarning("Dynamic target options are disabled when packaging from an installed version of the engine");
 				}
 			}
 		}
