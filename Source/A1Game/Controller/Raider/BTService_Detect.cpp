@@ -6,7 +6,6 @@
 #include "A1LogChannels.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Character/Raider/A1RaiderBase.h"
-#include "Character/A1PlayerCharacter.h"
 #include "Character/LyraCharacter.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/OverlapResult.h"

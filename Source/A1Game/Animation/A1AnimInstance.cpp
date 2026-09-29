@@ -1,7 +1,7 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #include "Animation/A1AnimInstance.h"
-#include "Character/A1PlayerCharacter.h"
+#include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
