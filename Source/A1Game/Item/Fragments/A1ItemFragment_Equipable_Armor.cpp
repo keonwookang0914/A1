@@ -16,11 +16,6 @@ void UA1ItemFragment_Equipable_Armor::PreSave(FObjectPreSaveContext SaveContext)
 {
 	Super::PreSave(SaveContext);
 
-	// if (ArmorType != EArmorType::Chest)
-	//{
-	//	bIsFullBody = false;
-	// }
-
 	for (int i = 0; i < RarityStatRangeSets.Num(); i++)
 	{
 		TArray<FRarityStatRange>& RarityStatRanges = RarityStatRangeSets[i].RarityStatRanges;
