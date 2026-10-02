@@ -150,7 +150,7 @@ void AA1RandomMapGenerator::Server_SpawnEnemy_Implementation()
 	if (!HasAuthority())
 		return;
 
-	MAP_LOG(LogMap, Log, TEXT("SpawnedRooms Count: %d"), SpawnedRooms.Num());
+	A1_NETLOG(LogMap, Log, TEXT("SpawnedRooms Count: %d"), SpawnedRooms.Num());
 
 	for (auto Room : SpawnedRooms)
 	{
@@ -166,7 +166,7 @@ void AA1RandomMapGenerator::Server_SpawnItem_Implementation()
 	if (!HasAuthority())
 		return;
 
-	MAP_LOG(LogMap, Log, TEXT("SpawnedRooms Count: %d"), SpawnedRooms.Num());
+	A1_NETLOG(LogMap, Log, TEXT("SpawnedRooms Count: %d"), SpawnedRooms.Num());
 
 	for (auto Room : SpawnedRooms)
 	{
@@ -300,7 +300,7 @@ void AA1RandomMapGenerator::Server_SetSeed_Implementation()
 	MaxRoomAmount = 10 + 20 * FMath::Min(DayPercentage, 1.f);
 	RoomAmount = MaxRoomAmount;
 
-	MAP_LOG(LogMap, Log, TEXT("Set Seed!: %d"), Stream.GetInitialSeed());
+	A1_NETLOG(LogMap, Log, TEXT("Set Seed!: %d"), Stream.GetInitialSeed());
 
 	Server_SpawnStartRoom();
 }
@@ -347,7 +347,7 @@ void AA1RandomMapGenerator::Server_SpawnStartRoom_Implementation()
 		// Set SpawnedActor Network Setting
 		SetupNetworkProperties(SpawnedActor);
 
-		MAP_LOG(LogMap, Log, TEXT("First Spawned Actor: %s"), *SpawnedActor->GetActorLocation().ToString());
+		A1_NETLOG(LogMap, Log, TEXT("First Spawned Actor: %s"), *SpawnedActor->GetActorLocation().ToString());
 
 		SpawnedRooms.Add(Cast<AA1MasterRoom>(SpawnedActor));
 		RoomAmount--;
@@ -389,7 +389,7 @@ void AA1RandomMapGenerator::Server_SpawnNextRoom_Implementation()
 
 	if (RoomList.IsEmpty())
 	{
-		MAP_LOG(LogMap, Error, TEXT("RoomList is Empty."));
+		A1_NETLOG(LogMap, Error, TEXT("RoomList is Empty."));
 		return;
 	}
 
@@ -415,7 +415,7 @@ void AA1RandomMapGenerator::Server_SpawnNextRoom_Implementation()
 
 	if (!RoomClass)
 	{
-		MAP_LOG(LogMap, Error, TEXT("Index %d's Room Clas is Invalid."), OutIndex);
+		A1_NETLOG(LogMap, Error, TEXT("Index %d's Room Clas is Invalid."), OutIndex);
 		return;
 	}
 
@@ -466,7 +466,7 @@ void AA1RandomMapGenerator::Server_SpawnNextRoom_Implementation()
 		LatestRoom = SpawnedActor;
 
 		FString printlog = NextRoomTransform.GetLocation().ToString();
-		MAP_LOG(LogMap, Log, TEXT("Generate %d actor!: %s, name: %s"), MaxRoomAmount - RoomAmount,
+		A1_NETLOG(LogMap, Log, TEXT("Generate %d actor!: %s, name: %s"), MaxRoomAmount - RoomAmount,
 			*printlog, *SpawnedActor->GetName());
 	}
 
@@ -501,7 +501,7 @@ void AA1RandomMapGenerator::Server_CheckDungeonComplete_Implementation()
 
 		// Timeout Log
 		UE_LOG(LogTemp, Warning, TEXT("===== Resetting Map and Restart Geneartor ====="));
-		MAP_LOG(LogMap, Warning, TEXT("Timeout by %.2f seconds. Reset Map."), GameTimer - StartTimer);
+		A1_NETLOG(LogMap, Warning, TEXT("Timeout by %.2f seconds. Reset Map."), GameTimer - StartTimer);
 
 		// Remove Timer
 		GetWorld()->GetTimerManager().ClearTimer(GenerateTimer);
@@ -515,7 +515,7 @@ void AA1RandomMapGenerator::Server_AddOverlappingRoomsFromList_Implementation()
 	if (!HasAuthority())
 		return;
 
-	MAP_LOG(LogMap, Log, TEXT("Start AddOverlappingRoomsFromList"));
+	A1_NETLOG(LogMap, Log, TEXT("Start AddOverlappingRoomsFromList"));
 
 	auto OverlapFolder = LatestRoom->GetOverlapFolder();
 	TArray<USceneComponent*> ChildrenComp;
@@ -546,12 +546,12 @@ void AA1RandomMapGenerator::Server_CheckForOverlap_Implementation()
 	if (!HasAuthority())
 		return;
 
-	MAP_LOG(LogMap, Log, TEXT("Start CheckForOverlap"));
+	A1_NETLOG(LogMap, Log, TEXT("Start CheckForOverlap"));
 	Server_AddOverlappingRoomsFromList();
 
 	if (OverlappedList.IsEmpty())
 	{
-		MAP_LOG(LogMap, Log, TEXT("OverlappedList is Empty!"));
+		A1_NETLOG(LogMap, Log, TEXT("OverlappedList is Empty!"));
 
 		OverlappedList.Reset();
 		RoomAmount--;
@@ -586,13 +586,13 @@ void AA1RandomMapGenerator::Server_CheckForOverlap_Implementation()
 		{
 			if (Component)
 			{
-				MAP_LOG(LogMap, Warning, TEXT("%s Overlapped with: %s"),
+				A1_NETLOG(LogMap, Warning, TEXT("%s Overlapped with: %s"),
 					*LatestRoom->GetName(), *Component->GetName());
 
 				AActor* OwnerActor = Component->GetOwner();
 				if (OwnerActor)
 				{
-					MAP_LOG(LogMap, Warning, TEXT("  Owner: %s"), *OwnerActor->GetName());
+					A1_NETLOG(LogMap, Warning, TEXT("  Owner: %s"), *OwnerActor->GetName());
 				}
 			}
 		}
@@ -611,7 +611,7 @@ void AA1RandomMapGenerator::Server_CheckForOverlap_Implementation()
 					if (Exit)
 					{
 						ExitsList.Remove(Exit);
-						MAP_LOG(LogMap, Log, TEXT("Removed exit point from overlapped room"));
+						A1_NETLOG(LogMap, Log, TEXT("Removed exit point from overlapped room"));
 					}
 				}
 			}
@@ -752,7 +752,7 @@ void AA1RandomMapGenerator::Server_ResetAndRegenerateMap_Implementation()
 	Server_ResetMap();
 
 	// Reset Log
-	MAP_LOG(LogMap, Log, TEXT("=== Complete Reset. Retry Random Map Generator ==="));
+	A1_NETLOG(LogMap, Log, TEXT("=== Complete Reset. Retry Random Map Generator ==="));
 
 	// Reset Timer
 	StartTimer = GetWorld()->GetTimeSeconds();
@@ -767,7 +767,7 @@ void AA1RandomMapGenerator::Server_CloseHoles_Implementation()
 
 	if (bDungeonGenerateComplete)
 	{
-		MAP_LOG(LogMap, Warning, TEXT("=== Close Hole function is already Executed! ==="));
+		A1_NETLOG(LogMap, Warning, TEXT("=== Close Hole function is already Executed! ==="));
 		return;
 	}
 
@@ -796,7 +796,7 @@ void AA1RandomMapGenerator::Server_CloseHoles_Implementation()
 	ExpectedEndWallCount = UniqueExits.Num();
 
 	// Expected Log
-	MAP_LOG(LogMap, Log, TEXT("Expected to create %d end walls for %d unique exits"),
+	A1_NETLOG(LogMap, Log, TEXT("Expected to create %d end walls for %d unique exits"),
 		ExpectedEndWallCount, UniqueExits.Num());
 
 	// generate EndWalls
@@ -840,12 +840,12 @@ void AA1RandomMapGenerator::Server_CloseHoles_Implementation()
 	GetWorld()->GetTimerManager().ClearTimer(GenerateTimer);
 
 	// Complete Log
-	MAP_LOG(LogMap, Log, TEXT(" ======= Dungeon Generate Complete! ======= "));
-	MAP_LOG(LogMap, Log, TEXT("Seed: %d"), Stream.GetInitialSeed());
-	MAP_LOG(LogMap, Log, TEXT("Rooms created: %d"), SpawnedRooms.Num());
-	MAP_LOG(LogMap, Log, TEXT("EndWalls created: %d"), SpawnedEndWalls.Num());
-	MAP_LOG(LogMap, Log, TEXT("FirstFloorRooms created: %d"), FirstFloorRooms.Num());
-	MAP_LOG(LogMap, Log, TEXT("SecondFloorRooms created: %d"), SecondFloorRooms.Num());
+	A1_NETLOG(LogMap, Log, TEXT(" ======= Dungeon Generate Complete! ======= "));
+	A1_NETLOG(LogMap, Log, TEXT("Seed: %d"), Stream.GetInitialSeed());
+	A1_NETLOG(LogMap, Log, TEXT("Rooms created: %d"), SpawnedRooms.Num());
+	A1_NETLOG(LogMap, Log, TEXT("EndWalls created: %d"), SpawnedEndWalls.Num());
+	A1_NETLOG(LogMap, Log, TEXT("FirstFloorRooms created: %d"), FirstFloorRooms.Num());
+	A1_NETLOG(LogMap, Log, TEXT("SecondFloorRooms created: %d"), SecondFloorRooms.Num());
 
 	// Play Sound depend on NetMode
 	if (GetNetMode() == NM_Standalone)
@@ -879,10 +879,10 @@ void AA1RandomMapGenerator::Multicast_CloseHoles_Implementation()
 	// Multicast to all Clients
 	if (!HasAuthority())
 	{
-		MAP_LOG(LogMap, Log, TEXT("Client received close holes notification!"));
+		A1_NETLOG(LogMap, Log, TEXT("Client received close holes notification!"));
 
 		// Check Room and Wall
-		MAP_LOG(LogMap, Log, TEXT("Client has %d/%d rooms and %d/%d end walls"),
+		A1_NETLOG(LogMap, Log, TEXT("Client has %d/%d rooms and %d/%d end walls"),
 			SpawnedRooms.Num(), MaxRoomAmount,
 			SpawnedEndWalls.Num(), ExpectedEndWallCount);
 
@@ -905,7 +905,7 @@ void AA1RandomMapGenerator::Multicast_OnDungeonGenerateComplete_Implementation()
 			}
 		}
 
-		MAP_LOG(LogMap, Log, TEXT("Client map generation complete. Rooms: %d, End Walls: %d"),
+		A1_NETLOG(LogMap, Log, TEXT("Client map generation complete. Rooms: %d, End Walls: %d"),
 			SpawnedRooms.Num(), SpawnedEndWalls.Num());
 	}
 
@@ -918,18 +918,18 @@ void AA1RandomMapGenerator::Multicast_OnDungeonGenerateComplete_Implementation()
 void AA1RandomMapGenerator::OnRep_DungeonGenerateComplete()
 {
 	// Call by Client when bDungeonGenerateComplete is modified
-	MAP_LOG(LogMap, Log, TEXT("Client received dungeon completion notification!"));
+	A1_NETLOG(LogMap, Log, TEXT("Client received dungeon completion notification!"));
 
 	// Check Expected Room amount and Endwall Amount
 	if (SpawnedRooms.Num() != MaxRoomAmount)
 	{
-		MAP_LOG(LogMap, Warning, TEXT("Client has incorrect number of rooms: %d/%d"),
+		A1_NETLOG(LogMap, Warning, TEXT("Client has incorrect number of rooms: %d/%d"),
 			SpawnedRooms.Num(), MaxRoomAmount);
 	}
 
 	if (SpawnedEndWalls.Num() != ExpectedEndWallCount)
 	{
-		MAP_LOG(LogMap, Warning, TEXT("Client has incorrect number of end walls: %d/%d"),
+		A1_NETLOG(LogMap, Warning, TEXT("Client has incorrect number of end walls: %d/%d"),
 			SpawnedEndWalls.Num(), ExpectedEndWallCount);
 	}
 }
@@ -940,9 +940,9 @@ void AA1RandomMapGenerator::Client_VerifyMapGeneration_Implementation()
 	if (HasAuthority() || bVerificationComplete)
 		return;
 
-	MAP_LOG(LogMap, Log, TEXT("Client verification of map generation:"));
-	MAP_LOG(LogMap, Log, TEXT("- Rooms: %d/%d"), SpawnedRooms.Num(), MaxRoomAmount);
-	MAP_LOG(LogMap, Log, TEXT("- End Walls: %d/%d"), SpawnedEndWalls.Num(), ExpectedEndWallCount);
+	A1_NETLOG(LogMap, Log, TEXT("Client verification of map generation:"));
+	A1_NETLOG(LogMap, Log, TEXT("- Rooms: %d/%d"), SpawnedRooms.Num(), MaxRoomAmount);
+	A1_NETLOG(LogMap, Log, TEXT("- End Walls: %d/%d"), SpawnedEndWalls.Num(), ExpectedEndWallCount);
 
 	// Check Invalid Room or Endwalls
 	int32 InvalidRooms = 0;
@@ -971,7 +971,7 @@ void AA1RandomMapGenerator::Client_VerifyMapGeneration_Implementation()
 
 	if (InvalidRooms > 0 || InvalidWalls > 0)
 	{
-		MAP_LOG(LogMap, Warning, TEXT("Client has %d invalid rooms and %d invalid walls"),
+		A1_NETLOG(LogMap, Warning, TEXT("Client has %d invalid rooms and %d invalid walls"),
 			InvalidRooms, InvalidWalls);
 
 		// Request Server to restore
@@ -982,7 +982,7 @@ void AA1RandomMapGenerator::Client_VerifyMapGeneration_Implementation()
 	}
 	else
 	{
-		MAP_LOG(LogMap, Log, TEXT("Client verification successful: All rooms and walls are valid."));
+		A1_NETLOG(LogMap, Log, TEXT("Client verification successful: All rooms and walls are valid."));
 		bVerificationComplete = true;
 
 		AudioComp->Stop();
@@ -994,7 +994,7 @@ void AA1RandomMapGenerator::Server_CheckAndRepairRooms_Implementation()
 	if (!HasAuthority())
 		return;
 
-	MAP_LOG(LogMap, Log, TEXT(" === Server Ready to Restore Rooms and Walls==="));
+	A1_NETLOG(LogMap, Log, TEXT(" === Server Ready to Restore Rooms and Walls==="));
 
 	// Check all rooms and walls
 	for (int32 i = 0; i < SpawnedRooms.Num(); ++i)
@@ -1070,7 +1070,7 @@ void AA1RandomMapGenerator::Client_RepairInvalidRoom_Implementation(int32 RoomIn
 
 			SpawnedRooms[RoomIndex] = NewRoom;
 
-			MAP_LOG(LogMap, Log, TEXT(" == Completely Restore Room Index:  %d == "), RoomIndex);
+			A1_NETLOG(LogMap, Log, TEXT(" == Completely Restore Room Index:  %d == "), RoomIndex);
 		}
 	}
 }
@@ -1120,7 +1120,7 @@ void AA1RandomMapGenerator::Client_RepairInvalidWall_Implementation(int32 WallIn
 
 			NewWall->SetActorHiddenInGame(false);
 
-			MAP_LOG(LogMap, Log, TEXT("== Completely Restore Wall Index:  %d == "), WallIndex);
+			A1_NETLOG(LogMap, Log, TEXT("== Completely Restore Wall Index:  %d == "), WallIndex);
 		}
 	}
 }
@@ -1129,28 +1129,28 @@ void AA1RandomMapGenerator::Server_EnableReplicationForAllActors_Implementation(
 {
 	if (!HasAuthority())
 	{
-		MAP_LOG(LogMap, Log, TEXT("Client tried to access server function"));
+		A1_NETLOG(LogMap, Log, TEXT("Client tried to access server function"));
 		return;
 	}
 
 	// Optimize Room and EndWawll Network Setting
-	MAP_LOG(LogMap, Log, TEXT("SpawnedRooms num: %d"), SpawnedRooms.Num());
+	A1_NETLOG(LogMap, Log, TEXT("SpawnedRooms num: %d"), SpawnedRooms.Num());
 	for (auto Room : SpawnedRooms)
 	{
 		if (!Room)
 		{
-			MAP_LOG(LogMap, Warning, TEXT("Some Rooms Invalid!"));
+			A1_NETLOG(LogMap, Warning, TEXT("Some Rooms Invalid!"));
 			continue;
 		}
 		SetupNetworkProperties(Room);
 	}
 
-	MAP_LOG(LogMap, Log, TEXT("SpawnedEndWalls num: %d"), SpawnedEndWalls.Num());
+	A1_NETLOG(LogMap, Log, TEXT("SpawnedEndWalls num: %d"), SpawnedEndWalls.Num());
 	for (auto EndWall : SpawnedEndWalls)
 	{
 		if (!EndWall)
 		{
-			MAP_LOG(LogMap, Warning, TEXT("Some End Walls Invalid!"));
+			A1_NETLOG(LogMap, Warning, TEXT("Some End Walls Invalid!"));
 			continue;
 		}
 
