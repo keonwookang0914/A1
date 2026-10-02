@@ -26,7 +26,7 @@ void AA1Plunderer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogA1Raider, Log, TEXT("Plunderer: Beginplay Call"));
+	A1_LOG(LogA1Raider, Log, TEXT("Plunderer: Beginplay Call"));
 
 	AAIController* AIController = Cast<AAIController>(GetController());
 	if (AIController && AIController->GetBlackboardComponent())

@@ -11,7 +11,7 @@ bool UA1FoamWrapChecker::IsActorWrappedByFoam(AActor* TargetActor, float WrapThr
 		return false;
 
 	float Coverage = GetActorFoamCoverage(TargetActor);
-	// UE_LOG(LogA1, Log, TEXT("Coverage: %f"), Coverage);
+	// A1_LOG(LogA1, Log, TEXT("Coverage: %f"), Coverage);
 	return Coverage >= WrapThreshold;
 }
 
@@ -51,7 +51,7 @@ float UA1FoamWrapChecker::GetActorFoamCoverage(AActor* TargetActor)
 			if (IsValid(OverlapActor) &&
 				OverlapActor->GetClass()->GetName().Contains(TEXT("Foam")))
 			{
-				UE_LOG(LogA1, Log, TEXT("%s"), *OverlapActor->GetName());
+				A1_LOG(LogA1, Log, TEXT("%s"), *OverlapActor->GetName());
 				FoamActors.AddUnique(OverlapActor);
 			}
 		}
@@ -137,7 +137,7 @@ float UA1FoamWrapChecker::GetActorFoamCoverage(AActor* TargetActor)
 			CoveredPoints++;
 	}
 
-	UE_LOG(LogA1, Log, TEXT("%d vertices are Covered!"), CoveredPoints);
+	A1_LOG(LogA1, Log, TEXT("%d vertices are Covered!"), CoveredPoints);
 
 	// 커버리지 비율 반환
 	return CheckPoints.Num() > 0 ? (float)CoveredPoints / (float)CheckPoints.Num() : 0.0f;

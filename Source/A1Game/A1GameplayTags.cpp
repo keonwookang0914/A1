@@ -281,7 +281,7 @@ namespace A1GameplayTags
 			{
 				if (TestTag.ToString().Contains(TagString))
 				{
-					UE_LOG(LogA1, Display, TEXT("Could not find exact match for tag [%s] but found partial match on tag [%s]."), *TagString, *TestTag.ToString());
+					A1_LOG(LogA1, Display, TEXT("Could not find exact match for tag [%s] but found partial match on tag [%s]."), *TagString, *TestTag.ToString());
 					Tag = TestTag;
 					break;
 				}

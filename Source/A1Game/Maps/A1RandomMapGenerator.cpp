@@ -3,6 +3,7 @@
 #include "Maps/A1RandomMapGenerator.h"
 
 #include "A1EndWall.h"
+#include "A1LogChannels.h"
 #include "A1RoomBridge.h"
 #include "A1MasterRoom.h"
 #include "A1RaiderRoom.h"
@@ -12,8 +13,6 @@
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
-
-DEFINE_LOG_CATEGORY(LogMap);
 
 // 기본값 설정
 AA1RandomMapGenerator::AA1RandomMapGenerator()
@@ -500,7 +499,7 @@ void AA1RandomMapGenerator::Server_CheckDungeonComplete_Implementation()
 		bIsResettingMap = true;
 
 		// Timeout Log
-		UE_LOG(LogTemp, Warning, TEXT("===== Resetting Map and Restart Geneartor ====="));
+		A1_NETLOG(LogMap, Warning, TEXT("===== Resetting Map and Restart Geneartor ====="));
 		A1_NETLOG(LogMap, Warning, TEXT("Timeout by %.2f seconds. Reset Map."), GameTimer - StartTimer);
 
 		// Remove Timer
@@ -737,7 +736,7 @@ void AA1RandomMapGenerator::Server_ResetMap_Implementation()
 	AActor* Actor = UGameplayStatics::GetActorOfClass(GetWorld(), PlundererSpawnClass);
 	if (Actor)
 	{
-		UE_LOG(LogA1, Log, TEXT("Actor Name: %s"), *Actor->GetName());
+		A1_NETLOG(LogA1, Log, TEXT("Actor Name: %s"), *Actor->GetName());
 		Actor->Destroy();
 	}
 

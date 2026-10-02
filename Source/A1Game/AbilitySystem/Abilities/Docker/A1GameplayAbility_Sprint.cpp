@@ -3,6 +3,7 @@
 #include "AbilitySystem/Abilities/Docker/A1GameplayAbility_Sprint.h"
 
 #include "A1GameplayTags.h"
+#include "A1LogChannels.h"
 #include "AbilitySystemComponent.h"
 #include "Character/LyraCharacter.h"
 #include "Character/LyraCharacterMovementComponent.h"
@@ -27,7 +28,7 @@ void UA1GameplayAbility_Sprint::ActivateAbility(const FGameplayAbilitySpecHandle
 	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
 	const FGameplayEventData* TriggerEventData)
 {
-	UE_LOG(LogTemp, Log, TEXT("Call Sprint Activate Ability"));
+	A1_LOG(LogA1AbilitySystem, Log, TEXT("Call Sprint Activate Ability"));
 	if (!CommitAbility(Handle, ActorInfo, ActivationInfo))
 	{
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, true);
@@ -73,7 +74,7 @@ void UA1GameplayAbility_Sprint::EndAbility(const FGameplayAbilitySpecHandle Hand
 	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
 	bool bReplicateEndAbility, bool bWasCancelled)
 {
-	UE_LOG(LogTemp, Log, TEXT("Call Sprint End Ability"));
+	A1_LOG(LogA1AbilitySystem, Log, TEXT("Call Sprint End Ability"));
 	if (!bIsSprintActive)
 	{
 		return;

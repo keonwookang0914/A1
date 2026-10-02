@@ -3,6 +3,7 @@
 #include "Actors/A1DayNightManager.h"
 
 #include "A1BedBase.h"
+#include "A1LogChannels.h"
 #include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
@@ -51,7 +52,7 @@ void AA1DayNightManager::BeginPlay()
 				OccupiedBeds.Add(BedActor);
 			}
 		}
-		UE_LOG(LogTemp, Log, TEXT("Find %d Beds!"), OccupiedBeds.Num());
+		A1_NETLOG(LogA1, Log, TEXT("Find %d Beds!"), OccupiedBeds.Num());
 	}
 	UA1ScoreManager::Get()->OnGameEnded.AddDynamic(this, &AA1DayNightManager::OnStopUpdateTime);
 }
@@ -235,7 +236,7 @@ bool AA1DayNightManager::AreAllPlayersSleeping() const
 	{
 		return false;
 	}
-	// UE_LOG(LogTemp, Log, TEXT("Connected Clients: %d"), GetActivePlayerCount(GetWorld()));
+	// A1_LOG(LogA1, Log, TEXT("Connected Clients: %d"), GetActivePlayerCount(GetWorld()));
 	for (const auto& Pair : SleepingPlayers)
 	{
 		if (!Pair.Value)

@@ -4,6 +4,7 @@
 
 #include "A1EquipmentBase.h"
 #include "A1GameplayTags.h"
+#include "A1LogChannels.h"
 #include "Components/ArrowComponent.h"
 #include "Components/BoxComponent.h"
 #include "Data/A1ItemData.h"
@@ -89,7 +90,7 @@ void AA1StorageEntryBase::SetItemTransform(int32 ItemTemplateID, EItemRarity Ite
 
 void AA1StorageEntryBase::SetItemInput()
 {
-	UE_LOG(LogTemp, Log, TEXT("[AA1StorageEntryBase] Item Detected!"));
+	A1_LOG(LogA1, Log, TEXT("[AA1StorageEntryBase] Item Detected!"));
 	ItemState = EItemEntryState::Exist;
 	UA1ScoreBlueprintFunctionLibrary::SetStorageItems(UA1ScoreBlueprintFunctionLibrary::GetStorageItems() + 1);
 	OnItemEntryStateChanged.Broadcast(CachedItem);
@@ -97,7 +98,7 @@ void AA1StorageEntryBase::SetItemInput()
 
 void AA1StorageEntryBase::SetItemOutput()
 {
-	UE_LOG(LogTemp, Log, TEXT("[AA1StorageEntryBase] Remove Item"));
+	A1_LOG(LogA1, Log, TEXT("[AA1StorageEntryBase] Remove Item"));
 	if (UA1ScoreManager::Get()->GetDoTutorial())
 	{
 		const UA1ItemTemplate& ItemTemplate = UA1ItemData::Get().FindItemTemplateByID(CachedItem->GetTemplateID());

@@ -39,12 +39,6 @@ struct FSpawnQueue
 };
 
 class AA1RoomBridge;
-DECLARE_LOG_CATEGORY_EXTERN(LogMap, Log, All);
-
-// Network Log Macro
-#define LOG_NETMODEINFO ((GetNetMode() == ENetMode::NM_Client) ? *FString::Printf(TEXT("CLIENT_ID%d"), static_cast<int32>(GPlayInEditorID)) : ((GetNetMode() == ENetMode::NM_Standalone) ? TEXT("STANDALONE") : TEXT("SERVER")))
-#define LOG_CALLINFO2 ANSI_TO_TCHAR(__FUNCTION__)
-#define A1_NETLOG(LogCat, Verbosity, Format, ...) UE_LOG(LogCat, Verbosity, TEXT("[%s] %s %s"), LOG_NETMODEINFO, LOG_CALLINFO2, *FString::Printf(Format, ##__VA_ARGS__))
 
 // forward declare
 class AA1MasterRoom;

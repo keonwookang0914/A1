@@ -3,6 +3,7 @@
 #include "A1EquipmentSlotsWidget.h"
 
 #include "A1EquipmentSlotWidget.h"
+#include "A1LogChannels.h"
 #include "Item/Managers/A1EquipManagerComponent.h"
 #include "Item/Managers/A1EquipmentManagerComponent.h"
 
@@ -106,6 +107,6 @@ void UA1EquipmentSlotsWidget::OnEquipmentEntryChanged(EEquipmentSlotType Equipme
 		}
 	}
 	else
-		UE_LOG(LogTemp, Warning, TEXT("Index Valid: %d"), SlotIndex);
+		A1_LOG(LogA1, Warning, TEXT("Index Valid: %d"), SlotIndex);
 	// TODO Twohand 처리 구문
 }

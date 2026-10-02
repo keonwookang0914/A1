@@ -62,7 +62,7 @@ void UA1TutorialStep::StartStep()
 	bIsCompleted = false;
 	CurrentActionIndex = 0;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Starting Step: %s with %d actions"),
+	A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Starting Step: %s with %d actions"),
 		*StepInfo.StepName.ToString(), StepInfo.Actions.Num());
 
 	BindToGameplayEvent();
@@ -95,7 +95,7 @@ void UA1TutorialStep::StartCurrentAction()
 	// 조건 확인
 	if (!CheckActionCondition(CurrentAction))
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("[Tutorial] Action condition failed, skipping action: %s"),
+		A1_LOG(LogA1Tutorial, Warning, TEXT("[Tutorial] Action condition failed, skipping action: %s"),
 			*CurrentAction.ActionName.ToString());
 		AdvanceToNextAction();
 		return;
@@ -105,7 +105,7 @@ void UA1TutorialStep::StartCurrentAction()
 	bWaitingForDialogueInput = false;
 	bWaitingForEvent = false;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Starting Action %d/%d: %s"),
+	A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Starting Action %d/%d: %s"),
 		CurrentActionIndex + 1, StepInfo.Actions.Num(), *CurrentAction.ActionName.ToString());
 
 	BP_OnActionStarted(CurrentAction, CurrentActionIndex);
@@ -176,7 +176,7 @@ void UA1TutorialStep::CompleteCurrentAction()
 
 	const FA1TutorialAction& CompletedAction = StepInfo.Actions[CurrentActionIndex];
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Completed Action %d/%d: %s"),
+	A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Completed Action %d/%d: %s"),
 		CurrentActionIndex + 1, StepInfo.Actions.Num(), *CompletedAction.ActionName.ToString());
 
 	BP_OnActionCompleted(CompletedAction, CurrentActionIndex);
@@ -276,7 +276,7 @@ void UA1TutorialStep::ExecuteWaitAction(const FA1TutorialAction& Action)
 			Action.WaitEventTag, this, &UA1TutorialStep::OnGameplayEvent);
 	}
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Waiting for event: %s"), *Action.WaitEventTag.ToString());
+	A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Waiting for event: %s"), *Action.WaitEventTag.ToString());
 }
 
 void UA1TutorialStep::ExecuteMovementAction(const FA1TutorialAction& Action)
@@ -296,7 +296,7 @@ void UA1TutorialStep::ExecuteTriggerEventAction(const FA1TutorialAction& Action)
 		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
 		MessageSubsystem.BroadcastMessage(Action.TriggerEventTag, EventData);
 
-		UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Triggered event: %s"), *Action.TriggerEventTag.ToString());
+		A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Triggered event: %s"), *Action.TriggerEventTag.ToString());
 	}
 
 	// 즉시 완료
@@ -305,7 +305,7 @@ void UA1TutorialStep::ExecuteTriggerEventAction(const FA1TutorialAction& Action)
 
 void UA1TutorialStep::ExecuteCutsceneAction(const FA1TutorialAction& Action)
 {
-	UE_LOG(LogA1Tutorial, Warning, TEXT("[Tutorial] ExecuteCutsceneAction called for: %s"),
+	A1_LOG(LogA1Tutorial, Warning, TEXT("[Tutorial] ExecuteCutsceneAction called for: %s"),
 		*Action.ActionName.ToString());
 
 	if (Action.CutsceneSequence.IsValid())
@@ -488,7 +488,7 @@ void UA1TutorialStep::CompleteStep()
 	bIsCompleted = true;
 	bIsActive = false;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Completing Step: %s"), *StepInfo.StepName.ToString());
+	A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Completing Step: %s"), *StepInfo.StepName.ToString());
 
 	UnbindFromGameplayEvent();
 
@@ -550,7 +550,7 @@ void UA1TutorialStep::OnGameplayEvent(FGameplayTag EventTag, const FGameplayEven
 	if (!bIsActive || bIsCompleted)
 		return;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Received Event: %s for Step: %s"),
+	A1_LOG(LogA1Tutorial, Log, TEXT("[Tutorial] Received Event: %s for Step: %s"),
 		*EventTag.ToString(), *StepInfo.StepName.ToString());
 
 	// 현재 대기 중인 액션의 이벤트인지 확인
@@ -609,29 +609,29 @@ void UA1TutorialStep::UnbindFromGameplayEvent()
 
 void UA1TutorialStep::OnCutsceneFinished()
 {
-	UE_LOG(LogA1Tutorial, Warning, TEXT("=== OnCutsceneFinished CALLED ==="));
+	A1_LOG(LogA1Tutorial, Warning, TEXT("=== OnCutsceneFinished CALLED ==="));
 
 	// 중복 호출 방지
 	static bool bIsProcessing = false;
 	if (bIsProcessing)
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("OnCutsceneFinished already processing, ignoring!"));
+		A1_LOG(LogA1Tutorial, Warning, TEXT("OnCutsceneFinished already processing, ignoring!"));
 		return;
 	}
 	bIsProcessing = true;
 
 	if (CurrentSequencePlayer)
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("Cleaning up sequence player"));
+		A1_LOG(LogA1Tutorial, Warning, TEXT("Cleaning up sequence player"));
 		CurrentSequencePlayer->OnFinished.RemoveAll(this);
 		CurrentSequencePlayer = nullptr;
 	}
 
-	UE_LOG(LogA1Tutorial, Warning, TEXT("Calling CompleteCurrentAction"));
+	A1_LOG(LogA1Tutorial, Warning, TEXT("Calling CompleteCurrentAction"));
 	CompleteCurrentAction();
 
 	bIsProcessing = false;
-	UE_LOG(LogA1Tutorial, Warning, TEXT("=== OnCutsceneFinished END ==="));
+	A1_LOG(LogA1Tutorial, Warning, TEXT("=== OnCutsceneFinished END ==="));
 	RestoreCameraState();
 
 	RotateCharacter();
@@ -740,7 +740,7 @@ void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 {
 	if (!Sequence)
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("Sequence is null, completing action"));
+		A1_LOG(LogA1Tutorial, Warning, TEXT("Sequence is null, completing action"));
 		CompleteCurrentAction();
 		return;
 	}
@@ -766,7 +766,7 @@ void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 
 	if (!FoundSequenceActor)
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("No sequence actor found in level!"));
+		A1_LOG(LogA1Tutorial, Warning, TEXT("No sequence actor found in level!"));
 		CompleteCurrentAction();
 		return;
 	}
@@ -776,7 +776,7 @@ void UA1TutorialStep::PlayCutscene(ULevelSequence* Sequence)
 
 	if (!CurrentSequencePlayer)
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("Failed to get sequence player from actor"));
+		A1_LOG(LogA1Tutorial, Warning, TEXT("Failed to get sequence player from actor"));
 		CompleteCurrentAction();
 		return;
 	}

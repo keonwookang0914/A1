@@ -148,7 +148,7 @@ bool UA1GameplayAbility_Weapon_Gun_NormalShoot::Shoot()
 							// 무기에 희귀도에 따른 대미지 차별화
 							DamageEffectSpecHandle.Data->SetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, Damage);
 							float DamageSet = DamageEffectSpecHandle.Data->GetSetByCallerMagnitude(A1GameplayTags::SetByCaller_BaseDamage, false);
-							UE_LOG(LogA1, Warning, TEXT("Set Damage: %f"), DamageSet);
+							A1_NETLOG(LogA1, Warning, TEXT("Set Damage: %f"), DamageSet);
 							ApplyGameplayEffectSpecToTarget(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, DamageEffectSpecHandle, TargetDataHandle);
 						}
 					}

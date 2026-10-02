@@ -22,7 +22,7 @@ void UA1GameplayAbility_Interact_Cmd::ActivateAbility(const FGameplayAbilitySpec
 	const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	UE_LOG(LogTemp, Log, TEXT("Activate Ability!"));
+	A1_NETLOG(LogA1AbilitySystem, Log, TEXT("Activate Ability!"));
 
 	if (TriggerEventData == nullptr || bInitialized == false)
 	{

@@ -44,7 +44,7 @@ void AA1RaiderBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogA1Raider, Log, TEXT("RaiderBase: Beginplay Call"));
+	A1_LOG(LogA1Raider, Log, TEXT("RaiderBase: Beginplay Call"));
 
 	const UA1RaiderData& RaiderData = ULyraAssetManager::Get().GetRaiderData();
 	const FA1RaiderBaseSet& RaiderBase = RaiderData.GetRaiderDataSet(RaiderType);

@@ -83,7 +83,7 @@ public:
 	{
 		// 1. 생존 일수 점수
 		int32 SurvivalScore = CalculateSurvivalScore(DaysSurvived);
-		UE_LOG(LogA1ScoreSystem, Log, TEXT("SurvivalScore : %d"), SurvivalScore);
+		A1_LOG(LogA1ScoreSystem, Log, TEXT("SurvivalScore : %d"), SurvivalScore);
 
 		// 2. 아이템 점수 (MAX 5200 + 소모된 아이템 점수)
 		int32 StoredItemScore = FMath::Min((InventoryItems + StorageItems) * 100, 5200);

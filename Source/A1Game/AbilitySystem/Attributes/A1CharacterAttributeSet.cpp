@@ -51,7 +51,7 @@ void UA1CharacterAttributeSet::PostAttributeChange(const FGameplayAttribute& Att
 	if (Attribute == GetHealthAttribute())
 	{
 		const float CurrentHealth = GetHealth();
-		UE_LOG(LogA1Player, Log, TEXT("Health : %f -> %f"), OldValue, NewValue);
+		A1_LOG(LogA1Player, Log, TEXT("Health : %f -> %f"), OldValue, NewValue);
 
 		if (bOutOfHealth == false && CurrentHealth <= 0.0f)
 			OnOutOfHealth.Broadcast(nullptr, OldValue, NewValue);
@@ -66,7 +66,7 @@ void UA1CharacterAttributeSet::PostAttributeChange(const FGameplayAttribute& Att
 	else if (Attribute == GetWeightAttribute())
 	{
 		bChange = (NewValue > OldValue);
-		UE_LOG(LogA1Player, Log, TEXT("Weight : %f -> %f"), OldValue, NewValue);
+		A1_LOG(LogA1Player, Log, TEXT("Weight : %f -> %f"), OldValue, NewValue);
 
 		if (bChange && GetWeight() >= GetMaxWeight() / 2)
 			NoticeIndex = 1;
@@ -75,7 +75,7 @@ void UA1CharacterAttributeSet::PostAttributeChange(const FGameplayAttribute& Att
 	}
 	else if (Attribute == GetOxygenAttribute())
 	{
-		UE_LOG(LogA1Player, Log, TEXT("Oxygen : %f -> %f"), OldValue, NewValue);
+		A1_LOG(LogA1Player, Log, TEXT("Oxygen : %f -> %f"), OldValue, NewValue);
 
 		if (bChange && GetOxygen() <= GetMaxOxygen() / 2)
 			NoticeIndex = 0;
@@ -84,7 +84,7 @@ void UA1CharacterAttributeSet::PostAttributeChange(const FGameplayAttribute& Att
 	}
 	else if (Attribute == GetHungerAttribute())
 	{
-		UE_LOG(LogA1Player, Log, TEXT("Hunger : %f -> %f"), OldValue, NewValue);
+		A1_LOG(LogA1Player, Log, TEXT("Hunger : %f -> %f"), OldValue, NewValue);
 
 		if (bChange && GetHunger() <= GetMaxHunger() / 2)
 			NoticeIndex = 3;
@@ -109,14 +109,14 @@ void UA1CharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMo
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
-		UE_LOG(LogA1Player, Warning, TEXT("Direct Health Access : %f"), GetHealth());
+		A1_LOG(LogA1Player, Warning, TEXT("Direct Health Access : %f"), GetHealth());
 		SetHealth(FMath::Clamp(GetHealth(), MinimumHealth, GetMaxHealth()));
 	}
 	else if (Data.EvaluatedData.Attribute == GetDamageAttribute())
 	{
 		OnHealthChanged.Broadcast(Instigator, GetHealth(), GetHealth() - GetDamage());
 
-		UE_LOG(LogA1Player, Log, TEXT("Damage : %f"), GetDamage());
+		A1_LOG(LogA1Player, Log, TEXT("Damage : %f"), GetDamage());
 		SetHealth(FMath::Clamp(GetHealth() - GetDamage(), MinimumHealth, GetMaxHealth()));
 		SetDamage(0.f);
 	}

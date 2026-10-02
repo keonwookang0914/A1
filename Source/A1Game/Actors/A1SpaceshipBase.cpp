@@ -7,6 +7,7 @@
 #include "A1DoorBase.h"
 #include "A1FuelBase.h"
 #include "A1DockingSignalHandlerBase.h"
+#include "A1LogChannels.h"
 #include "A1RepairBase.h"
 #include "A1ShipOutputBase.h"
 #include "A1SignalDetectionBase.h"
@@ -217,7 +218,7 @@ void AA1SpaceshipBase::BreakFoam()
 	int32 idx = FMath::RandRange(0, CachedNonBrokenRepairs.Num() - 1);
 
 	CachedNonBrokenRepairs[idx]->SetCurrentState(RepairState::Break);
-	UE_LOG(LogA1, Log, TEXT("[AA1Spaceship] %s Changed to break!"), *CachedNonBrokenRepairs[idx]->GetName());
+	A1_LOG(LogA1, Log, TEXT("[AA1Spaceship] %s Changed to break!"), *CachedNonBrokenRepairs[idx]->GetName());
 	CachedNonBrokenRepairs[idx]->ActivateCheckOverlap();
 
 	// Add Fuel Consume Amount after 5 seconds
@@ -384,13 +385,13 @@ void AA1SpaceshipBase::SpawnOneRepairBaseByTutoMode()
 		if (AA1RepairBase* RepairBase = Cast<AA1RepairBase>(Actor))
 		{
 			RepairBase->SetCurrentState(RepairState::NotBroken);
-			UE_LOG(LogA1, Log, TEXT("RepairBase Name: %s"), *RepairBase->GetName());
+			A1_LOG(LogA1, Log, TEXT("RepairBase Name: %s"), *RepairBase->GetName());
 			RepairBase->SetActorHiddenInGame(true);
 
 			// Caching Specific Actor
 			SpecificRepairBase = RepairBase;
 
-			UE_LOG(LogA1, Log, TEXT("RepairBase Name: %s"), *SpecificRepairBase->GetName());
+			A1_LOG(LogA1, Log, TEXT("RepairBase Name: %s"), *SpecificRepairBase->GetName());
 		}
 	}
 	else
@@ -461,13 +462,13 @@ void AA1SpaceshipBase::FindAllRepairBases()
 		}
 	}
 
-	UE_LOG(LogA1, Log, TEXT("Find %d Repair Objects"), CachedRepairs.Num());
+	A1_LOG(LogA1, Log, TEXT("Find %d Repair Objects"), CachedRepairs.Num());
 }
 
 void AA1SpaceshipBase::SetIsExternamMapActive(bool InExternalMapActive)
 {
 	bIsExternalMapActive = InExternalMapActive;
-	UE_LOG(LogTemp, Log, TEXT("Change ExternalMapActive : %s"), bIsExternalMapActive ? TEXT("True") : TEXT("False"));
+	A1_LOG(LogA1, Log, TEXT("Change ExternalMapActive : %s"), bIsExternalMapActive ? TEXT("True") : TEXT("False"));
 }
 
 void AA1SpaceshipBase::AddFuel(float AmountToAdd)

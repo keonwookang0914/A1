@@ -84,7 +84,7 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 
             // 4. 감지 성공
             OwnerComp.GetBlackboardComponent()->SetValueAsObject(AA1RaiderController::AggroTargetKey, Target);
-            UE_LOG(LogA1Raider, Warning, TEXT("Detected Actor: %s"), *Target->GetName());
+            A1_LOG(LogA1Raider, Warning, TEXT("Detected Actor: %s"), *Target->GetName());
 
 
             // 디버그 시각화

@@ -4,6 +4,7 @@
 
 #include "A1EquipmentBase.h"
 #include "A1FuelDisplayUI.h"
+#include "A1LogChannels.h"
 #include "A1SpaceshipBase.h"
 #include "Components/ArrowComponent.h"
 #include "Data/A1ItemData.h"
@@ -137,7 +138,7 @@ void AA1FuelBase::DetectAndAbsorbFuelItems()
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
 
-	UE_LOG(LogTemp, Log, TEXT("Find Fuel...."));
+	A1_NETLOG(LogA1, Log, TEXT("Find Fuel...."));
 
 	bool bResult = GetWorld()->OverlapMultiByChannel(
 		OUT OverlapResults,
@@ -147,17 +148,17 @@ void AA1FuelBase::DetectAndAbsorbFuelItems()
 		CollisionShape,
 		QueryParams);
 
-	UE_LOG(LogTemp, Log, TEXT("Find %d Actors"), OverlapResults.Num());
+	A1_NETLOG(LogA1, Log, TEXT("Find %d Actors"), OverlapResults.Num());
 
 	if (bResult)
 	{
 		for (const FOverlapResult& Result : OverlapResults)
 		{
-			UE_LOG(LogTemp, Log, TEXT("%s"), *Result.GetActor()->GetName());
+			A1_NETLOG(LogA1, Log, TEXT("%s"), *Result.GetActor()->GetName());
 
 			if (Result.GetActor() && IsFuelItem(Result.GetActor()))
 			{
-				UE_LOG(LogTemp, Log, TEXT("Find Fuel!: %s"), *Result.GetActor()->GetName());
+				A1_NETLOG(LogA1, Log, TEXT("Find Fuel!: %s"), *Result.GetActor()->GetName());
 
 				DetectedFuelItems.Add(Result.GetActor());
 
@@ -213,7 +214,7 @@ AA1SpaceshipBase* AA1FuelBase::FindSpaceshipOwner() const
 
 	if (FoundActors.Num() > 0)
 	{
-		UE_LOG(LogTemp, Log, TEXT("Find Spaceship!"));
+		A1_LOG(LogA1, Log, TEXT("Find Spaceship!"));
 		return Cast<AA1SpaceshipBase>(FoundActors[0]);
 	}
 

@@ -45,7 +45,7 @@ void AA1RaiderController::OnPossess(APawn* InPawn)
 		BlackboardComp->SetValueAsVector(HomePosKey, InPawn->GetActorLocation());
 		if (!RunBehaviorTree(BTAsset))
 		{
-			UE_LOG(LogA1Raider, Warning, TEXT("AIController couldn't run behavior tree!"));
+			A1_LOG(LogA1Raider, Warning, TEXT("AIController couldn't run behavior tree!"));
 		}
 	}
 }

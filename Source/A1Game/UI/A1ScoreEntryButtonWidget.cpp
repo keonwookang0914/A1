@@ -2,6 +2,7 @@
 
 #include "UI/A1ScoreEntryButtonWidget.h"
 
+#include "A1LogChannels.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -54,7 +55,7 @@ void UA1ScoreEntryButtonWidget::SetupScoreEntry(const FA1ScoreData& ScoreData, i
 			ScoreData.DaysSurvived,
 			*ResultIcon,
 			*ScoreData.Timestamp.ToString(TEXT("%m-%d")));
-		UE_LOG(LogTemp, Log, TEXT("%s"), *ScoreInfo);
+		A1_LOG(LogA1ScoreSystem, Log, TEXT("%s"), *ScoreInfo);
 
 		ScoreInfoText->SetText(FText::FromString(ScoreInfo));
 

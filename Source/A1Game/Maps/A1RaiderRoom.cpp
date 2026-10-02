@@ -353,14 +353,14 @@ void AA1RaiderRoom::CreateCliffHole()
 {
 	if (bCliffInProgress)
 	{
-		UE_LOG(LogA1Cliff, Warning, TEXT("Cliff creation already in progress"));
+		A1_LOG(LogA1Cliff, Warning, TEXT("Cliff creation already in progress"));
 		return;
 	}
 
 	// Random Delay
 	float RandomDelay = FMath::RandRange(0.0f, 2.0f);
 
-	UE_LOG(LogA1Cliff, Warning, TEXT("Cliff creation scheduled with %.1f second delay"), RandomDelay);
+	A1_LOG(LogA1Cliff, Warning, TEXT("Cliff creation scheduled with %.1f second delay"), RandomDelay);
 
 	// Random Start Timer(Lambda)
 	FTimerHandle DelayHandle;
@@ -373,7 +373,7 @@ void AA1RaiderRoom::CreateCliffHole()
 
 void AA1RaiderRoom::StartCliffCreation()
 {
-	UE_LOG(LogA1Cliff, Warning, TEXT("Starting Procedural cliff creation (80 x 80 grid)"));
+	A1_LOG(LogA1Cliff, Warning, TEXT("Starting Procedural cliff creation (80 x 80 grid)"));
 
 	bCliffInProgress = true;
 	CurrentCliffStep = 1;
@@ -383,7 +383,7 @@ void AA1RaiderRoom::StartCliffCreation()
 	int32 RandomSeed = UKismetMathLibrary::RandomInteger(INT32_MAX);
 	RandomStream = UKismetMathLibrary::MakeRandomStream(RandomSeed);
 
-	UE_LOG(LogA1Cliff, Warning, TEXT("Hole Seed: %d"), RandomSeed);
+	A1_LOG(LogA1Cliff, Warning, TEXT("Hole Seed: %d"), RandomSeed);
 
 	GetWorld()->GetTimerManager().SetTimer(
 		CliffTimerHandle,
@@ -436,15 +436,15 @@ void AA1RaiderRoom::ExecuteCliffStep()
 		bCliffInProgress = false;
 
 		double TotalTime = FPlatformTime::Seconds() - CliffStartTime;
-		UE_LOG(LogA1Cliff, Warning, TEXT("=== Cliff creation completed in %.6f seconds (7 steps) ==="), TotalTime);
+		A1_LOG(LogA1Cliff, Warning, TEXT("=== Cliff creation completed in %.6f seconds (7 steps) ==="), TotalTime);
 
 		if (TotalTime <= 0.25)
 		{
-			UE_LOG(LogA1Cliff, Warning, TEXT("SUCCESS: Target 250ms achieved for high-resolution mesh!"));
+			A1_LOG(LogA1Cliff, Warning, TEXT("SUCCESS: Target 250ms achieved for high-resolution mesh!"));
 		}
 		else
 		{
-			UE_LOG(LogA1Cliff, Warning, TEXT("Performance note: %.6f seconds (target: 0.25s for 80 x 80 resolution)"), TotalTime);
+			A1_LOG(LogA1Cliff, Warning, TEXT("Performance note: %.6f seconds (target: 0.25s for 80 x 80 resolution)"), TotalTime);
 		}
 		return;
 	}
@@ -468,7 +468,7 @@ void AA1RaiderRoom::Step01_GetFloorDimensions()
 		// Extract all materials from original floor
 		int32 MaterialCount = Floor->GetNumMaterials();
 
-		UE_LOG(LogA1Cliff, Log, TEXT("Floor info - Dimensions: %.1f x %.1f, Transform: Loc(%.1f,%.1f,%.1f) Rot(%.1f,%.1f,%.1f) Scale(%.2f,%.2f,%.2f)"),
+		A1_LOG(LogA1Cliff, Log, TEXT("Floor info - Dimensions: %.1f x %.1f, Transform: Loc(%.1f,%.1f,%.1f) Rot(%.1f,%.1f,%.1f) Scale(%.2f,%.2f,%.2f)"),
 			FloorSizeX, FloorSizeY,
 			OriginalFloorTransform.GetLocation().X, OriginalFloorTransform.GetLocation().Y, OriginalFloorTransform.GetLocation().Z,
 			OriginalFloorTransform.GetRotation().Rotator().Pitch, OriginalFloorTransform.GetRotation().Rotator().Yaw, OriginalFloorTransform.GetRotation().Rotator().Roll,
@@ -480,7 +480,7 @@ void AA1RaiderRoom::Step01_GetFloorDimensions()
 		FloorSizeY = 2000.0f;
 		OriginalFloorTransform = FTransform::Identity;
 
-		UE_LOG(LogA1Cliff, Log, TEXT("Using default floor configuration: %.1f x %.1f"), FloorSizeX, FloorSizeY);
+		A1_LOG(LogA1Cliff, Log, TEXT("Using default floor configuration: %.1f x %.1f"), FloorSizeX, FloorSizeY);
 	}
 }
 
@@ -555,7 +555,7 @@ void AA1RaiderRoom::Step02_CreateBasePlane()
 		}
 	}
 
-	UE_LOG(LogA1Cliff, Log, TEXT("Created high-resolution base plane: %d vertices, %d triangles (resolution: %dx%d)"),
+	A1_LOG(LogA1Cliff, Log, TEXT("Created high-resolution base plane: %d vertices, %d triangles (resolution: %dx%d)"),
 		FinalVertices.Num(), FinalTriangles.Num() / 3, PlaneResolution, PlaneResolution);
 
 	// Validate mesh integrity
@@ -563,13 +563,13 @@ void AA1RaiderRoom::Step02_CreateBasePlane()
 	if (FinalVertices.Num() == 0 || FinalTriangles.Num() == 0 || FinalTriangles.Num() % 3 != 0)
 	{
 		bMeshValid = false;
-		UE_LOG(LogA1Cliff, Error, TEXT("Invalid mesh data: Vertices=%d, Triangles=%d"),
+		A1_LOG(LogA1Cliff, Error, TEXT("Invalid mesh data: Vertices=%d, Triangles=%d"),
 			FinalVertices.Num(), FinalTriangles.Num());
 	}
 
 	if (bMeshValid)
 	{
-		UE_LOG(LogA1Cliff, Log, TEXT("High-resolution mesh validation passed"));
+		A1_LOG(LogA1Cliff, Log, TEXT("High-resolution mesh validation passed"));
 	}
 }
 
@@ -583,7 +583,7 @@ void AA1RaiderRoom::Step03_CreateHoleGeometry()
 
 	HoleHalfSize = HoleSize * 0.5f;
 
-	UE_LOG(LogA1Cliff, Log, TEXT("Square hole created at position (%.1f, %.1f) with half-size %.1f"),
+	A1_LOG(LogA1Cliff, Log, TEXT("Square hole created at position (%.1f, %.1f) with half-size %.1f"),
 		HoleCenter.X, HoleCenter.Y, HoleHalfSize);
 }
 
@@ -744,7 +744,7 @@ void AA1RaiderRoom::Step04_RemoveTrianglesInHole()
 
 	if (HoleBoundaryIndices.Num() == 0)
 	{
-		UE_LOG(LogA1Cliff, Warning, TEXT("No open edge vertices found, creating precise boundary vertices"));
+		A1_LOG(LogA1Cliff, Warning, TEXT("No open edge vertices found, creating precise boundary vertices"));
 
 		TArray<FVector> PreciseBoundaryVertices = {
 			FVector(HoleCenter.X - HoleHalfSize, HoleCenter.Y - HoleHalfSize, 0.0f), // Bottom-Left
@@ -764,7 +764,7 @@ void AA1RaiderRoom::Step04_RemoveTrianglesInHole()
 		}
 	}
 
-	UE_LOG(LogA1Cliff, Log, TEXT("Found %d actual boundary vertices from clipped mesh"),
+	A1_LOG(LogA1Cliff, Log, TEXT("Found %d actual boundary vertices from clipped mesh"),
 		HoleBoundaryIndices.Num());
 }
 
@@ -772,13 +772,13 @@ void AA1RaiderRoom::Step05_GenerateCliffWalls()
 {
 	if (HoleBoundaryIndices.Num() == 0)
 	{
-		UE_LOG(LogA1Cliff, Error, TEXT("No hole boundary vertices found"));
+		A1_LOG(LogA1Cliff, Error, TEXT("No hole boundary vertices found"));
 		return;
 	}
 
 	int32 StartVertexIndex = FinalVertices.Num();
 
-	UE_LOG(LogA1Cliff, Log, TEXT("Creating walls from %d boundary vertices"), HoleBoundaryIndices.Num());
+	A1_LOG(LogA1Cliff, Log, TEXT("Creating walls from %d boundary vertices"), HoleBoundaryIndices.Num());
 
 	// Add Wall's Vertices and Normal
 	for (int32 i = 0; i < HoleBoundaryIndices.Num(); i++)
@@ -827,20 +827,20 @@ void AA1RaiderRoom::Step05_GenerateCliffWalls()
 		WallTrianglesAdded += 2;
 	}
 
-	UE_LOG(LogA1Cliff, Log, TEXT("Cliff walls created: %d wall triangles added"), WallTrianglesAdded);
+	A1_LOG(LogA1Cliff, Log, TEXT("Cliff walls created: %d wall triangles added"), WallTrianglesAdded);
 }
 
 void AA1RaiderRoom::Step06_CreateFinalMesh()
 {
 	if (!CliffProceduralMesh)
 	{
-		UE_LOG(LogA1Cliff, Error, TEXT("CliffProceduralMesh is null"));
+		A1_LOG(LogA1Cliff, Error, TEXT("CliffProceduralMesh is null"));
 		return;
 	}
 
 	if (FinalVertices.Num() == 0 || FinalTriangles.Num() == 0)
 	{
-		UE_LOG(LogA1Cliff, Error, TEXT("No mesh data to create"));
+		A1_LOG(LogA1Cliff, Error, TEXT("No mesh data to create"));
 		return;
 	}
 
@@ -849,7 +849,7 @@ void AA1RaiderRoom::Step06_CreateFinalMesh()
 	{
 		if (Index >= FinalVertices.Num())
 		{
-			UE_LOG(LogA1Cliff, Error, TEXT("Invalid triangle index"));
+			A1_LOG(LogA1Cliff, Error, TEXT("Invalid triangle index"));
 			return;
 		}
 	}
@@ -871,7 +871,7 @@ void AA1RaiderRoom::Step06_CreateFinalMesh()
 		TArray<FVector2D>(), TArray<FVector2D>(), TArray<FVector2D>(),
 		VertexColors, Tangents, true);
 
-	UE_LOG(LogA1Cliff, Log, TEXT("Mesh with outward walls: %d vertices, %d triangles"),
+	A1_LOG(LogA1Cliff, Log, TEXT("Mesh with outward walls: %d vertices, %d triangles"),
 		FinalVertices.Num(), FinalTriangles.Num() / 3);
 }
 
@@ -886,7 +886,7 @@ void AA1RaiderRoom::Step07_FinalizeCliff()
 		CliffProceduralMesh->SetRelativeRotation(OriginalFloorTransform.GetRotation());
 		CliffProceduralMesh->SetRelativeScale3D(OriginalFloorTransform.GetScale3D());
 
-		UE_LOG(LogA1Cliff, Log, TEXT("Applied relative transform - Pos(%.1f,%.1f,%.1f) Rot(%.1f,%.1f,%.1f) Scale(%.2f,%.2f,%.2f)"),
+		A1_LOG(LogA1Cliff, Log, TEXT("Applied relative transform - Pos(%.1f,%.1f,%.1f) Rot(%.1f,%.1f,%.1f) Scale(%.2f,%.2f,%.2f)"),
 			RelativePosition.X, RelativePosition.Y, RelativePosition.Z,
 			OriginalFloorTransform.GetRotation().Rotator().Pitch,
 			OriginalFloorTransform.GetRotation().Rotator().Yaw,
@@ -900,7 +900,7 @@ void AA1RaiderRoom::Step07_FinalizeCliff()
 		CliffProceduralMesh->SetRelativeRotation(FRotator::ZeroRotator);
 		CliffProceduralMesh->SetRelativeScale3D(FVector::OneVector);
 
-		UE_LOG(LogA1Cliff, Log, TEXT("Applied relative position only: (%.1f,%.1f,%.1f)"),
+		A1_LOG(LogA1Cliff, Log, TEXT("Applied relative position only: (%.1f,%.1f,%.1f)"),
 			RelativePosition.X, RelativePosition.Y, RelativePosition.Z);
 	}
 
@@ -912,7 +912,7 @@ void AA1RaiderRoom::Step07_FinalizeCliff()
 	{
 		CliffProceduralMesh->SetMaterial(0, StaticMeshMaterials[0]);
 		bMaterialApplied = true;
-		UE_LOG(LogA1Cliff, Log, TEXT("Applied fallback material: %s"), *StaticMeshMaterials[0]->GetName());
+		A1_LOG(LogA1Cliff, Log, TEXT("Applied fallback material: %s"), *StaticMeshMaterials[0]->GetName());
 	}
 
 	// Final fallback - try to get material from Floor component directly
@@ -923,16 +923,16 @@ void AA1RaiderRoom::Step07_FinalizeCliff()
 		{
 			CliffProceduralMesh->SetMaterial(0, FloorMaterial);
 			bMaterialApplied = true;
-			UE_LOG(LogA1Cliff, Log, TEXT("Applied direct floor material: %s"), *FloorMaterial->GetName());
+			A1_LOG(LogA1Cliff, Log, TEXT("Applied direct floor material: %s"), *FloorMaterial->GetName());
 		}
 	}
 
 	if (!bMaterialApplied)
 	{
-		UE_LOG(LogA1Cliff, Warning, TEXT("No material applied - using default"));
+		A1_LOG(LogA1Cliff, Warning, TEXT("No material applied - using default"));
 	}
 
-	UE_LOG(LogA1Cliff, Warning, TEXT("Shipping-safe procedural cliff creation completed at relative position (%.1f, %.1f, %.1f)"),
+	A1_LOG(LogA1Cliff, Warning, TEXT("Shipping-safe procedural cliff creation completed at relative position (%.1f, %.1f, %.1f)"),
 		RelativePosition.X, RelativePosition.Y, RelativePosition.Z);
 }
 
@@ -960,7 +960,7 @@ void AA1RaiderRoom::Step08_FinalizeCliff_2()
 		Floor->SetHiddenInGame(true);
 		Floor->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-		UE_LOG(LogA1Cliff, Log, TEXT("Original floor hidden"));
+		A1_LOG(LogA1Cliff, Log, TEXT("Original floor hidden"));
 	}
 
 	// Force a final collision and rendering update
@@ -1095,12 +1095,12 @@ void AA1RaiderRoom::LogStepTime(const FString& StepName)
 
 	FColor LogColor = (StepDurationMs > 5.0) ? FColor::Red : FColor::Green;
 
-	UE_LOG(LogA1Cliff, Warning, TEXT("Step %s: %.6f seconds (%.3f ms)"),
+	A1_LOG(LogA1Cliff, Warning, TEXT("Step %s: %.6f seconds (%.3f ms)"),
 		*StepName, StepDuration, StepDurationMs);
 
 	if (StepDurationMs > 10.0)
 	{
-		UE_LOG(LogA1Cliff, Error, TEXT("CRITICAL: Step %s took %.3f ms (target: <5ms)"), *StepName, StepDurationMs);
+		A1_LOG(LogA1Cliff, Error, TEXT("CRITICAL: Step %s took %.3f ms (target: <5ms)"), *StepName, StepDurationMs);
 	}
 
 	if (GEngine)

@@ -2,6 +2,7 @@
 
 #include "UI/A1ScoreListWidget.h"
 
+#include "A1LogChannels.h"
 #include "A1ScoreEntryButtonWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Button.h"
@@ -112,7 +113,7 @@ void UA1ScoreListWidget::PopulateScoreList(const TArray<FA1ScoreData>& AllScores
 {
 	if (!ScoreScrollBox)
 	{
-		UE_LOG(LogA1ScoreSystem, Warning, TEXT("[ScoreList] ScoreScrollBox is null!"));
+		A1_LOG(LogA1ScoreSystem, Warning, TEXT("[ScoreList] ScoreScrollBox is null!"));
 		return;
 	}
 
@@ -141,13 +142,13 @@ void UA1ScoreListWidget::PopulateScoreList(const TArray<FA1ScoreData>& AllScores
 		if (EntryWidget)
 		{
 			ScoreScrollBox->AddChild(EntryWidget);
-			UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Added entry %d: %s"), i, *ScoreData.GetGameName());
+			A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Added entry %d: %s"), i, *ScoreData.GetGameName());
 		}
 		else
 		{
-			UE_LOG(LogA1ScoreSystem, Warning, TEXT("[ScoreList] Failed to create entry %d"), i);
+			A1_LOG(LogA1ScoreSystem, Warning, TEXT("[ScoreList] Failed to create entry %d"), i);
 		}
-		UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Populated %d score entries"), AllScores.Num());
+		A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Populated %d score entries"), AllScores.Num());
 	}
 }
 
@@ -191,7 +192,7 @@ UA1ScoreEntryButtonWidget* UA1ScoreListWidget::CreateScoreEntry(const FA1ScoreDa
 	// 블루프린트 위젯 클래스가 설정되었는지 확인
 	if (!ScoreEntryWidgetClass)
 	{
-		UE_LOG(LogA1ScoreSystem, Error, TEXT("[ScoreList] ScoreEntryWidgetClass is not set! Please assign WBP_ScoreEntry in Blueprint."));
+		A1_LOG(LogA1ScoreSystem, Error, TEXT("[ScoreList] ScoreEntryWidgetClass is not set! Please assign WBP_ScoreEntry in Blueprint."));
 		return nullptr;
 	}
 
@@ -203,11 +204,11 @@ UA1ScoreEntryButtonWidget* UA1ScoreListWidget::CreateScoreEntry(const FA1ScoreDa
 		// 데이터 설정
 		EntryWidget->SetupScoreEntry(ScoreData, Rank, Index);
 
-		UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Created entry widget for %s"), *ScoreData.GetGameName());
+		A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreList] Created entry widget for %s"), *ScoreData.GetGameName());
 	}
 	else
 	{
-		UE_LOG(LogA1ScoreSystem, Error, TEXT("[ScoreList] Failed to create widget from class: %s"),
+		A1_LOG(LogA1ScoreSystem, Error, TEXT("[ScoreList] Failed to create widget from class: %s"),
 			ScoreEntryWidgetClass ? *ScoreEntryWidgetClass->GetName() : TEXT("NULL"));
 	}
 

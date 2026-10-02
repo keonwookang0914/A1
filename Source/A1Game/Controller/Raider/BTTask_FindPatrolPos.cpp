@@ -3,6 +3,7 @@
 
 #include "BTTask_FindPatrolPos.h"
 
+#include "A1LogChannels.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Controller/Raider/A1RaiderController.h"
 #include "NavigationSystem.h"
@@ -34,7 +35,7 @@ EBTNodeResult::Type UBTTask_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& O
 	if (NavSystem->GetRandomPointInNavigableRadius(Origin, PatrolRange, NextPatrol))
 	{
 		OwnerComp.GetBlackboardComponent()->SetValueAsVector(AA1RaiderController::PatrolPosKey, NextPatrol.Location);
-		UE_LOG(LogTemp, Warning, TEXT("FindPos: %s"), *NextPatrol.Location.ToString());
+		A1_LOG(LogA1Raider, Warning, TEXT("FindPos: %s"), *NextPatrol.Location.ToString());
 		return EBTNodeResult::Succeeded;
 	}
 

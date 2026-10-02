@@ -27,7 +27,7 @@ void UA1TutorialManager::Initialize(FSubsystemCollectionBase& Collection)
 	MessageListenerHandle = MessageSubsystem.RegisterListener(FGameplayTag(), this,
 		&UA1TutorialManager::OnGameplayEventReceived);
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Initialized with %d steps"), StepDataMap.Num());
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Initialized with %d steps"), StepDataMap.Num());
 }
 
 void UA1TutorialManager::Deinitialize()
@@ -49,7 +49,7 @@ void UA1TutorialManager::StartTutorial()
 	if (bIsTutorialActive)
 		return;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Starting Tutorial"));
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Starting Tutorial"));
 
 	bIsTutorialActive = true;
 	bIsTutorialPaused = false;
@@ -76,7 +76,7 @@ void UA1TutorialManager::StopTutorial()
 	if (!bIsTutorialActive)
 		return;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Stopping Tutorial"));
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Stopping Tutorial"));
 
 	if (CurrentStep)
 	{
@@ -95,7 +95,7 @@ void UA1TutorialManager::PauseTutorial()
 	if (!bIsTutorialActive || bIsTutorialPaused)
 		return;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Pausing Tutorial"));
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Pausing Tutorial"));
 
 	bIsTutorialPaused = true;
 	BP_OnTutorialPaused();
@@ -106,7 +106,7 @@ void UA1TutorialManager::ResumeTutorial()
 	if (!bIsTutorialActive || !bIsTutorialPaused)
 		return;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Resuming Tutorial"));
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Resuming Tutorial"));
 
 	bIsTutorialPaused = false;
 	BP_OnTutorialResumed();
@@ -120,11 +120,11 @@ void UA1TutorialManager::StartStep(const FString& StepID)
 	FA1TutorialStepInfo* StepInfo = StepDataMap.Find(StepID);
 	if (!StepInfo)
 	{
-		UE_LOG(LogA1Tutorial, Warning, TEXT("[TutorialManager] Tutorial Step not found: %s"), *StepID);
+		A1_LOG(LogA1Tutorial, Warning, TEXT("[TutorialManager] Tutorial Step not found: %s"), *StepID);
 		return;
 	}
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Starting Step: %s"), *StepID);
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Starting Step: %s"), *StepID);
 
 	// 현재 단계 정리
 	if (CurrentStep)
@@ -161,7 +161,7 @@ void UA1TutorialManager::SkipToStep(const FString& StepID)
 	if (!bIsTutorialActive)
 		return;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Skipping to Step: %s"), *StepID);
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Skipping to Step: %s"), *StepID);
 	StartStep(StepID);
 }
 
@@ -170,7 +170,7 @@ void UA1TutorialManager::SendGameplayEvent(FGameplayTag EventTag, const FGamepla
 	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetGameInstance());
 
 	MessageSubsystem.BroadcastMessage(EventTag, EventData);
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Sent Gameplay Event: %s"), *EventTag.ToString());
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Sent Gameplay Event: %s"), *EventTag.ToString());
 }
 
 FString UA1TutorialManager::GetCurrentStepID() const
@@ -214,7 +214,7 @@ void UA1TutorialManager::SetNavigationTarget(const FVector& TargetLocation, cons
 	CurrentNavigationText = TargetName;
 	CurrentNavigationIcon = TargetIcon;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Navigation target set: %s at %s"),
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Navigation target set: %s at %s"),
 		*TargetName.ToString(), *TargetLocation.ToString());
 }
 
@@ -225,7 +225,7 @@ void UA1TutorialManager::ClearNavigationTarget()
 	CurrentNavigationText = FText::GetEmpty();
 	CurrentNavigationIcon = nullptr;
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Navigation target cleared"));
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Navigation target cleared"));
 }
 
 void UA1TutorialManager::BroadcastTutorialMessage(const FA1TutorialMessage& Message)
@@ -261,11 +261,11 @@ void UA1TutorialManager::LoadTutorialSteps()
 		StepDataMap.Add(TutorialStepInfo.StepID, TutorialStepInfo);
 		StepOrder.Add(TutorialStepInfo.StepID);
 
-		UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Loaded Step: %s - %s"),
+		A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Loaded Step: %s - %s"),
 			*TutorialStepInfo.StepID, *TutorialStepInfo.StepName.ToString());
 	}
 
-	UE_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Loaded %d tutorial steps"), StepDataMap.Num());
+	A1_LOG(LogA1Tutorial, Log, TEXT("[TutorialManager] Loaded %d tutorial steps"), StepDataMap.Num());
 }
 
 UA1TutorialStep* UA1TutorialManager::CreateStepInstance(const FA1TutorialStepInfo* StepData)

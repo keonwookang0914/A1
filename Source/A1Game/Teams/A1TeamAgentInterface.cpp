@@ -19,7 +19,7 @@ void IA1TeamAgentInterface::ConditionalBroadcastTeamChanged(TScriptInterface<IA1
 		const int32 NewTeamIndex = GenericTeamIdToInteger(NewTeamID);
 
 		UObject* ThisObj = This.GetObject();
-		UE_LOG(LogA1Teams, Verbose, TEXT("[%s] %s assigned team %d"), *GetClientServerContextString(ThisObj), *GetPathNameSafe(ThisObj), NewTeamIndex);
+		A1_LOG(LogA1Teams, Verbose, TEXT("[%s] %s assigned team %d"), *GetClientServerContextString(ThisObj), *GetPathNameSafe(ThisObj), NewTeamIndex);
 
 		This.GetInterface()->GetTeamChangedDelegateChecked().Broadcast(ThisObj, OldTeamIndex, NewTeamIndex);
 	}

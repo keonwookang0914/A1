@@ -27,7 +27,7 @@ void UA1ScoreManager::StartNewGame()
 	CurrentGameScore = FA1ScoreData();
 	CurrentGameScore.GameNumber = GetNextGameNumber();
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Started Game %d"), CurrentGameScore.GameNumber);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Started Game %d"), CurrentGameScore.GameNumber);
 }
 
 void UA1ScoreManager::EndGame(EGameEndReason EndReason)
@@ -49,8 +49,8 @@ void UA1ScoreManager::EndGame(EGameEndReason EndReason)
 
 	SetDoTutorial(false);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Game %d ended. Final score: %d"), CurrentGameScore.GameNumber, CurrentGameScore.TotalScore);
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Score breakdown: %s"), *CurrentGameScore.GetScoreBreakdown());
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Game %d ended. Final score: %d"), CurrentGameScore.GameNumber, CurrentGameScore.TotalScore);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Score breakdown: %s"), *CurrentGameScore.GetScoreBreakdown());
 }
 
 void UA1ScoreManager::AddDaySurvived(int32 Count)
@@ -58,7 +58,7 @@ void UA1ScoreManager::AddDaySurvived(int32 Count)
 	CurrentGameScore.DaysSurvived += Count;
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Days survived: %d"), CurrentGameScore.DaysSurvived);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Days survived: %d"), CurrentGameScore.DaysSurvived);
 }
 
 void UA1ScoreManager::AddInventoryItems(int32 Count)
@@ -66,7 +66,7 @@ void UA1ScoreManager::AddInventoryItems(int32 Count)
 	CurrentGameScore.InventoryItems += Count;
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Inventory items: %d"), CurrentGameScore.InventoryItems);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Inventory items: %d"), CurrentGameScore.InventoryItems);
 }
 
 void UA1ScoreManager::SetInventoryItems(int32 Count)
@@ -74,7 +74,7 @@ void UA1ScoreManager::SetInventoryItems(int32 Count)
 	CurrentGameScore.InventoryItems = FMath::Max(0, Count);
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Inventory items: %d"), CurrentGameScore.InventoryItems);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Inventory items: %d"), CurrentGameScore.InventoryItems);
 }
 
 int32 UA1ScoreManager::GetStorageItems() const
@@ -87,7 +87,7 @@ void UA1ScoreManager::SetStorageItems(int32 Count)
 	CurrentGameScore.StorageItems = FMath::Max(0, Count);
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Storage items: %d"), CurrentGameScore.StorageItems);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Storage items: %d"), CurrentGameScore.StorageItems);
 }
 
 void UA1ScoreManager::AddConsumedItems(int32 Count)
@@ -95,7 +95,7 @@ void UA1ScoreManager::AddConsumedItems(int32 Count)
 	CurrentGameScore.ConsumedItems += FMath::Max(0, Count);
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Consumed items: %d"), CurrentGameScore.ConsumedItems);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Consumed items: %d"), CurrentGameScore.ConsumedItems);
 }
 
 float UA1ScoreManager::GetTotalRepair() const
@@ -108,7 +108,7 @@ void UA1ScoreManager::SetTotalRepair(int32 Count)
 	CurrentGameScore.TotalRepair = FMath::Clamp(Count, 0, 50);
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Total Repair : %d"), CurrentGameScore.TotalRepair);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Total Repair : %d"), CurrentGameScore.TotalRepair);
 }
 
 float UA1ScoreManager::GetCompleteRepair() const
@@ -121,7 +121,7 @@ void UA1ScoreManager::SetCompleteRepair(int32 Count)
 	CurrentGameScore.CompleteRepair = FMath::Clamp(Count, 0, 50);
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Complete Repair : %d"), CurrentGameScore.CompleteRepair);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Complete Repair : %d"), CurrentGameScore.CompleteRepair);
 }
 
 void UA1ScoreManager::SetRepairedBeforeEscape(bool bRepaired)
@@ -129,7 +129,7 @@ void UA1ScoreManager::SetRepairedBeforeEscape(bool bRepaired)
 	CurrentGameScore.bRepairedBeforeEscape = bRepaired;
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Repaired before escape: %s"),
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Repaired before escape: %s"),
 		bRepaired ? TEXT("Yes") : TEXT("No"));
 }
 
@@ -138,7 +138,7 @@ void UA1ScoreManager::SetRemainingFuel(int32 Fuel)
 	CurrentGameScore.RemainingFuel = FMath::Max(0, Fuel);
 	OnScoreChanged.Broadcast(CurrentGameScore);
 
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Remaining fuel: %d"), CurrentGameScore.RemainingFuel);
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Remaining fuel: %d"), CurrentGameScore.RemainingFuel);
 }
 
 bool UA1ScoreManager::SaveScores()
@@ -149,7 +149,7 @@ bool UA1ScoreManager::SaveScores()
 	}
 
 	bool bSaveSuccess = UGameplayStatics::SaveGameToSlot(SavedScores, SaveSlotName, 0);
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Save result: %s"), bSaveSuccess ? TEXT("Success") : TEXT("Failed"));
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Save result: %s"), bSaveSuccess ? TEXT("Success") : TEXT("Failed"));
 
 	return bSaveSuccess;
 }
@@ -162,14 +162,14 @@ bool UA1ScoreManager::LoadScores()
 
 		if (SavedScores)
 		{
-			UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Loaded %d scores"), SavedScores->GetAllScores().Num());
+			A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Loaded %d scores"), SavedScores->GetAllScores().Num());
 			return true;
 		}
 	}
 
 	// 저장 파일이 없거나 로드 실패시 새로 생성
 	SavedScores = Cast<UA1ScoreSaveGame>(UGameplayStatics::CreateSaveGameObject(UA1ScoreSaveGame::StaticClass()));
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Created new save data"));
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] Created new save data"));
 
 	return SavedScores != nullptr;
 }
@@ -213,7 +213,7 @@ void UA1ScoreManager::ClearAllData()
 	{
 		SavedScores->ClearAllScore();
 		SaveScores();
-		UE_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] All score data cleared"));
+		A1_LOG(LogA1ScoreSystem, Log, TEXT("[ScoreManager] All score data cleared"));
 	}
 }
 
@@ -234,5 +234,5 @@ FString UA1ScoreManager::GetCurrentScoreBreakdown() const
 void UA1ScoreManager::SetDoTutorial(bool InDoTutorial)
 {
 	bDoTutorial = InDoTutorial;
-	UE_LOG(LogA1ScoreSystem, Log, TEXT("Set Do Tutoiral: %s"), bDoTutorial ? TEXT("True") : TEXT("False"));
+	A1_LOG(LogA1ScoreSystem, Log, TEXT("Set Do Tutoiral: %s"), bDoTutorial ? TEXT("True") : TEXT("False"));
 }

@@ -65,7 +65,7 @@ void UA1CmdWidget::InputEnded(FText InText)
 	if (InText.ToString() == TEXT(""))
 		return;
 
-	UE_LOG(LogA1System, Log, TEXT("%s"), *InText.ToString());
+	A1_LOG(LogA1System, Log, TEXT("%s"), *InText.ToString());
 
 	SuperviseText->SetVisibility(ESlateVisibility::Hidden);
 	SuperviseText->SetText(FText::FromString(""));
@@ -80,7 +80,7 @@ void UA1CmdWidget::InputEnded(FText InText)
 			{
 				// TODO eric1306
 				// Fade Out / Temp
-				UE_LOG(LogA1, Log, TEXT("Fade Out!"));
+				A1_LOG(LogA1, Log, TEXT("Fade Out!"));
 				if (ALyraGameMode* GameMode = Cast<ALyraGameMode>(GetWorld()->GetAuthGameMode()))
 				{
 					GameMode->TriggerFadeOnAllPlayer(0.f, 1.f, 1.f, FLinearColor::White);
