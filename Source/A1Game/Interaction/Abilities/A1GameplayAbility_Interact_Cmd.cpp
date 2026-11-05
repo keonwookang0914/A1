@@ -6,9 +6,7 @@
 #include "A1LogChannels.h"
 #include "Abilities/Tasks/AbilityTask_WaitGameplayEvent.h"
 #include "Actors/A1CMDBase.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Player/LyraPlayerController.h"
-#include "UIExtensionSystem.h"
 #include "Kismet/GameplayStatics.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GameplayAbility_Interact_Cmd)
@@ -54,8 +52,6 @@ void UA1GameplayAbility_Interact_Cmd::ActivateAbility(const FGameplayAbilitySpec
 	FA1WidgetActiveMessage Message;
 	Message.bActive = false;
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_HUD_Active, Message);
 
 	// 시점 전환
 	ALyraPlayerController* LyraPlayerController = GetLyraPlayerControllerFromActorInfo();
@@ -97,6 +93,4 @@ void UA1GameplayAbility_Interact_Cmd::CloseCmd(FGameplayEventData Payload)
 	FA1WidgetActiveMessage Message;
 	Message.bActive = true;
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_HUD_Active, Message);
 }

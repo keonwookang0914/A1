@@ -15,7 +15,6 @@
 #include "Net/UnrealNetwork.h"
 #include "Player/LyraPlayerController.h"
 #include "Player/LyraPlayerState.h"
-#include "System/LyraSignificanceManager.h"
 #include "TimerManager.h"
 //#include "Item/Managers/A1CosmeticManagerComponent.h"
 #include "AbilitySystem/Attributes/A1CharacterAttributeSet.h"
@@ -99,33 +98,11 @@ void ALyraCharacter::PreInitializeComponents()
 void ALyraCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UWorld* World = GetWorld();
-
-	const bool bRegisterWithSignificanceManager = !IsNetMode(NM_DedicatedServer);
-	if (bRegisterWithSignificanceManager)
-	{
-		if (ULyraSignificanceManager* SignificanceManager = USignificanceManager::Get<ULyraSignificanceManager>(World))
-		{
-//@TODO: SignificanceManager->RegisterObject(this, (EFortSignificanceType)SignificanceType);
-		}
-	}
 }
 
 void ALyraCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-
-	UWorld* World = GetWorld();
-
-	const bool bRegisterWithSignificanceManager = !IsNetMode(NM_DedicatedServer);
-	if (bRegisterWithSignificanceManager)
-	{
-		if (ULyraSignificanceManager* SignificanceManager = USignificanceManager::Get<ULyraSignificanceManager>(World))
-		{
-			SignificanceManager->UnregisterObject(this);
-		}
-	}
 }
 
 void ALyraCharacter::Reset()

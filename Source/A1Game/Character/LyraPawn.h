@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ModularPawn.h"
+#include "GameFramework/Pawn.h"
 #include "Teams/A1TeamAgentInterface.h"
 
 #include "LyraPawn.generated.h"
@@ -15,7 +15,7 @@ struct FFrame;
  * ALyraPawn
  */
 UCLASS()
-class A1GAME_API ALyraPawn : public AModularPawn, public IA1TeamAgentInterface
+class A1GAME_API ALyraPawn : public APawn, public IA1TeamAgentInterface
 {
 	GENERATED_BODY()
 

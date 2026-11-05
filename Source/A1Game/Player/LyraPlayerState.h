@@ -3,13 +3,10 @@
 #pragma once
 
 #include "AbilitySystemInterface.h"
-#include "ModularPlayerState.h"
-#include "System/GameplayTagStack.h"
+#include "GameFramework/PlayerState.h"
 #include "Teams/A1TeamAgentInterface.h"
 
 #include "LyraPlayerState.generated.h"
-
-struct FLyraVerbMessage;
 
 class AController;
 class ALyraPlayerController;
@@ -17,7 +14,6 @@ class APlayerState;
 class FName;
 class UAbilitySystemComponent;
 class ULyraAbilitySystemComponent;
-class ULyraExperienceDefinition;
 class ULyraPawnData;
 class UObject;
 struct FFrame;
@@ -46,7 +42,7 @@ enum class ELyraPlayerConnectionType : uint8
  *	Base player state class used by this project.
  */
 UCLASS(Config = Game)
-class A1GAME_API ALyraPlayerState : public AModularPlayerState, public IAbilitySystemInterface, public IA1TeamAgentInterface
+class A1GAME_API ALyraPlayerState : public APlayerState, public IAbilitySystemInterface, public IA1TeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -84,8 +80,6 @@ public:
 	virtual FOnA1TeamIndexChangedDelegate* GetOnTeamIndexChangedDelegate() override;
 	//~End of IA1TeamAgentInterface interface
 
-	static const FName NAME_LyraAbilityReady;
-
 	void SetPlayerConnectionType(ELyraPlayerConnectionType NewType);
 	ELyraPlayerConnectionType GetPlayerConnectionType() const { return MyPlayerConnectionType; }
 
@@ -105,27 +99,6 @@ public:
 
 	void SetSquadID(int32 NewSquadID);
 
-	// Adds a specified number of stacks to the tag (does nothing if StackCount is below 1)
-	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category=Teams)
-	void AddStatTagStack(FGameplayTag Tag, int32 StackCount);
-
-	// Removes a specified number of stacks from the tag (does nothing if StackCount is below 1)
-	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category=Teams)
-	void RemoveStatTagStack(FGameplayTag Tag, int32 StackCount);
-
-	// Returns the stack count of the specified tag (or 0 if the tag is not present)
-	UFUNCTION(BlueprintCallable, Category=Teams)
-	int32 GetStatTagStackCount(FGameplayTag Tag) const;
-
-	// Returns true if there is at least one stack of the specified tag
-	UFUNCTION(BlueprintCallable, Category=Teams)
-	bool HasStatTag(FGameplayTag Tag) const;
-
-	// Send a message to just this player
-	// (use only for client notifications like accolades, quest toasts, etc... that can handle being occasionally lost)
-	UFUNCTION(Client, Unreliable, BlueprintCallable, Category = "Lyra|PlayerState")
-	void ClientBroadcastMessage(const FLyraVerbMessage Message);
-
 	// Gets the replicated view rotation of this player, used for spectating
 	FRotator GetReplicatedViewRotation() const;
 
@@ -133,7 +106,7 @@ public:
 	void SetReplicatedViewRotation(const FRotator& NewRotation);
 
 private:
-	void OnExperienceLoaded(const ULyraExperienceDefinition* CurrentExperience);
+	void InitPawnDataFromGameMode();
 
 protected:
 	UFUNCTION()
@@ -173,9 +146,6 @@ private:
 
 	UPROPERTY(ReplicatedUsing=OnRep_MySquadID)
 	int32 MySquadID;
-
-	UPROPERTY(Replicated)
-	FGameplayTagStackContainer StatTags;
 
 	UPROPERTY(Replicated)
 	FRotator ReplicatedViewRotation;

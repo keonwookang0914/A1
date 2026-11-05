@@ -3,7 +3,7 @@
 #pragma once
 
 #include "UI/A1ActivatableWidget.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "A1CmdWidget.generated.h"
 
 class UImage;
@@ -99,7 +99,6 @@ private:
 private:
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> ASC;
-	FGameplayMessageListenerHandle MessageListenerHandle;
 
 	float TypingDelta = 0.1f;
 

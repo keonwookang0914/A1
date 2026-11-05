@@ -1,13 +1,10 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "LyraPlayerController.h"
-#include "CommonInputTypeEnum.h"
 #include "Components/PrimitiveComponent.h"
 #include "A1LogChannels.h"
-#include "LyraCheatManager.h"
 #include "LyraPlayerState.h"
 #include "Camera/LyraPlayerCameraManager.h"
-#include "UI/LyraHUD.h"
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "EngineUtils.h"
 #include "A1GameplayTags.h"
@@ -15,40 +12,17 @@
 #include "Net/UnrealNetwork.h"
 #include "Engine/GameInstance.h"
 #include "AbilitySystemGlobals.h"
-#include "CommonInputSubsystem.h"
-#include "LyraLocalPlayer.h"
-#include "GameModes/LyraGameState.h"
-#include "Settings/LyraSettingsLocal.h"
-#include "Settings/LyraSettingsShared.h"
-#include "Replays/LyraReplaySubsystem.h"
-#include "ReplaySubsystem.h"
 #include "Development/A1DeveloperSettings.h"
-#include "GameMapsSettings.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Physics/LyraCollisionChannels.h"
 #include "Actors/A1EquipmentBase.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraPlayerController)
 
-namespace Lyra
-{
-	namespace Input
-	{
-		static int32 ShouldAlwaysPlayForceFeedback = 0;
-		static FAutoConsoleVariableRef CVarShouldAlwaysPlayForceFeedback(TEXT("LyraPC.ShouldAlwaysPlayForceFeedback"),
-			ShouldAlwaysPlayForceFeedback,
-			TEXT("Should force feedback effects be played, even if the last input device was not a gamepad?"));
-	}
-}
-
 ALyraPlayerController::ALyraPlayerController(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	PlayerCameraManagerClass = ALyraPlayerCameraManager::StaticClass();
-
-#if USING_CHEAT_MANAGER
-	CheatClass = ULyraCheatManager::StaticClass();
-#endif // #if USING_CHEAT_MANAGER
 }
 
 void ALyraPlayerController::PreInitializeComponents()
@@ -127,79 +101,6 @@ ULyraAbilitySystemComponent* ALyraPlayerController::GetLyraAbilitySystemComponen
 {
 	const ALyraPlayerState* LyraPS = GetLyraPlayerState();
 	return (LyraPS ? LyraPS->GetLyraAbilitySystemComponent() : nullptr);
-}
-
-ALyraHUD* ALyraPlayerController::GetLyraHUD() const
-{
-	return CastChecked<ALyraHUD>(GetHUD(), ECastCheckedType::NullAllowed);
-}
-
-bool ALyraPlayerController::TryToRecordClientReplay()
-{
-	// See if we should record a replay
-	if (ShouldRecordClientReplay())
-	{
-		if (ULyraReplaySubsystem* ReplaySubsystem = GetGameInstance()->GetSubsystem<ULyraReplaySubsystem>())
-		{
-			APlayerController* FirstLocalPlayerController = GetGameInstance()->GetFirstLocalPlayerController();
-			if (FirstLocalPlayerController == this)
-			{
-				// If this is the first player, update the spectator player for local replays and then record
-				if (ALyraGameState* GameState = Cast<ALyraGameState>(GetWorld()->GetGameState()))
-				{
-					GameState->SetRecorderPlayerState(PlayerState);
-
-					ReplaySubsystem->RecordClientReplay(this);
-					return true;
-				}
-			}
-		}
-	}
-	return false;
-}
-
-bool ALyraPlayerController::ShouldRecordClientReplay()
-{
-	UWorld* World = GetWorld();
-	UGameInstance* GameInstance = GetGameInstance();
-	if (GameInstance != nullptr &&
-		World != nullptr &&
-		!World->IsPlayingReplay() &&
-		!World->IsRecordingClientReplay() &&
-		NM_DedicatedServer != GetNetMode() &&
-		IsLocalPlayerController())
-	{
-		FString DefaultMap = UGameMapsSettings::GetGameDefaultMap();
-		FString CurrentMap = World->URL.Map;
-
-#if WITH_EDITOR
-		CurrentMap = UWorld::StripPIEPrefixFromPackageName(CurrentMap, World->StreamingLevelsPrefix);
-#endif
-		if (CurrentMap == DefaultMap)
-		{
-			// Never record demos on the default frontend map, this could be replaced with a better check for being in the main menu
-			return false;
-		}
-
-		if (UReplaySubsystem* ReplaySubsystem = GameInstance->GetSubsystem<UReplaySubsystem>())
-		{
-			if (ReplaySubsystem->IsRecording() || ReplaySubsystem->IsPlaying())
-			{
-				// Only one at a time
-				return false;
-			}
-		}
-
-		// If this is possible, now check the settings
-		if (const ULyraLocalPlayer* LyraLocalPlayer = Cast<ULyraLocalPlayer>(GetLocalPlayer()))
-		{
-			if (LyraLocalPlayer->GetLocalSettings()->ShouldAutoRecordReplays())
-			{
-				return true;
-			}
-		}
-	}
-	return false;
 }
 
 void ALyraPlayerController::OnPlayerStateChangedTeam(UObject* TeamAgent, int32 OldTeam, int32 NewTeam)
@@ -307,42 +208,24 @@ void ALyraPlayerController::OnRep_PlayerState()
 	BroadcastOnPlayerStateChanged();
 }
 
-void ALyraPlayerController::SetPlayer(UPlayer* InPlayer)
-{
-	Super::SetPlayer(InPlayer);
-
-	if (const ULyraLocalPlayer* LyraLocalPlayer = Cast<ULyraLocalPlayer>(InPlayer))
-	{
-		ULyraSettingsShared* UserSettings = LyraLocalPlayer->GetSharedSettings();
-		UserSettings->OnSettingChanged.AddUObject(this, &ThisClass::OnSettingsChanged);
-
-		OnSettingsChanged(UserSettings);
-	}
-}
-
-void ALyraPlayerController::OnSettingsChanged(ULyraSettingsShared* InSettings)
-{
-	bForceFeedbackEnabled = InSettings->GetForceFeedbackEnabled();
-}
-
 void ALyraPlayerController::AddCheats(bool bForce)
 {
-#if USING_CHEAT_MANAGER
+#if !UE_BUILD_SHIPPING
 	Super::AddCheats(true);
-#else //#if USING_CHEAT_MANAGER
+#else //#if !UE_BUILD_SHIPPING
 	Super::AddCheats(bForce);
-#endif // #else //#if USING_CHEAT_MANAGER
+#endif // #else //#if !UE_BUILD_SHIPPING
 }
 
 void ALyraPlayerController::ServerCheat_Implementation(const FString& Msg)
 {
-#if USING_CHEAT_MANAGER
+#if !UE_BUILD_SHIPPING
 	if (CheatManager)
 	{
 		UE_LOG(LogA1, Warning, TEXT("ServerCheat: %s"), *Msg);
 		ClientMessage(ConsoleCommand(Msg));
 	}
-#endif // #if USING_CHEAT_MANAGER
+#endif // #if !UE_BUILD_SHIPPING
 }
 
 bool ALyraPlayerController::ServerCheat_Validate(const FString& Msg)
@@ -352,7 +235,7 @@ bool ALyraPlayerController::ServerCheat_Validate(const FString& Msg)
 
 void ALyraPlayerController::ServerCheatAll_Implementation(const FString& Msg)
 {
-#if USING_CHEAT_MANAGER
+#if !UE_BUILD_SHIPPING
 	if (CheatManager)
 	{
 		UE_LOG(LogA1, Warning, TEXT("ServerCheatAll: %s"), *Msg);
@@ -365,7 +248,7 @@ void ALyraPlayerController::ServerCheatAll_Implementation(const FString& Msg)
 			}
 		}
 	}
-#endif // #if USING_CHEAT_MANAGER
+#endif // #if !UE_BUILD_SHIPPING
 }
 
 bool ALyraPlayerController::ServerCheatAll_Validate(const FString& Msg)
@@ -388,11 +271,6 @@ void ALyraPlayerController::PostProcessInput(const float DeltaTime, const bool b
 	Super::PostProcessInput(DeltaTime, bGamePaused);
 }
 
-void ALyraPlayerController::OnCameraPenetratingTarget()
-{
-	bHideViewTargetPawnNextFrame = true;
-}
-
 void ALyraPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
@@ -409,24 +287,6 @@ void ALyraPlayerController::OnPossess(APawn* InPawn)
 		}
 	}
 #endif
-}
-
-void ALyraPlayerController::UpdateForceFeedback(IInputInterface* InputInterface, const int32 ControllerId)
-{
-	if (bForceFeedbackEnabled)
-	{
-		if (const UCommonInputSubsystem* CommonInputSubsystem = UCommonInputSubsystem::Get(GetLocalPlayer()))
-		{
-			const ECommonInputType CurrentInputType = CommonInputSubsystem->GetCurrentInputType();
-			if (Lyra::Input::ShouldAlwaysPlayForceFeedback || CurrentInputType == ECommonInputType::Gamepad || CurrentInputType == ECommonInputType::Touch)
-			{
-				InputInterface->SetForceFeedbackChannelValues(ControllerId, ForceFeedbackValues);
-				return;
-			}
-		}
-	}
-	
-	InputInterface->SetForceFeedbackChannelValues(ControllerId, FForceFeedbackValues());
 }
 
 void ALyraPlayerController::UpdateHiddenComponents(const FVector& ViewLocation, TSet<FPrimitiveComponentId>& OutHiddenComponents)
@@ -527,63 +387,3 @@ void ALyraPlayerController::OnUnPossess()
 
 	Super::OnUnPossess();
 }
-
-//////////////////////////////////////////////////////////////////////
-// ALyraReplayPlayerController
-
-void ALyraReplayPlayerController::Tick(float DeltaSeconds)
-{
-	Super::Tick(DeltaSeconds);
-
-	// The state may go invalid at any time due to scrubbing during a replay
-	if (!IsValid(FollowedPlayerState))
-	{
-		UWorld* World = GetWorld();
-
-		// Listen for changes for both recording and playback
-		if (ALyraGameState* GameState = Cast<ALyraGameState>(World->GetGameState()))
-		{
-			if (!GameState->OnRecorderPlayerStateChangedEvent.IsBoundToObject(this))
-			{
-				GameState->OnRecorderPlayerStateChangedEvent.AddUObject(this, &ThisClass::RecorderPlayerStateUpdated);
-			}
-			if (APlayerState* RecorderState = GameState->GetRecorderPlayerState())
-			{
-				RecorderPlayerStateUpdated(RecorderState);
-			}
-		}
-	}
-}
-
-void ALyraReplayPlayerController::SmoothTargetViewRotation(APawn* TargetPawn, float DeltaSeconds)
-{
-	// Default behavior is to interpolate to TargetViewRotation which is set from APlayerController::TickActor but it's not very smooth
-
-	Super::SmoothTargetViewRotation(TargetPawn, DeltaSeconds);
-}
-
-bool ALyraReplayPlayerController::ShouldRecordClientReplay()
-{
-	return false;
-}
-
-void ALyraReplayPlayerController::RecorderPlayerStateUpdated(APlayerState* NewRecorderPlayerState)
-{
-	if (NewRecorderPlayerState)
-	{
-		FollowedPlayerState = NewRecorderPlayerState;
-
-		// Bind to when pawn changes and call now
-		NewRecorderPlayerState->OnPawnSet.AddUniqueDynamic(this, &ALyraReplayPlayerController::OnPlayerStatePawnSet);
-		OnPlayerStatePawnSet(NewRecorderPlayerState, NewRecorderPlayerState->GetPawn(), nullptr);
-	}
-}
-
-void ALyraReplayPlayerController::OnPlayerStatePawnSet(APlayerState* ChangedPlayerState, APawn* NewPlayerPawn, APawn* OldPlayerPawn)
-{
-	if (ChangedPlayerState == FollowedPlayerState)
-	{
-		SetViewTarget(NewPlayerPawn);
-	}
-}
-

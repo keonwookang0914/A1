@@ -30,14 +30,10 @@ void UA1CmdWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageListenerHandle = MessageSubsystem.RegisterListener(MessageChannelTag, this, &UA1CmdWidget::ConstructUI);
 }
 
 void UA1CmdWidget::NativeDestruct()
 {
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.UnregisterListener(MessageListenerHandle);
 }
 
 void UA1CmdWidget::ConstructUI(FGameplayTag Channel, const FASCInitializeMessage& Message)
@@ -210,8 +206,6 @@ void UA1CmdWidget::InputEnded(FText InText)
 			if (UA1ScoreManager::Get()->GetDoTutorial())
 			{
 				FGameplayEventData EventData;
-				UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
-				MessageSubsystem.BroadcastMessage(A1GameplayTags::Tutorial_Interact_CMD, EventData);
 			}
 		}
 

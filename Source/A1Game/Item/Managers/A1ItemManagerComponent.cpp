@@ -13,7 +13,6 @@
 #include "Item/Fragments/A1ItemFragment_Equipable.h"
 #include "Item/Fragments/A1ItemFragment_Equipable_Attachment.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Item/Fragments/A1ItemFragment_Equipable_Utility.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "System/LyraAssetManager.h"
@@ -437,8 +436,6 @@ bool UA1ItemManagerComponent::TryPickItem(AA1EquipmentBase* PickupableItemActor)
 			if (UtilityFragment->UtilityType == EUtilityType::Repairkit)
 			{
 				FGameplayEventData Payload;
-				UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
-				MessageSubsystem.BroadcastMessage(A1GameplayTags::Tutorial_Event_RepairKit_Found, Payload);
 			}
 		}
 

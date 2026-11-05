@@ -1,7 +1,6 @@
 #include "Teams/A1TeamAgentInterface.h"
 
 #include "A1LogChannels.h"
-#include "Messages/LyraVerbMessage.h"
 #include "UObject/ScriptInterface.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1TeamAgentInterface)

@@ -9,8 +9,6 @@
 
 struct FPropertyChangedEvent;
 
-class ULyraExperienceDefinition;
-
 UENUM()
 enum class ECheatExecutionTime
 {
@@ -64,20 +62,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category="A1 Monster")
 	bool bAllowMonstersAttackPlayer = true;
 
-	// The experience override to use for Play in Editor (if not set, the default for the world settings of the open map will be used)
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=Lyra, meta=(AllowedTypes="LyraExperienceDefinition"))
-	FPrimaryAssetId ExperienceOverride;
-
 	// Do the full game flow when playing in the editor, or skip 'waiting for player' / etc... game phases?
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=Lyra)
 	bool bTestFullGameFlowInPIE = false;
-
-	/**
-	 * Should force feedback effects be played, even if the last input device was not a gamepad?
-	 * The default behavior in Lyra is to only play force feedback if the most recent input device was a gamepad.
-	 */
-	UPROPERTY(config, EditAnywhere, Category = Lyra, meta = (ConsoleVariable = "LyraPC.ShouldAlwaysPlayForceFeedback"))
-	bool bShouldAlwaysPlayForceFeedback = false;
 
 	// Should game logic load cosmetic backgrounds in the editor or skip them for iteration speed?
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, config, Category=Lyra)
@@ -86,10 +73,6 @@ public:
 	// List of cheats to auto-run during 'play in editor'
 	UPROPERTY(config, EditAnywhere, Category=Lyra)
 	TArray<FLyraCheatToRun> CheatsToRun;
-
-	// Should messages broadcast through the gameplay message subsystem be logged?
-	UPROPERTY(config, EditAnywhere, Category=GameplayMessages, meta=(ConsoleVariable="GameplayMessageSubsystem.LogMessages"))
-	bool LogGameplayMessages = false;
 
 #if WITH_EDITORONLY_DATA
 	/** A list of common maps that will be accessible via the editor detoolbar */

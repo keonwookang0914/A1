@@ -4,7 +4,7 @@
 
 #include "A1Define.h"
 #include "Blueprint/UserWidget.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "A1EquipmentSlotsWidget.generated.h"
 
 class UA1ItemInstance;
@@ -69,5 +69,4 @@ protected:
 private:
 	FDelegateHandle EntryChangedDelegateHandle;
 	// FDelegateHandle EquipStateChangedDelegateHandle;
-	FGameplayMessageListenerHandle MessageListenerHandle;
 };

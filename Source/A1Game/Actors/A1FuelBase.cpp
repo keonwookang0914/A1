@@ -10,7 +10,6 @@
 #include "Data/A1ItemData.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/OverlapResult.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Item/A1ItemInstance.h"
 #include "Item/A1ItemTemplate.h"
 #include "Item/Fragments/A1ItemFragment_Equipable_Utility.h"
@@ -177,8 +176,6 @@ void AA1FuelBase::DetectAndAbsorbFuelItems()
 						EventData.Instigator = GetInstigator();
 						EventData.Target = this;
 
-						UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
-						MessageSubsystem.BroadcastMessage(A1GameplayTags::Tutorial_Interact_Fuel, EventData);
 					}
 				}
 			}

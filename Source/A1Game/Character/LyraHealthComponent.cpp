@@ -12,15 +12,11 @@
 #include "GameplayEffectExtension.h"
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "AbilitySystem/Attributes/A1VitalSet.h"
-#include "Messages/LyraVerbMessage.h"
-#include "Messages/LyraVerbMessageHelpers.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "GameFramework/PlayerState.h"
 #include "Engine/World.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraHealthComponent)
 
-UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Lyra_Elimination_Message, "Lyra.Elimination.Message");
 
 
 ULyraHealthComponent::ULyraHealthComponent(const FObjectInitializer& ObjectInitializer)
@@ -165,21 +161,6 @@ void ULyraHealthComponent::HandleOutOfHealth(AActor* DamageInstigator, AActor* D
 
 			FScopedPredictionWindow NewScopedWindow(AbilitySystemComponent, true);
 			AbilitySystemComponent->HandleGameplayEvent(Payload.EventTag, &Payload);
-		}
-
-		// Send a standardized verb message that other systems can observe
-		{
-			FLyraVerbMessage Message;
-			Message.Verb = TAG_Lyra_Elimination_Message;
-			Message.Instigator = DamageInstigator;
-			Message.InstigatorTags = *DamageEffectSpec->CapturedSourceTags.GetAggregatedTags();
-			Message.Target = ULyraVerbMessageHelpers::GetPlayerStateFromObject(AbilitySystemComponent->GetAvatarActor());
-			Message.TargetTags = *DamageEffectSpec->CapturedTargetTags.GetAggregatedTags();
-			//@TODO: Fill out context tags, and any non-ability-system source/instigator tags
-			//@TODO: Determine if it's an opposing team kill, self-own, team kill, etc...
-
-			UGameplayMessageSubsystem& MessageSystem = UGameplayMessageSubsystem::Get(GetWorld());
-			MessageSystem.BroadcastMessage(Message.Verb, Message);
 		}
 
 		//@TODO: assist messages (could compute from damage dealt elsewhere)?

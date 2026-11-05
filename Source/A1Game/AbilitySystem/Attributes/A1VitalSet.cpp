@@ -6,8 +6,6 @@
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "Engine/World.h"
 #include "GameplayEffectExtension.h"
-#include "Messages/LyraVerbMessage.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1VitalSet)
 
@@ -127,20 +125,6 @@ void UA1VitalSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData
 
 	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
 	{
-		if (Data.EvaluatedData.Magnitude > 0.0f)
-		{
-			FLyraVerbMessage Message;
-			Message.Verb = TAG_Lyra_Damage_Message;
-			Message.Instigator = Data.EffectSpec.GetEffectContext().GetEffectCauser();
-			Message.InstigatorTags = *Data.EffectSpec.CapturedSourceTags.GetAggregatedTags();
-			Message.Target = GetOwningActor();
-			Message.TargetTags = *Data.EffectSpec.CapturedTargetTags.GetAggregatedTags();
-			Message.Magnitude = Data.EvaluatedData.Magnitude;
-
-			UGameplayMessageSubsystem& MessageSystem = UGameplayMessageSubsystem::Get(GetWorld());
-			MessageSystem.BroadcastMessage(Message.Verb, Message);
-		}
-
 		SetHealth(FMath::Clamp(GetHealth() - GetIncomingDamage(), MinimumHealth, GetMaxHealth()));
 		SetIncomingDamage(0.0f);
 	}

@@ -4,16 +4,15 @@
 
 #include "Components/GameFrameworkInitStateInterface.h"
 #include "Components/PawnComponent.h"
-#include "GameFeatures/GameFeatureAction_AddInputContextMapping.h"
+#include "UObject/SoftObjectPtr.h"
 #include "GameplayAbilitySpecHandle.h"
 #include "LyraHeroComponent.generated.h"
 
 namespace EEndPlayReason { enum Type : int; }
-struct FLoadedMappableConfigPair;
-struct FMappableConfigPair;
 
 class UGameFrameworkComponentManager;
 class UInputComponent;
+class UInputMappingContext;
 class ULyraCameraMode;
 class ULyraInputConfig;
 class UObject;
@@ -21,6 +20,23 @@ struct FActorInitStateChangedParams;
 struct FFrame;
 struct FGameplayTag;
 struct FInputActionValue;
+
+USTRUCT()
+struct FInputMappingContextAndPriority
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category="Input", meta=(AssetBundles="Client,Server"))
+	TSoftObjectPtr<UInputMappingContext> InputMapping;
+
+	// Higher priority input mappings will be prioritized over mappings with a lower priority.
+	UPROPERTY(EditAnywhere, Category="Input")
+	int32 Priority = 0;
+	
+	/** If true, then this mapping context will be registered with the settings when this game feature action is registered. */
+	UPROPERTY(EditAnywhere, Category="Input")
+	bool bRegisterWithSettings = true;
+};
 
 /**
  * Component that sets up input and camera handling for player controlled pawns (or bots that simulate players).
@@ -88,25 +104,9 @@ protected:
 	void Input_SprintReleased(const FInputActionValue& InputActionValue);
 
 	TSubclassOf<ULyraCameraMode> DetermineCameraMode() const;
-	
-	void OnInputConfigActivated(const FLoadedMappableConfigPair& ConfigPair);
-	void OnInputConfigDeactivated(const FLoadedMappableConfigPair& ConfigPair);
 
 protected:
 
-	/**
-	 * Input Configs that should be added to this player when initializing the input. These configs
-	 * will NOT be registered with the settings because they are added at runtime. If you want the config
-	 * pair to be in the settings, then add it via the GameFeatureAction_AddInputConfig
-	 * 
-	 * NOTE: You should only add to this if you do not have a game feature plugin accessible to you.
-	 * If you do, then use the GameFeatureAction_AddInputConfig instead. 
-	 */
-	PRAGMA_DISABLE_DEPRECATION_WARNINGS
-	UE_DEPRECATED(5.3, "DefaultInputConfigs have been deprecated, use DefaultInputMappings instead")
-	TArray<FMappableConfigPair> DefaultInputConfigs;
-	PRAGMA_ENABLE_DEPRECATION_WARNINGS
-	
 	UPROPERTY(EditAnywhere)
 	TArray<FInputMappingContextAndPriority> DefaultInputMappings;
 	

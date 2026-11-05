@@ -18,7 +18,6 @@
 #include "Net/UnrealNetwork.h"
 #include "Score/A1ScoreBlueprintFunctionLibrary.h"
 #include "Score/A1ScoreManager.h"
-#include "Tutorial/A1TutorialManager.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(A1SpaceshipBase)
 
@@ -31,17 +30,6 @@ AA1SpaceshipBase::AA1SpaceshipBase()
 void AA1SpaceshipBase::BeginPlay()
 {
 	Super::BeginPlay();
-
-	if (UA1ScoreManager::Get()->GetDoTutorial())
-	{
-		if (UGameInstance* GameInstance = GetGameInstance())
-		{
-			if (UA1TutorialManager* TutorialManager = GameInstance->GetSubsystem<UA1TutorialManager>())
-			{
-				TutorialManager->StartTutorial();
-			}
-		}
-	}
 
 	UA1ScoreBlueprintFunctionLibrary::StartNewGame();
 

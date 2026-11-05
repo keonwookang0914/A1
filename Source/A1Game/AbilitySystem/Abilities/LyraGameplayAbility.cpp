@@ -12,9 +12,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemGlobals.h"
 #include "EnhancedInputSubsystems.h"
-#include "LyraAbilitySimpleFailureMessage.h"
 #include "NavigationSystem.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "AbilitySystem/LyraAbilitySourceInterface.h"
 #include "AbilitySystem/LyraGameplayEffectContext.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
@@ -23,7 +21,6 @@
 #include "Development/A1DeveloperSettings.h"
 #include "Input/A1EnhancedPlayerInput.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "Player/LyraLocalPlayer.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraGameplayAbility)
 
@@ -107,35 +104,7 @@ ULyraHeroComponent* ULyraGameplayAbility::GetHeroComponentFromActorInfo() const
 
 void ULyraGameplayAbility::NativeOnAbilityFailedToActivate(const FGameplayTagContainer& FailedReason) const
 {
-	bool bSimpleFailureFound = false;
-	for (FGameplayTag Reason : FailedReason)
-	{
-		if (!bSimpleFailureFound)
-		{
-			if (const FText* pUserFacingMessage = FailureTagToUserFacingMessages.Find(Reason))
-			{
-				FLyraAbilitySimpleFailureMessage Message;
-				Message.PlayerController = GetActorInfo().PlayerController.Get();
-				Message.FailureTags = FailedReason;
-				Message.UserFacingReason = *pUserFacingMessage;
-
-				UGameplayMessageSubsystem& MessageSystem = UGameplayMessageSubsystem::Get(GetWorld());
-				MessageSystem.BroadcastMessage(TAG_ABILITY_SIMPLE_FAILURE_MESSAGE, Message);
-				bSimpleFailureFound = true;
-			}
-		}
-		
-		if (UAnimMontage* pMontage = FailureTagToAnimMontage.FindRef(Reason))
-		{
-			FLyraAbilityMontageFailureMessage Message;
-			Message.PlayerController = GetActorInfo().PlayerController.Get();
-			Message.FailureTags = FailedReason;
-			Message.FailureMontage = pMontage;
-
-			UGameplayMessageSubsystem& MessageSystem = UGameplayMessageSubsystem::Get(GetWorld());
-			MessageSystem.BroadcastMessage(TAG_ABILITY_PLAY_MONTAGE_FAILURE_MESSAGE, Message);
-		}
-	}
+	// Lyra's GameplayMessageSubsystem based failure messages were removed along with the GameplayMessageRouter plugin.
 }
 
 bool ULyraGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags, const FGameplayTagContainer* TargetTags, FGameplayTagContainer* OptionalRelevantTags) const
@@ -200,7 +169,7 @@ void ULyraGameplayAbility::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 	{
 		if (const APlayerController* PC = GetLyraPlayerControllerFromActorInfo())
 		{
-			if (const ULyraLocalPlayer* LP = Cast<ULyraLocalPlayer>(PC->GetLocalPlayer()))
+			if (const ULocalPlayer* LP = PC->GetLocalPlayer())
 			{
 				if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
 				{
@@ -222,7 +191,7 @@ void ULyraGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, c
 	{
 		if (const APlayerController* PC = GetLyraPlayerControllerFromActorInfo())
 		{
-			if (const ULyraLocalPlayer* LP = Cast<ULyraLocalPlayer>(PC->GetLocalPlayer()))
+			if (const ULocalPlayer* LP = PC->GetLocalPlayer())
 			{
 				if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
 				{

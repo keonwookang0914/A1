@@ -4,14 +4,12 @@
 #include "A1GameplayTags.h"
 #include "AbilitySystem/Abilities/Tasks/A1AbilityTask_WaitInputStart.h"
 #include "Character/LyraCharacter.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Interaction/A1InteractionQuery.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "Interaction/A1InteractionInfo.h"
 #include "Physics/LyraCollisionChannels.h"
 #include "Tasks/A1AbilityTask_GrantNearbyInteraction.h"
 #include "Tasks/A1AbilityTask_WaitForInteractableTraceHit.h"
-#include "UI/IndicatorSystem/LyraIndicatorManagerComponent.h"
 
 // #include UE_INLINE_GENERATED_CPP_BY_NAME(A1GamePlayAbility_Interact) -> 이거 때문에 Link Error 발생.
 
@@ -57,8 +55,6 @@ void UA1GameplayAbility_Interact::UpdateInteractions(const TArray<FA1Interaction
 	Message.bSwitchActive = (GetAbilitySystemComponentFromActorInfo()->HasMatchingGameplayTag(A1GameplayTags::Status_Interact) == false);
 	Message.InteractionInfo = InteractionInfos.Num() > 0 ? InteractionInfos[0] : FA1InteractionInfo();
 
-	UGameplayMessageSubsystem& MessageSystem = UGameplayMessageSubsystem::Get(GetAvatarActorFromActorInfo());
-	MessageSystem.BroadcastMessage(A1GameplayTags::Message_Interaction_Notice, Message);
 
 	CurrentInteractionInfos = InteractionInfos;
 }

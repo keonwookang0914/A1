@@ -4,9 +4,6 @@
 
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "Async/TaskGraphInterfaces.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
-#include "GameModes/LyraExperienceManagerComponent.h"
-#include "Messages/LyraVerbMessage.h"
 #include "Player/LyraPlayerState.h"
 #include "A1LogChannels.h"
 #include "Net/UnrealNetwork.h"
@@ -28,8 +25,6 @@ ALyraGameState::ALyraGameState(const FObjectInitializer& ObjectInitializer)
 	AbilitySystemComponent = ObjectInitializer.CreateDefaultSubobject<ULyraAbilitySystemComponent>(this, TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
-
-	ExperienceManagerComponent = CreateDefaultSubobject<ULyraExperienceManagerComponent>(TEXT("ExperienceManagerComponent"));
 
 	ServerFPS = 0.0f;
 }
@@ -87,7 +82,6 @@ void ALyraGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ThisClass, ServerFPS);
-	DOREPLIFETIME_CONDITION(ThisClass, RecorderPlayerState, COND_ReplayOnly);
 }
 
 void ALyraGameState::Tick(float DeltaSeconds)
@@ -100,46 +94,7 @@ void ALyraGameState::Tick(float DeltaSeconds)
 	}
 }
 
-void ALyraGameState::MulticastMessageToClients_Implementation(const FLyraVerbMessage Message)
-{
-	if (GetNetMode() == NM_Client)
-	{
-		UGameplayMessageSubsystem::Get(this).BroadcastMessage(Message.Verb, Message);
-	}
-}
-
-void ALyraGameState::MulticastReliableMessageToClients_Implementation(const FLyraVerbMessage Message)
-{
-	MulticastMessageToClients_Implementation(Message);
-}
-
 float ALyraGameState::GetServerFPS() const
 {
 	return ServerFPS;
-}
-
-void ALyraGameState::SetRecorderPlayerState(APlayerState* NewPlayerState)
-{
-	if (RecorderPlayerState == nullptr)
-	{
-		// Set it and call the rep callback so it can do any record-time setup
-		RecorderPlayerState = NewPlayerState;
-		OnRep_RecorderPlayerState();
-	}
-	else
-	{
-		UE_LOG(LogA1, Warning, TEXT("SetRecorderPlayerState was called on %s but should only be called once per game on the primary user"), *GetName());
-	}
-}
-
-APlayerState* ALyraGameState::GetRecorderPlayerState() const
-{
-	// TODO: Maybe auto select it if null?
-
-	return RecorderPlayerState;
-}
-
-void ALyraGameState::OnRep_RecorderPlayerState()
-{
-	OnRecorderPlayerStateChangedEvent.Broadcast(RecorderPlayerState);
 }

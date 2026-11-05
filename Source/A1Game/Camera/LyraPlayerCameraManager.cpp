@@ -8,13 +8,10 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "LyraCameraComponent.h"
-#include "LyraUICameraManagerComponent.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraPlayerCameraManager)
 
 class FDebugDisplayInfo;
-
-static FName UICameraComponentName(TEXT("UICamera"));
 
 ALyraPlayerCameraManager::ALyraPlayerCameraManager(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -23,25 +20,6 @@ ALyraPlayerCameraManager::ALyraPlayerCameraManager(const FObjectInitializer& Obj
 	ViewPitchMin = LYRA_CAMERA_DEFAULT_PITCH_MIN;
 	ViewPitchMax = LYRA_CAMERA_DEFAULT_PITCH_MAX;
 
-	UICamera = CreateDefaultSubobject<ULyraUICameraManagerComponent>(UICameraComponentName);
-}
-
-ULyraUICameraManagerComponent* ALyraPlayerCameraManager::GetUICameraComponent() const
-{
-	return UICamera;
-}
-
-void ALyraPlayerCameraManager::UpdateViewTarget(FTViewTarget& OutVT, float DeltaTime)
-{
-	// If the UI Camera is looking at something, let it have priority.
-	if (UICamera->NeedsToUpdateViewTarget())
-	{
-		Super::UpdateViewTarget(OutVT, DeltaTime);
-		UICamera->UpdateViewTarget(OutVT, DeltaTime);
-		return;
-	}
-
-	Super::UpdateViewTarget(OutVT, DeltaTime);
 }
 
 void ALyraPlayerCameraManager::DisplayDebug(UCanvas* Canvas, const FDebugDisplayInfo& DebugDisplay, float& YL, float& YPos)

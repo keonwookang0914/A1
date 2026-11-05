@@ -39,16 +39,12 @@ void UA1InventorySlotsWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageListenerHandle = MessageSubsystem.RegisterListener(MessageChannelTag, this, &ThisClass::ConstructUI);
 }
 
 void UA1InventorySlotsWidget::NativeDestruct()
 {
 	DestructUI();
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.UnregisterListener(MessageListenerHandle);
 
 	Super::NativeDestruct();
 }

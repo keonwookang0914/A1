@@ -9,17 +9,13 @@
 #include "AbilitySystem/LyraAbilitySystemComponent.h"
 #include "Character/LyraPawnData.h"
 #include "Character/LyraPawnExtensionComponent.h"
-#include "Components/GameFrameworkComponentManager.h"
 #include "Engine/World.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
-#include "GameModes/LyraExperienceManagerComponent.h"
 //@TODO: Would like to isolate this a bit better to get the pawn data in here without this having to know about other stuff
 #include "GameModes/LyraGameMode.h"
 #include "A1LogChannels.h"
 #include "A1GameplayTags.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "LyraPlayerController.h"
-#include "Messages/LyraVerbMessage.h"
 #include "Net/UnrealNetwork.h"
 
 #include "Item/Managers/A1EquipmentManagerComponent.h"
@@ -31,8 +27,6 @@
 class AController;
 class APlayerState;
 class FLifetimeProperty;
-
-const FName ALyraPlayerState::NAME_LyraAbilityReady("LyraAbilitiesReady");
 
 ALyraPlayerState::ALyraPlayerState(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -114,7 +108,7 @@ void ALyraPlayerState::OnReactivated()
 	}
 }
 
-void ALyraPlayerState::OnExperienceLoaded(const ULyraExperienceDefinition* /*CurrentExperience*/)
+void ALyraPlayerState::InitPawnDataFromGameMode()
 {
 	if (ALyraGameMode* LyraGameMode = GetWorld()->GetAuthGameMode<ALyraGameMode>())
 	{
@@ -124,7 +118,7 @@ void ALyraPlayerState::OnExperienceLoaded(const ULyraExperienceDefinition* /*Cur
 		}
 		else
 		{
-			UE_LOG(LogA1, Error, TEXT("ALyraPlayerState::OnExperienceLoaded(): Unable to find PawnData to initialize player state [%s]!"), *GetNameSafe(this));
+			UE_LOG(LogA1, Error, TEXT("ALyraPlayerState::InitPawnDataFromGameMode(): Unable to find PawnData to initialize player state [%s]!"), *GetNameSafe(this));
 		}
 	}
 }
@@ -144,7 +138,6 @@ void ALyraPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	SharedParams.Condition = ELifetimeCondition::COND_SkipOwner;
 	DOREPLIFETIME_WITH_PARAMS_FAST(ThisClass, ReplicatedViewRotation, SharedParams);
 
-	DOREPLIFETIME(ThisClass, StatTags);	
 }
 
 FRotator ALyraPlayerState::GetReplicatedViewRotation() const
@@ -182,11 +175,7 @@ void ALyraPlayerState::PostInitializeComponents()
 	UWorld* World = GetWorld();
 	if (World && World->IsGameWorld() && World->GetNetMode() != NM_Client)
 	{
-		AGameStateBase* GameState = GetWorld()->GetGameState();
-		check(GameState);
-		ULyraExperienceManagerComponent* ExperienceComponent = GameState->FindComponentByClass<ULyraExperienceManagerComponent>();
-		check(ExperienceComponent);
-		ExperienceComponent->CallOrRegister_OnExperienceLoaded(FOnLyraExperienceLoaded::FDelegate::CreateUObject(this, &ThisClass::OnExperienceLoaded));
+		InitPawnDataFromGameMode();
 	}
 }
 
@@ -215,8 +204,6 @@ void ALyraPlayerState::SetPawnData(const ULyraPawnData* InPawnData)
 			AbilitySet->GiveToAbilitySystem(AbilitySystemComponent, nullptr);
 		}
 	}
-
-	UGameFrameworkComponentManager::SendGameFrameworkComponentExtensionEvent(this, NAME_LyraAbilityReady);
 	
 	ForceNetUpdate();
 }
@@ -275,35 +262,6 @@ void ALyraPlayerState::OnRep_MyTeamID(FGenericTeamId OldTeamID)
 void ALyraPlayerState::OnRep_MySquadID()
 {
 	//@TODO: Let the squad subsystem know (once that exists)
-}
-
-void ALyraPlayerState::AddStatTagStack(FGameplayTag Tag, int32 StackCount)
-{
-	StatTags.AddStack(Tag, StackCount);
-}
-
-void ALyraPlayerState::RemoveStatTagStack(FGameplayTag Tag, int32 StackCount)
-{
-	StatTags.RemoveStack(Tag, StackCount);
-}
-
-int32 ALyraPlayerState::GetStatTagStackCount(FGameplayTag Tag) const
-{
-	return StatTags.GetStackCount(Tag);
-}
-
-bool ALyraPlayerState::HasStatTag(FGameplayTag Tag) const
-{
-	return StatTags.ContainsTag(Tag);
-}
-
-void ALyraPlayerState::ClientBroadcastMessage_Implementation(const FLyraVerbMessage Message)
-{
-	// This check is needed to prevent running the action when in standalone mode
-	if (GetNetMode() == NM_Client)
-	{
-		UGameplayMessageSubsystem::Get(this).BroadcastMessage(Message.Verb, Message);
-	}
 }
 
 void ALyraPlayerState::Server_SelectClass_Implementation(/*ECharacterClassType ClassType*/)

@@ -3,12 +3,10 @@
 #include "LyraHeroComponent.h"
 #include "Components/GameFrameworkComponentDelegates.h"
 #include "Logging/MessageLog.h"
-#include "Input/LyraMappableConfigPair.h"
 #include "A1LogChannels.h"
 #include "EnhancedInputSubsystems.h"
 #include "Player/LyraPlayerController.h"
 #include "Player/LyraPlayerState.h"
-#include "Player/LyraLocalPlayer.h"
 #include "Character/LyraPawnExtensionComponent.h"
 #include "Character/LyraPawnData.h"
 #include "Character/LyraCharacter.h"
@@ -236,7 +234,7 @@ void ULyraHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompo
 	const APlayerController* PC = GetController<APlayerController>();
 	check(PC);
 
-	const ULyraLocalPlayer* LP = Cast<ULyraLocalPlayer>(PC->GetLocalPlayer());
+	const ULocalPlayer* LP = PC->GetLocalPlayer();
 	check(LP);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();

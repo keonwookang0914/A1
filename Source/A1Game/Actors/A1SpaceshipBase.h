@@ -264,7 +264,7 @@ protected:
 	UPROPERTY(Replicated)
 	bool bMeetRescueShip = false;
 
-	UPROPERTY(Replicated)
+	UPROPERTY()
 	bool bCanUseDockingSignalHandler = false;
 
 	UPROPERTY(VisibleAnywhere, Category = "Spaceship|RepairBase")

@@ -8,7 +8,6 @@
 #include "Components/ArrowComponent.h"
 #include "Components/BoxComponent.h"
 #include "Data/A1ItemData.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Item/A1ItemInstance.h"
 #include "Item/A1ItemTemplate.h"
 #include "Item/Fragments/A1ItemFragment_Equipable_Attachment.h"
@@ -106,8 +105,6 @@ void AA1StorageEntryBase::SetItemOutput()
 		if (ItemFragment->UtilityType == EUtilityType::FoamGun)
 		{
 			FGameplayEventData EventData;
-			UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(GetWorld());
-			MessageSubsystem.BroadcastMessage(A1GameplayTags::Tutorial_Condition_SprayObtained, EventData);
 		}
 	}
 	CachedItem = nullptr;

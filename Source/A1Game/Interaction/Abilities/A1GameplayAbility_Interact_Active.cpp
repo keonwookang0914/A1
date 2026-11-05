@@ -9,7 +9,6 @@
 #include "Actors/A1EquipmentBase.h"
 #include "Character/LyraCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Interaction/A1Interactable.h"
 #include "Interaction/A1WorldInteractable.h"
 #include "Item/Managers/A1EquipManagerComponent.h"
@@ -102,8 +101,6 @@ void UA1GameplayAbility_Interact_Active::ActivateAbility(const FGameplayAbilityS
 	Message.bSwitchActive = true;
 	Message.InteractionInfo = InteractionInfo;
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_Interaction_Progress, Message);
 
 	if (UAnimMontage* ActiveStartMontage = InteractionInfo.ActiveStartMontage)
 	{
@@ -169,8 +166,6 @@ void UA1GameplayAbility_Interact_Active::EndAbility(const FGameplayAbilitySpecHa
 		Message.bShouldRefresh = false;
 		Message.bSwitchActive = true;
 
-		UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-		MessageSubsystem.BroadcastMessage(A1GameplayTags::Message_Interaction_Notice, Message);
 	}
 
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);

@@ -2,7 +2,6 @@
 
 #include "LyraAbilitySystemComponent.h"
 
-#include "Input/LyraMappableConfigPair.h"
 #include "AbilitySystem/Abilities/LyraGameplayAbility.h"
 #include "AbilitySystem/LyraAbilityTagRelationshipMapping.h"
 #include "Animation/LyraAnimInstance.h"

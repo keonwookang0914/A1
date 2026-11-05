@@ -62,7 +62,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UArrowComponent> ArrowComponent;
 
-	UPROPERTY(VisibleAnywhere, Category = "Entry", Replicated)
+	UPROPERTY(VisibleAnywhere, Category = "Entry")
 	TObjectPtr<UBoxComponent> ItemTrigger;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Entry|Info")
@@ -71,7 +71,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Entry|Info")
 	FA1InteractionInfo ItemOutputInfo;
 
-	UPROPERTY(VisibleAnywhere, Category = "Entry", Replicated)
+	UPROPERTY(VisibleAnywhere, Category = "Entry")
 	TObjectPtr<AA1EquipmentBase> CachedItem;
 
 	UPROPERTY(VisibleAnywhere, Category = "Entry")

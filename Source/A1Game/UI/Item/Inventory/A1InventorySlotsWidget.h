@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "A1InventorySlotsWidget.generated.h"
 
 class UTextBlock;
@@ -88,5 +88,4 @@ private:
 private:
 	FDelegateHandle EntryChangedDelegateHandle;
 	FIntPoint PrevDragOverSlotPos = FIntPoint(-1, -1);
-	FGameplayMessageListenerHandle MessageListenerHandle;
 };

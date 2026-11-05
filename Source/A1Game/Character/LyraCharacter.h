@@ -6,7 +6,7 @@
 #include "AbilitySystemInterface.h"
 #include "GameplayCueInterface.h"
 #include "GameplayTagAssetInterface.h"
-#include "ModularCharacter.h"
+#include "GameFramework/Character.h"
 #include "Interaction/A1InteractionInfo.h"
 #include "Teams/A1TeamAgentInterface.h"
 
@@ -99,7 +99,7 @@ struct TStructOpsTypeTraits<FSharedRepMovement> : public TStructOpsTypeTraitsBas
  *	New behavior should be added via pawn components when possible.
  */
 UCLASS(Config = Game, Meta = (ShortTooltip = "The base character pawn class used by this project."))
-class A1GAME_API ALyraCharacter : public AModularCharacter, public IAbilitySystemInterface, public IGameplayCueInterface, public IGameplayTagAssetInterface, public IA1TeamAgentInterface
+class A1GAME_API ALyraCharacter : public ACharacter, public IAbilitySystemInterface, public IGameplayCueInterface, public IGameplayTagAssetInterface, public IA1TeamAgentInterface
 {
 	GENERATED_BODY()
 
