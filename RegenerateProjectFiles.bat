@@ -44,7 +44,7 @@ for /r "Plugins" %%F in (*.uplugin) do (
 	)
 )
 
-for %%S in (A1.sln A1.slnx Automation_A1.slnx) do (
+for %%S in (A1.sln A1.slnx Automation_A1.slnx Automation_A1.sln) do (
 	if exist "%%S" (
 		echo Deleting %%S ...
 		del /q "%%S"
