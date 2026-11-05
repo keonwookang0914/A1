@@ -6,7 +6,6 @@
 #include "A1FuelDisplayUI.generated.h"
 
 class UTextRenderComponent;
-class AA1SpaceshipBase;
 class UWidgetComponent;
 
 UCLASS()

@@ -9,12 +9,10 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"DeveloperSettings",
 				"Engine",
 				"GameplayAbilities",
 				"UMG",
 				"CommonUI",
-				"AIModule",
 				"CoreUObject"
 			]
 		},
@@ -27,10 +25,6 @@
 	"Plugins": [
 		{
 			"Name": "GameplayAbilities",
-			"Enabled": true
-		},
-		{
-			"Name": "ModularGameplay",
 			"Enabled": true
 		},
 		{

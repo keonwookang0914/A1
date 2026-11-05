@@ -24,16 +24,9 @@ public class A1Game : ModuleRules
 				"Core",
 				"CoreUObject",
 				"Engine",
-				"PhysicsCore",
 				"GameplayTags",
 				"GameplayTasks",
 				"GameplayAbilities",
-				"AIModule",
-				"ModularGameplay",
-				"Niagara",
-				"ProceduralMeshComponent",
-                "LevelSequence",
-                "MovieScene",
             }
 		);
 
@@ -42,13 +35,9 @@ public class A1Game : ModuleRules
 				"InputCore",
 				"Slate",
 				"SlateCore",
-				"DeveloperSettings",
 				"EnhancedInput",
-				"NetCore",
 				"UMG",
 				"CommonUI",
-				"NavigationSystem",
-				"NiagaraAnimNotifies",
 			}
 		);
 
