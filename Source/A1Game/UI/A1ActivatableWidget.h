@@ -36,8 +36,8 @@ protected:
 	void PlayErrorSound();
 
 	UPROPERTY(EditAnywhere)
-	USoundBase* TypingSound;
+	TObjectPtr<USoundBase> TypingSound;
 
 	UPROPERTY(EditAnywhere)
-	USoundBase* ErrorSound;
+	TObjectPtr<USoundBase> ErrorSound;
 };

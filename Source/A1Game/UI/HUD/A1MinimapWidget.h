@@ -24,7 +24,7 @@ public:
 protected:
 	// 네비게이션 아이콘 이미지
 	UPROPERTY(BlueprintReadWrite, meta = ( BindWidget ))
-	UImage* Navigate;
+	TObjectPtr<UImage> Navigate;
 
 	// 맵 스케일 변수들
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Minimap")

@@ -24,9 +24,7 @@ void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
 				{
 					if (KeyState->bDown)
 					{
-						FInputKeyParams Params(KeyMapping.Key, IE_Released, 0.f);
-						Params.NumSamples = 1;
-						InputKey(Params);
+						InputKey(FInputKeyEventArgs::CreateSimulated(KeyMapping.Key, IE_Released, 0.f, 1));
 					}
 				}
 			}

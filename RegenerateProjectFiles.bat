@@ -4,7 +4,7 @@ setlocal
 
 set "PROJECT_DIR=%~dp0"
 set "PROJECT_FILE=%PROJECT_DIR%A1.uproject"
-set "ENGINE_DIR=D:\UnrealEngine\UE_5.4"
+set "ENGINE_DIR=D:\UnrealEngine\UE_5.8"
 set "UBT=%ENGINE_DIR%\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe"
 
 if not exist "%UBT%" (
@@ -44,9 +44,11 @@ for /r "Plugins" %%F in (*.uplugin) do (
 	)
 )
 
-if exist "A1.sln" (
-	echo Deleting A1.sln ...
-	del /q "A1.sln"
+for %%S in (A1.sln A1.slnx Automation_A1.slnx) do (
+	if exist "%%S" (
+		echo Deleting %%S ...
+		del /q "%%S"
+	)
 )
 
 echo Generating project files ...

@@ -135,7 +135,7 @@ namespace A1LogChannelsTest
 	}
 } // namespace A1LogChannelsTest
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FA1LogMacroTest, "A1.LogChannels.A1_LOG", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FA1LogMacroTest, "A1.LogChannels.A1_LOG", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FA1LogMacroTest::RunTest(const FString& Parameters)
 {
@@ -185,7 +185,7 @@ bool FA1LogMacroTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FA1NetLogMacroTest, "A1.LogChannels.A1_NETLOG", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FA1NetLogMacroTest, "A1.LogChannels.A1_NETLOG", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FA1NetLogMacroTest::RunTest(const FString& Parameters)
 {
@@ -204,7 +204,7 @@ bool FA1NetLogMacroTest::RunTest(const FString& Parameters)
 		{ TEXT("standalone"), NM_Standalone, TEXT("STANDALONE") },
 		{ TEXT("dedicated server"), NM_DedicatedServer, TEXT("SERVER") },
 		{ TEXT("listen server"), NM_ListenServer, TEXT("SERVER") },
-		{ TEXT("client"), NM_Client, FString::Printf(TEXT("CLIENT_ID%d"), static_cast<int32>(GPlayInEditorID)) },
+		{ TEXT("client"), NM_Client, FString::Printf(TEXT("CLIENT_ID%d"), UE::GetPlayInEditorID()) },
 		{ TEXT("unknown"), NM_MAX, TEXT("NONE") },
 	};
 
@@ -222,7 +222,7 @@ bool FA1NetLogMacroTest::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FA1LogContextNetModeTest, "A1.LogChannels.GetLogContextNetMode", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FA1LogContextNetModeTest, "A1.LogChannels.GetLogContextNetMode", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FA1LogContextNetModeTest::RunTest(const FString& Parameters)
 {

@@ -21,7 +21,7 @@ public class A1GameTarget : TargetRules
 	{
 		ILogger Logger = Target.Logger;
 		
-		Target.DefaultBuildSettings = BuildSettingsVersion.V5;
+		Target.DefaultBuildSettings = BuildSettingsVersion.V7;
 		Target.IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 
 		bool bIsTest = Target.Configuration == UnrealTargetConfiguration.Test;
@@ -29,7 +29,7 @@ public class A1GameTarget : TargetRules
 		bool bIsDedicatedServer = Target.Type == TargetType.Server;
 		if (Target.BuildEnvironment == TargetBuildEnvironment.Unique)
 		{
-			Target.ShadowVariableWarningLevel = WarningLevel.Error;
+			Target.CppCompileWarningSettings.ShadowVariableWarningLevel = WarningLevel.Error;
 
 			Target.bUseLoggingInShipping = true;
 

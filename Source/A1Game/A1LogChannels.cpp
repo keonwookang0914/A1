@@ -68,7 +68,7 @@ FString GetNetModeLogString(ENetMode NetMode)
 	switch (NetMode)
 	{
 	case NM_Client:
-		return FString::Printf(TEXT("CLIENT_ID%d"), static_cast<int32>(GPlayInEditorID));
+		return FString::Printf(TEXT("CLIENT_ID%d"), UE::GetPlayInEditorID());
 	case NM_Standalone:
 		return TEXT("STANDALONE");
 	case NM_DedicatedServer:
