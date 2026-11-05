@@ -1,4 +1,4 @@
-## Harness ##
+## AI ##
 .claude/
 CLAUDE.md
 
@@ -8,6 +8,11 @@ AGENTS.md
 # IDE specific files
 .vs/
 .idea/
+.vsconfig
+
+# Docs, Platforms
+Docs/
+Platforms/
 
 # Blueprint-Assist Cache files
 Plugins/**/BlueprintAssist/NodeSizeCache/*
