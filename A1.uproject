@@ -133,10 +133,6 @@
 			"Enabled": true
 		},
 		{
-			"Name": "PocketWorlds",
-			"Enabled": true
-		},
-		{
 			"Name": "UIExtension",
 			"Enabled": true
 		},
