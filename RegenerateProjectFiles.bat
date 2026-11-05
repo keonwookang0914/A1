@@ -4,7 +4,7 @@ setlocal
 
 set "PROJECT_DIR=%~dp0"
 set "PROJECT_FILE=%PROJECT_DIR%A1.uproject"
-set "ENGINE_DIR=D:\Program Files\Epic Games\UE_5.4"
+set "ENGINE_DIR=D:\UnrealEngine\UE_5.4"
 set "UBT=%ENGINE_DIR%\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe"
 
 if not exist "%UBT%" (
@@ -26,6 +26,18 @@ for %%D in (Intermediate Saved DerivedDataCache) do (
 		rmdir /s /q "%%D"
 		if exist "%%D" (
 			echo [ERROR] Failed to delete %%D. A file may be locked.
+			popd
+			goto :Fail
+		)
+	)
+)
+
+for /r "Plugins" %%F in (*.uplugin) do (
+	if exist "%%~dpFIntermediate" (
+		echo Deleting %%~dpFIntermediate ...
+		rmdir /s /q "%%~dpFIntermediate"
+		if exist "%%~dpFIntermediate" (
+			echo [ERROR] Failed to delete %%~dpFIntermediate. A file may be locked.
 			popd
 			goto :Fail
 		)
