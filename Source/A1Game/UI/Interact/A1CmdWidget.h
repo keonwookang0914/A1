@@ -23,7 +23,7 @@ public:
 	TObjectPtr<UAbilitySystemComponent> ASC;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool bTutorial;
+	bool bTutorial = false;
 };
 
 UCLASS()

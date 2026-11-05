@@ -114,7 +114,7 @@ struct A1GAME_API FA1TutorialAction
 	// Hide HUD
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "HUD Settings",
 		meta = ( EditCondition = "ActionType == ETutorialActionType::HideHUD", EditConditionHides ))
-	bool bHideHUD;
+	bool bHideHUD = false;
 
 	// Dialogue
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Dialogue Settings",

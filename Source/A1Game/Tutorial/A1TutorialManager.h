@@ -25,7 +25,7 @@ struct A1GAME_API FA1TutorialMessage
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite)
-	ETutorialActionType MessageType;
+	ETutorialActionType MessageType = ETutorialActionType::None;
 
 	UPROPERTY(BlueprintReadWrite)
 	FText Content;
