@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 
 UENUM(BlueprintType)
 enum class ESlotState : uint8
@@ -21,10 +21,10 @@ enum class ERaiderType : uint8
 };
 
 /*---------------------------------------
-*   Characterê°€ ê°€ì§€ê³  ìˆì–´ì•¼ í•  ì •ë³´
+*   Character°¡ °¡Áö°í ÀÖ¾î¾ß ÇÒ Á¤º¸
 ---------------------------------------*/
 
-// Characterì˜ skin ìƒ‰ìƒ
+// CharacterÀÇ skin »ö»ó
 UENUM(BlueprintType)
 enum class ECharacterSkinType : uint8
 {
@@ -42,14 +42,14 @@ enum class ECharacterSkinType : uint8
 UENUM(BlueprintType)
 enum class EBodyType : uint8
 {
-	Head UMETA(DisplayName = "Head"),
-	Torso UMETA(DisplayName = "Torso"),
-	Limbs UMETA(DisplayName = "Limbs"),
+	Head		UMETA(DisplayName = "Head"),
+	Torso		UMETA(DisplayName = "Torso"),
+	Limbs		UMETA(DisplayName = "Limbs"),
 
 	Count UMETA(Hidden)
 };
 
-// ì¥ë¹„ ì¥ì°© slot íƒ€ì…
+// Àåºñ ÀåÂø slot Å¸ÀÔ 
 UENUM(BlueprintType)
 enum class EEquipmentSlotType : uint8
 {
@@ -57,10 +57,10 @@ enum class EEquipmentSlotType : uint8
 	RightHand,
 	TwoHand,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
-// ì† ì‚¬ìš© ì—¬ë¶€
+// ¼Õ »ç¿ë ¿©ºÎ
 UENUM(BlueprintType)
 enum class EEquipState : uint8
 {
@@ -69,7 +69,7 @@ enum class EEquipState : uint8
 	Right,
 	Both,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -78,13 +78,13 @@ enum class EMainHandState : uint8
 	Left,
 	Right,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
 /*---------------------------------------
-*    Itemì´ ê°€ì§€ê³  ìˆì–´ì•¼ í•  ì •ë³´
+*    ItemÀÌ °¡Áö°í ÀÖ¾î¾ß ÇÒ Á¤º¸
 ---------------------------------------*/
-// Item ë¶„ë¥˜
+// Item ºĞ·ù
 UENUM(BlueprintType)
 enum class EEquipmentType : uint8
 {
@@ -92,10 +92,10 @@ enum class EEquipmentType : uint8
 	Weapon,
 	Utility,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
-// ë¬´ê¸° ì¢…ë¥˜
+// ¹«±â Á¾·ù
 UENUM(BlueprintType)
 enum class EWeaponType : uint8
 {
@@ -104,10 +104,10 @@ enum class EWeaponType : uint8
 	THS,
 	Gun,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
-// Utillity ì¢…ë¥˜
+// Utillity Á¾·ù
 UENUM(BlueprintType)
 enum class EUtilityType : uint8
 {
@@ -118,8 +118,8 @@ enum class EUtilityType : uint8
 	FoamGun UMETA(DisplayName = "FoamGun"),
 	Documents,
 	Repairkit,
-
-	Count UMETA(Hidden)
+	
+	Count	UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -131,7 +131,7 @@ enum class EItemRarity : uint8
 	Rare,
 	Legendary,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -141,7 +141,7 @@ enum class ESpellType : uint8
 	Projectile,
 	AOE,
 
-	Count UMETA(Hidden)
+	Count	UMETA(Hidden)
 };
 
 UENUM(BlueprintType)
@@ -152,6 +152,7 @@ enum class EOverlayTargetType : uint8
 	Character,
 	All,
 };
+
 
 UENUM(BlueprintType)
 enum class EA1TeamID : uint8

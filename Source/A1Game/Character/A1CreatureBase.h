@@ -26,11 +26,11 @@ protected:
 	TObjectPtr<class UAnimMontage> DeadMontage;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundBase> DeathSound;
+	USoundBase* DeathSound;
 
 	EA1DeathState DeatState = EA1DeathState::NotDead;
 
-	// Dead Section
+// Dead Section
 protected:
 	virtual void SetDead();
 

@@ -1,4 +1,4 @@
-Ôªø// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -13,119 +13,120 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnScoreChanged, const FA1ScoreData&
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGameEnded, const FA1ScoreData&, FinalScore);
 
 /**
- *
+ * 
  */
 UCLASS(BlueprintType)
 class A1GAME_API UA1ScoreManager : public UObject
 {
 	GENERATED_BODY()
 public:
-	// Ïã±Í∏ÄÌÜ§ Ïù∏Ïä§ÌÑ¥Ïä§ Í∞ÄÏ†∏Ïò§Í∏∞
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score", meta = (CallInEditor = "true"))
-	static UA1ScoreManager* Get();
+    // ΩÃ±€≈Ê ¿ŒΩ∫≈œΩ∫ ∞°¡Æø¿±‚
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score", meta = (CallInEditor = "true"))
+    static UA1ScoreManager* Get();
+
 
 public:
-	// Ïù¥Î≤§Ìä∏ Îç∏Î¶¨Í≤åÏù¥Ìä∏
-	UPROPERTY(BlueprintAssignable, Category = "Score")
-	FOnScoreChanged OnScoreChanged;
+    // ¿Ã∫•∆Æ µ®∏Æ∞‘¿Ã∆Æ
+    UPROPERTY(BlueprintAssignable, Category = "Score")
+    FOnScoreChanged OnScoreChanged;
 
-	UPROPERTY(BlueprintAssignable, Category = "Score")
-	FOnGameEnded OnGameEnded;
+    UPROPERTY(BlueprintAssignable, Category = "Score")
+    FOnGameEnded OnGameEnded;
 
 public:
-	// === Í≤åÏûÑ ÏÑ∏ÏÖò Í¥ÄÎ¶¨ ===
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void StartNewGame();
+    // === ∞‘¿” ººº« ∞¸∏Æ ===
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void StartNewGame();
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void EndGame(EGameEndReason EndReason);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void EndGame(EGameEndReason EndReason);
 
-	// === Ï†êÏàò Îç∞Ïù¥ÌÑ∞ ÏÑ§Ï†ï ===
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void AddDaySurvived(int32 Count = 1);
+    // === ¡°ºˆ µ•¿Ã≈Õ º≥¡§ ===
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void AddDaySurvived(int32 Count = 1);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void AddInventoryItems(int32 Count = 1);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void AddInventoryItems(int32 Count = 1);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void SetInventoryItems(int32 Count);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void SetInventoryItems(int32 Count);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	int32 GetStorageItems() const;
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    int32 GetStorageItems() const;
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void SetStorageItems(int32 Count);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void SetStorageItems(int32 Count);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void AddConsumedItems(int32 Count);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void AddConsumedItems(int32 Count);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	float GetTotalRepair() const;
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    float GetTotalRepair() const;
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void SetTotalRepair(int32 Count);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void SetTotalRepair(int32 Count);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	float GetCompleteRepair() const;
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    float GetCompleteRepair() const;
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void SetCompleteRepair(int32 Count);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void SetCompleteRepair(int32 Count);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void SetRepairedBeforeEscape(bool bRepaired);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void SetRepairedBeforeEscape(bool bRepaired);
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void SetRemainingFuel(int32 Fuel);
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void SetRemainingFuel(int32 Fuel);
 
-	// === Îç∞Ïù¥ÌÑ∞ Ï†ÄÏû•/Î°úÎìú ===
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	bool SaveScores();
+    // === µ•¿Ã≈Õ ¿˙¿Â/∑ŒµÂ ===
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    bool SaveScores();
 
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	bool LoadScores();
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    bool LoadScores();
 
-	// === Îç∞Ïù¥ÌÑ∞ Í∞ÄÏ†∏Ïò§Í∏∞ ===
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
-	TArray<FA1ScoreData> GetAllScores() const;
+    // === µ•¿Ã≈Õ ∞°¡Æø¿±‚ ===
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
+    TArray<FA1ScoreData> GetAllScores() const;
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
-	int32 GetHighestScore() const;
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
+    int32 GetHighestScore() const;
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
-	FA1ScoreData GetCurrentScore() const { return CurrentGameScore; }
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
+    FA1ScoreData GetCurrentScore() const { return CurrentGameScore; }
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
-	int32 GetNextGameNumber() const;
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
+    int32 GetNextGameNumber() const;
 
-	// === Ïú†Ìã∏Î¶¨Ìã∞ ===
-	UFUNCTION(BlueprintCallable, Category = "Score")
-	void ClearAllData();
+    // === ¿Ø∆ø∏Æ∆º ===
+    UFUNCTION(BlueprintCallable, Category = "Score")
+    void ClearAllData();
 
-	// === Ï†êÏàò ÎØ∏Î¶¨Î≥¥Í∏∞ (Ï†ÄÏû• Ï†Ñ ÌôïÏù∏Ïö©) ===
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
-	int32 CalculateCurrentScore() const;
+    // === ¡°ºˆ πÃ∏Æ∫∏±‚ (¿˙¿Â ¿¸ »Æ¿ŒøÎ) ===
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
+    int32 CalculateCurrentScore() const;
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
-	FString GetCurrentScoreBreakdown() const;
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Score")
+    FString GetCurrentScoreBreakdown() const;
 
-	bool GetDoTutorial() const { return bDoTutorial; }
+    bool GetDoTutorial() const { return bDoTutorial; }
 
-	UFUNCTION(BlueprintCallable)
-	void SetDoTutorial(bool InDoTutorial);
+    UFUNCTION(BlueprintCallable)
+    void SetDoTutorial(bool InDoTutorial);
 
 protected:
-	// ÌòÑÏû¨ Í≤åÏûÑ ÏÑ∏ÏÖò Ï†êÏàò
-	UPROPERTY(BlueprintReadOnly, Category = "Score")
-	FA1ScoreData CurrentGameScore;
+    // «ˆ¿Á ∞‘¿” ººº« ¡°ºˆ
+    UPROPERTY(BlueprintReadOnly, Category = "Score")
+    FA1ScoreData CurrentGameScore;
 
-	// Ï†ÄÏû•Îêú Î™®Îì† Ï†êÏàò
-	UPROPERTY(BlueprintReadOnly, Category = "Score")
-	TObjectPtr<UA1ScoreSaveGame> SavedScores;
+    // ¿˙¿Âµ» ∏µÁ ¡°ºˆ
+    UPROPERTY(BlueprintReadOnly, Category = "Score")
+    TObjectPtr<UA1ScoreSaveGame> SavedScores;
 
 private:
-	static UA1ScoreManager* Instance;
+    static UA1ScoreManager* Instance;
 
-	static const FString SaveSlotName;
+    static const FString SaveSlotName;
 
-	bool bDoTutorial = false;
+    bool bDoTutorial = false;
 };

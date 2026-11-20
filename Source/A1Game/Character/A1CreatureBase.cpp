@@ -1,5 +1,6 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
+
 #include "Character/A1CreatureBase.h"
 #include "AbilitySystemComponent.h"
 #include "Controller/Player/A1PlayerState.h"
@@ -38,3 +39,4 @@ void AA1CreatureBase::SetDead()
 	}
 	SetActorEnableCollision(false);
 }
+

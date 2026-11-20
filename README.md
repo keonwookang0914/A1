@@ -2,7 +2,7 @@
 # 📌소개
 
 We are not alone은 1인칭 서바이벌, 어드벤처 게임 입니다.
-<img width="2558" height="1366" alt="image" src="https://github.com/user-attachments/assets/dfcc6830-dbf5-481e-a140-9cf7d8b0212d" />
+<img width="2558" height="1366" alt="Thumbnail" src="https://github.com/user-attachments/assets/3a0a970e-a2c1-41d6-ae12-7b7306be116f" />
 
 # ⚒️기능
 - 캐릭터가 사용 가능한 아이템 및 다른 아이템을 보관 가능한 인벤토리 시스템
@@ -15,9 +15,3 @@ We are not alone은 1인칭 서바이벌, 어드벤처 게임 입니다.
 # 📹 데모 시연 영상
 
 [youtube](https://youtu.be/hMzqnQeK3ig?si=5hRjWISCXuiErbQ2)
-
-## 주의 사항
-```
-일부 에셋이 저작권 문제 때문에 재배포가 허용되지 않아 저장소에 포함되지 않았습니다.
-빌드를 해도 에셋 누락으로 인해 원활한 플레이가 되지 않습니다.
-```

@@ -49,4 +49,5 @@ protected:
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "ActiveAbilities")
 	TArray<FGameplayAbilityActivateConfig> ActivateAbilityConfigs;
+	
 };

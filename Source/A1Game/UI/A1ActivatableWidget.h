@@ -23,7 +23,7 @@ class A1GAME_API UA1ActivatableWidget : public UCommonActivatableWidget
 
 public:
 	UA1ActivatableWidget(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
-
+	
 	UFUNCTION(BlueprintCallable)
 	void Deactivate();
 
@@ -35,9 +35,10 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void PlayErrorSound();
 
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundBase> TypingSound;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundBase> ErrorSound;
+	USoundBase* TypingSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* ErrorSound;
 };

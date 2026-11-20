@@ -1,5 +1,4 @@
 ﻿#include "A1LogChannels.h"
-#include "Engine/World.h"
 #include "GameFramework/Actor.h"
 
 DEFINE_LOG_CATEGORY(LogA1);
@@ -12,7 +11,6 @@ DEFINE_LOG_CATEGORY(LogA1Teams);
 DEFINE_LOG_CATEGORY(LogA1ScoreSystem);
 DEFINE_LOG_CATEGORY(LogA1Cliff);
 DEFINE_LOG_CATEGORY(LogA1Tutorial);
-DEFINE_LOG_CATEGORY(LogMap);
 
 FString GetClientServerContextString(UObject* ContextObject)
 {
@@ -43,38 +41,4 @@ FString GetClientServerContextString(UObject* ContextObject)
 	}
 
 	return TEXT("[None]");
-}
-
-ENetMode GetLogContextNetMode(const UObject* ContextObject)
-{
-	if (const AActor* Actor = Cast<AActor>(ContextObject))
-	{
-		return Actor->GetNetMode();
-	}
-	else if (const UActorComponent* Component = Cast<UActorComponent>(ContextObject))
-	{
-		return Component->GetNetMode();
-	}
-	else if (const UWorld* World = ContextObject ? ContextObject->GetWorld() : nullptr)
-	{
-		return World->GetNetMode();
-	}
-
-	return NM_MAX;
-}
-
-FString GetNetModeLogString(ENetMode NetMode)
-{
-	switch (NetMode)
-	{
-	case NM_Client:
-		return FString::Printf(TEXT("CLIENT_ID%d"), UE::GetPlayInEditorID());
-	case NM_Standalone:
-		return TEXT("STANDALONE");
-	case NM_DedicatedServer:
-	case NM_ListenServer:
-		return TEXT("SERVER");
-	default:
-		return TEXT("NONE");
-	}
 }

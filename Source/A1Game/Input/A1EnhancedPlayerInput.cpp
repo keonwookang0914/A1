@@ -7,6 +7,7 @@
 
 UA1EnhancedPlayerInput::UA1EnhancedPlayerInput()
 {
+    
 }
 
 void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
@@ -24,11 +25,13 @@ void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
 				{
 					if (KeyState->bDown)
 					{
-						InputKey(FInputKeyEventArgs::CreateSimulated(KeyMapping.Key, IE_Released, 0.f, 1));
+						FInputKeyParams Params(KeyMapping.Key, IE_Released, 0.f);
+						Params.NumSamples = 1;
+						InputKey(Params);
 					}
 				}
 			}
-
+			
 			UWorld* World = GetWorld();
 			check(World);
 			float TimeSeconds = World->GetRealTimeSeconds();
@@ -40,7 +43,7 @@ void UA1EnhancedPlayerInput::FlushPressedInput(UInputAction* InputAction)
 				KeyState->bDownPrevious = false;
 				KeyState->LastUpDownTransitionTime = TimeSeconds;
 			}
-
+			
 			bIsFlushingInputThisFrame = true;
 		}
 	}

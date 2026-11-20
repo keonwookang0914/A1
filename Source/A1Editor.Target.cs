@@ -17,5 +17,8 @@ public class A1EditorTarget : TargetRules
 		}
 
 		A1GameTarget.ApplySharedLyraTargetSettings(this);
+
+		// This is used for touch screen development along with the "Unreal Remote 2" app
+		EnablePlugins.Add("RemoteSession");
 	}
 }

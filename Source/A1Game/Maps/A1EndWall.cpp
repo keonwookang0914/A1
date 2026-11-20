@@ -1,5 +1,6 @@
 // Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
+
 #include "Maps/A1EndWall.h"
 
 #include "Net/UnrealNetwork.h"
@@ -42,3 +43,4 @@ void AA1EndWall::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& Out
 
 	DOREPLIFETIME(AA1EndWall, bIsWallActive);
 }
+

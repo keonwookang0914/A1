@@ -1,4 +1,4 @@
-Ôªø// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
+// Copyright (c) 2025 THIS-ACCENT. All Rights Reserved.
 
 #pragma once
 
@@ -12,48 +12,47 @@ UCLASS()
 class A1GAME_API AA1MasterRoom : public AActor
 {
 	GENERATED_BODY()
-
+	
 public:
 	AA1MasterRoom();
-	virtual void BeginPlay() override;
-	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
-	FORCEINLINE USceneComponent* GetGeometryFolder() const { return GeometryFolder; }
-	FORCEINLINE USceneComponent* GetExitsFolder() const { return ExitsFolder; }
-	FORCEINLINE USceneComponent* GetOverlapFolder() const { return OverlapFolder; }
-
+    virtual void BeginPlay() override;
+    virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+    FORCEINLINE USceneComponent* GetGeometryFolder() const { return GeometryFolder; }
+    FORCEINLINE USceneComponent* GetExitsFolder() const { return ExitsFolder; }
+    FORCEINLINE USceneComponent* GetOverlapFolder() const { return OverlapFolder; }
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UStaticMesh> BaseStaticMesh;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> DefaultSceneRoot;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<UStaticMesh> BaseStaticMesh;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<USceneComponent> DefaultSceneRoot;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UArrowComponent> Arrow;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<class UArrowComponent> Arrow;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> GeometryFolder;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<USceneComponent> GeometryFolder;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> OverlapFolder;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<USceneComponent> OverlapFolder;
 
-	// Ïò§Î≤ÑÎû© Î∞ïÏä§ Ïª¥Ìè¨ÎÑåÌä∏
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UBoxComponent> OverlapBox1;
+    // ø¿πˆ∑¶ π⁄Ω∫ ƒƒ∆˜≥Õ∆Æ
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<class UBoxComponent> OverlapBox1;
 
-	// Ï∂úÍµ¨ Ìè¥Îçî (Ïî¨ Ïª¥Ìè¨ÎÑåÌä∏Î°ú Íµ¨ÌòÑ)
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<USceneComponent> ExitsFolder;
+    // √‚±∏ ∆˙¥ı (æ¿ ƒƒ∆˜≥Õ∆Æ∑Œ ±∏«ˆ)
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+    TObjectPtr<USceneComponent> ExitsFolder;
 
-	// Item Section
+	//Item Section
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
-	int32 ItemCount;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
-	TObjectPtr<class AActor> SpawnableItem;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
-	FVector RandomLocation;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
+    int32 ItemCount;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
+    TObjectPtr<class AActor> SpawnableItem;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item", meta = (AllowPrivateAccess = "true"), Replicated)
+    FVector RandomLocation;
 
-	// Î∂ÄÎ™® ÌÅ¥ÎûòÏä§ Î¶¨ÌîåÎ¶¨ÏºÄÏù¥ÏÖò ÏúÑÌïú Ï∂îÍ∞Ä ÏÉÅÌÉú Î≥ÄÏàò
-	UPROPERTY(Replicated)
-	bool bIsRoomActive;
+    //∫Œ∏ ≈¨∑°Ω∫ ∏Æ«√∏Æƒ…¿Ãº« ¿ß«— √ﬂ∞° ªÛ≈¬ ∫Øºˆ
+    UPROPERTY(Replicated)
+    bool bIsRoomActive;
 };
